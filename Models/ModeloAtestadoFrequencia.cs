@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace pdtcc_doc_academy.Models
 {
-    public class ModelAtestadoFrequencia
+    public class ModeloAtestadoFrequencia
     {
         [Required]
         public int IdFrequencia { get; set; }
