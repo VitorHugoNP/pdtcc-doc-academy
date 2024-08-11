@@ -2,7 +2,7 @@
 
 namespace pdtcc_doc_academy.Repositories
 {
-    public interface Aluno
+    public interface IAluno
     {
         IEnumerable<Aluno> Getall();
         IEnumerable<Aluno> GetById(int id);
