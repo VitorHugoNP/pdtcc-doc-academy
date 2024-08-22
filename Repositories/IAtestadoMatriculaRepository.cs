@@ -2,7 +2,7 @@
 
 namespace pdtcc_doc_academy.Repositories
 {
-    public interface IAtestadoMatricula
+    public interface IAtestadoMatriculaRepository
     {
         IEnumerable<AtestadoMatricula> Getall();
         IEnumerable<AtestadoMatricula> GetById(int id);

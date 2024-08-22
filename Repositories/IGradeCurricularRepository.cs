@@ -2,7 +2,7 @@
 
 namespace pdtcc_doc_academy.Repositories
 {
-    public interface IGradeCurricular
+    public interface IGradeCurricularRepository
     {
         IEnumerable<GradeCurricular> Getall();
         IEnumerable<GradeCurricular> GetById(int id);

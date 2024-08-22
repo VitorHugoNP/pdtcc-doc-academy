@@ -5,7 +5,7 @@ namespace pdtcc_doc_academy.Models
     public class Aluno
     {
         [Key]
-        public int Id { get; set; }
+        public int IdAluno { get; set; }
         [Required]
         public string nomeAluno { get; set; }
         [Required]

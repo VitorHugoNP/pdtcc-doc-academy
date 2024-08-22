@@ -2,7 +2,7 @@
 
 namespace pdtcc_doc_academy.Repositories
 {
-    public interface IAutorizacao
+    public interface IAutorizacaoRepository
     {
         IEnumerable<Autorizacao> Getall();
         IEnumerable<Autorizacao> GetById(int id);

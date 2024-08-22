@@ -2,7 +2,7 @@
 
 namespace pdtcc_doc_academy.Models
 {
-    public class Materia
+    public class Materias
     {
         [Key]
         public int IdMateria { get; set; }

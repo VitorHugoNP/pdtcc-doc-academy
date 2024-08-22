@@ -20,7 +20,7 @@ namespace SeuProjeto
         public int MateriaId { get; set; }
 
         public virtual Professor Professor { get; set; }
-        public virtual Materia Materia { get; set; }
+        public virtual Materias Materia { get; set; }
     }
 
     public class Professor

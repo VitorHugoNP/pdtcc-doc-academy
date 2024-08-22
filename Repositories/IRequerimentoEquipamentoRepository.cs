@@ -2,7 +2,7 @@
 
 namespace pdtcc_doc_academy.Repositories
 {
-    public interface IRequerimentoEquipamento
+    public interface IRequerimentoEquipamentoRepository
     {
         IEnumerable<RequerimentoEquipamento> Getall();
         IEnumerable<RequerimentoEquipamento> GetById(int id);

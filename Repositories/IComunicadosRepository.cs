@@ -2,7 +2,7 @@
 
 namespace pdtcc_doc_academy.Repositories
 {
-    public interface IComunicados
+    public interface IComunicadosRepository
     {
         IEnumerable<Comunicados> Getall();
         IEnumerable<Comunicados> GetById(int id);

@@ -2,7 +2,7 @@
 
 namespace pdtcc_doc_academy.Repositories
 {
-    public interface IDocumentos
+    public interface IDocumentosRepository
     {
         IEnumerable<Documentos> Getall();
         IEnumerable<Documentos> GetById(int id);

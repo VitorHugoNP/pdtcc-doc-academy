@@ -2,7 +2,7 @@
 
 namespace pdtcc_doc_academy.Repositories
 {
-    public interface IModeloAtestadoFrequencia
+    public interface IModeloAtestadoFrequenciaRepository
     {
         IEnumerable<ModeloAtestadoFrequencia> Getall();
         IEnumerable<ModeloAtestadoFrequencia> GetById(int id);

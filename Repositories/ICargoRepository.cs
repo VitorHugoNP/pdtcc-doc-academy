@@ -2,7 +2,7 @@
 
 namespace pdtcc_doc_academy.Repositories
 {
-    public interface ICargo
+    public interface ICargoRepository
     {
         IEnumerable<Cargo> Getall();
         IEnumerable<Cargo> GetById(int id);

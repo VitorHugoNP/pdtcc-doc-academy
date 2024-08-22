@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace pdtcc_doc_academy.Models
 {
-    public class Funcionario
+    public class Funcionarios
     {
         [Key]
         public int idFunc { get; set; }

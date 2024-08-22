@@ -2,7 +2,7 @@
 
 namespace pdtcc_doc_academy.Repositories
 {
-    public interface IEmentas
+    public interface IEmentasRepository
     {
         IEnumerable<Ementas> Getall();
         IEnumerable<Ementas> GetById(int id);

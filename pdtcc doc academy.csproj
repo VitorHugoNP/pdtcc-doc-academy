@@ -12,4 +12,9 @@
     <PackageReference Include="Npgsql" Version="8.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Professores\controllers\" />
+    <Folder Include="Areas\Professores\Views\" />
+  </ItemGroup>
+
 </Project>
