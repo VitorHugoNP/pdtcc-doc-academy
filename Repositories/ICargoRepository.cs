@@ -4,10 +4,10 @@ namespace pdtcc_doc_academy.Repositories
 {
     public interface ICargoRepository
     {
-        IEnumerable<Cargo> Getall();
-        IEnumerable<Cargo> GetById(int id);
-        void Add(Cargo cargo);
-        void Update(Cargo cargo);
-        void Delete(int id);
+        Task<List<Cargo>> Getall();
+        Task<Cargo> GetById(int id);
+        Task Add(Cargo cargo);
+        Task Update(Cargo cargo);
+        Task Delete(Cargo cargo);
     }
 }

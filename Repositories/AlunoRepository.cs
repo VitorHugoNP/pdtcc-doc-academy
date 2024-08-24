@@ -1,5 +1,6 @@
 ﻿using pdtcc_doc_academy.Repositories;
 using pdtcc_doc_academy.Models;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace pdtcc_doc_academy.Repositories
@@ -12,44 +13,42 @@ namespace pdtcc_doc_academy.Repositories
         {
             _dbContext = dbContext;
         }
-
-        public void Add(AlunoRepository aluno)
+        //Adiciona Aluno
+        public async Task Add(Aluno aluno)
         {
-            _dbContext.Aluno.Add(aluno); // adiciona o aluno ao bd
-            _dbContext.SaveChanges(); // salva as mudanças
-        }
-
-        public void Delete(int id)
-        {
-            var aluno = _dbContext.Aluno.Find(id);
-            if (aluno != null) { 
-                _dbContext.Aluno.Remove(aluno); //remove o id do safado
-                _dbContext.SaveChanges(); // salva o bagulho
-            }
-        }
-
-        public IEnumerable<AlunoRepository> GetAll()
-        {
-            return _dbContext.Aluno.ToList();
-        }
-
-        public IEnumerable<AlunoRepository> GetById(int id)
-        {
-            var aluno = _dbContext.Aluno.Find(id);
-            if (aluno != null)
+            try
             {
-                return new List<AlunoRepository> { aluno };
+                _dbContext.Add(aluno);
+                await _dbContext.SaveChangesAsync();
             }
-            else
+            catch (Exception ex)
             {
-                return Enumerable.Empty<AlunoRepository>();
+                await Task.FromException(ex);
             }
+
+        }
+        //deletar Aluno
+        public async Task Delete(Aluno aluno)
+        {
+            _dbContext.Aluno.Remove(aluno);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public void Update(AlunoRepository aluno)
+        //pega o repositorio Aluno
+        public async Task<List<Aluno>> GetAll()
+        {
+            return await _dbContext.Aluno.ToListAsync();
+        }
+        //pega o Id do Aluno
+        public async Task<Aluno> GetById(int id)
+        {
+            return await _dbContext.Aluno.FirstOrDefaultAsync(c => c.IdAluno == id);
+
+        }
+        public async Task Update(Aluno aluno)
         {
             _dbContext.Aluno.Update(aluno);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

@@ -4,10 +4,10 @@ namespace pdtcc_doc_academy.Repositories
 {
     public interface IComunicadosRepository
     {
-        IEnumerable<Comunicados> Getall();
-        IEnumerable<Comunicados> GetById(int id);
-        void Add(Comunicados comunicados);
-        void Update(Comunicados comunicados);
-        void Delete(int id);
+        Task<List<Comunicados>> Getall();
+        Task<Comunicados> GetById(int id);
+        Task Add(Comunicados comunicados);
+        Task Update(Comunicados comunicados);
+        Task Delete(Comunicados comunicados);
     }
 }

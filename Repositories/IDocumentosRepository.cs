@@ -4,10 +4,10 @@ namespace pdtcc_doc_academy.Repositories
 {
     public interface IDocumentosRepository
     {
-        IEnumerable<Documentos> Getall();
-        IEnumerable<Documentos> GetById(int id);
-        void Add(Documentos documentos);
-        void Update(Documentos documentos);
-        void Delete(int id);
+        Task<List<Documentos>> Getall();
+        Task<Documentos> GetById(int id);
+        Task Add(Documentos documentos);
+        Task Update(Documentos documentos);
+        Task Delete(Documentos documentos);
     }
 }

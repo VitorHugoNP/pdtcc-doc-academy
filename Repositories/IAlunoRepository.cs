@@ -4,10 +4,10 @@ namespace pdtcc_doc_academy.Repositories
 {
     public interface IAlunoRepository
     {
-        IEnumerable<AlunoRepository> GetAll();
-        IEnumerable<AlunoRepository> GetById(int id);
-        void Add(AlunoRepository aluno);
-        void Update(AlunoRepository aluno);
-        void Delete(int id);
+        Task <List<Aluno>> GetAll();
+        Task <Aluno> GetById(int id);
+        Task Add(Aluno aluno);
+        Task Update(Aluno aluno);
+        Task Delete(Aluno aluno);
     }
 }

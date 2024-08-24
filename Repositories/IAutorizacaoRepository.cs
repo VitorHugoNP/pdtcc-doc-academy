@@ -4,10 +4,10 @@ namespace pdtcc_doc_academy.Repositories
 {
     public interface IAutorizacaoRepository
     {
-        IEnumerable<Autorizacao> Getall();
-        IEnumerable<Autorizacao> GetById(int id);
-        void Add(Autorizacao autorizacao);
-        void Update(Autorizacao autorizacao);
-        void Delete(int id);
+        Task<List<Autorizacao>> Getall();
+        Task<Autorizacao> GetById(int id);
+        Task Add(Autorizacao autorizacao);
+        Task Update(Autorizacao autorizacao);
+        Task Delete(Autorizacao autorizacao);
     }
 }
