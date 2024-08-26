@@ -4,10 +4,10 @@ namespace pdtcc_doc_academy.Repositories
 {
     public interface IEscolaRepository
     {
-        IEnumerable<Escolas> Getall();
-        IEnumerable<Escolas> GetById(int id);
-        void Add(Escolas escola);
-        void Update(Escolas escola);
-        void Delete(int id);
+        Task<List<Escolas>> Getall();
+        Task<Escolas> GetById(int id);
+        Task Add(Escolas escola);
+        Task Update(Escolas escola);
+        Task Delete(Escolas escola);
     }
 }

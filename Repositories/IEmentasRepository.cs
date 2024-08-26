@@ -4,10 +4,10 @@ namespace pdtcc_doc_academy.Repositories
 {
     public interface IEmentasRepository
     {
-        IEnumerable<Ementas> Getall();
-        IEnumerable<Ementas> GetById(int id);
-        void Add(Ementas ementas);
-        void Update(Ementas ementas);
-        void Delete(int id);
+        Task<List<Ementas>> Getall();
+        Task<Ementas> GetById(int id);
+        Task Add(Ementas ementas);
+        Task Update(Ementas ementas);
+        Task Delete(Ementas ementas);
     }
 }

@@ -4,10 +4,10 @@ namespace pdtcc_doc_academy.Repositories
 {
     public interface IModeloAtestadoFrequenciaRepository
     {
-        IEnumerable<ModeloAtestadoFrequencia> Getall();
-        IEnumerable<ModeloAtestadoFrequencia> GetById(int id);
-        void Add(ModeloAtestadoFrequencia modeloAtestadoFrequencia);
-        void Update(ModeloAtestadoFrequencia modeloAtestadoFrequencia);
-        void Delete(int id);
+        Task<List<ModeloAtestadoFrequencia>> Getall();
+        Task<ModeloAtestadoFrequencia> GetById(int id);
+        Task Add(ModeloAtestadoFrequencia modeloAtestadoFrequencia);
+        Task Update(ModeloAtestadoFrequencia modeloAtestadoFrequencia);
+        Task Delete(ModeloAtestadoFrequencia modeloAtestadoFrequencia);
     }
 }

@@ -4,10 +4,10 @@ namespace pdtcc_doc_academy.Repositories
 {
     public interface IGradeCurricularRepository
     {
-        IEnumerable<GradeCurricular> Getall();
-        IEnumerable<GradeCurricular> GetById(int id);
-        void Add(GradeCurricular gradeCurricular);
-        void Update(GradeCurricular gradeCurricular);
-        void Delete(int id);
+        Task<List<GradeCurricular>> Getall();
+        Task<GradeCurricular> GetById(int id);
+        Task Add(GradeCurricular gradeCurricular);
+        Task Update(GradeCurricular gradeCurricular);
+        Task Delete(GradeCurricular gradeCurricular);
     }
 }
