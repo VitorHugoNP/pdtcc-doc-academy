@@ -1,12 +1,26 @@
 using Microsoft.EntityFrameworkCore;
 using pdtcc_doc_academy.Repositories;
+//using Microsoft.Extensions.Options;
+//using Microsoft.Extensions.DependencyInjection;
+//using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+//using Pomelo.EntityFrameworkCore.MySql;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
+
+
 // Add services to the container.
+builder.Services.AddDbContext<DbContext>(options =>
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
+        mysqlOptions =>
+        {
+            // Configurações adicionais, se necessário
+        }));
+
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<AppDBContext>(options =>
-                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
 
 var app = builder.Build();
 
