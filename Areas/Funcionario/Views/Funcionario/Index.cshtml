@@ -1,7 +1,22 @@
-﻿
+﻿@model pdtcc_doc_academy.Models.Funcionarios
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
 @{
-    ViewData["Title"] = "View";
+    
 }
 
-<h1>Index</h1>
+<div class="container">
 
+    <h1 class="text-center">Bem-vindo(a), @* @Model.nomeFunc *@</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <p><strong>Email:</strong> @* @Model.emailFunc *@</p>
+            <p><strong>ID:</strong> @* @Model.idFunc *@</p>
+        </div>
+        <div class="col-md-6">
+            <a href="#" class="btn btn-primary">Alterar Senha</a>
+            <a href="#" class="btn btn-secondary">Minhas Solicitações</a>
+        </div>
+    </div>
+</div>

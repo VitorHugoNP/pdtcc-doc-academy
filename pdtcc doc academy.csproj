@@ -20,12 +20,4 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\DocumentoController\Controllers\" />
-    <Folder Include="Areas\DocumentoController\Data\" />
-    <Folder Include="Areas\DocumentoController\Models\" />
-    <Folder Include="Areas\DocumentoController\Views\" />
-    <Folder Include="Areas\Funcionario\Controllers\" />
-  </ItemGroup>
-
 </Project>
