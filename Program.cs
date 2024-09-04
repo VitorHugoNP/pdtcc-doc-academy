@@ -49,7 +49,7 @@ app.UseEndpoints(endpoints =>
 
     endpoints.MapControllerRoute(
       name: "default",
-      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+      pattern: "{controller=Home}/{action=Index}/{id?}"
     );
 });
 #pragma warning restore ASP0014 // Suggest using top level route registrations

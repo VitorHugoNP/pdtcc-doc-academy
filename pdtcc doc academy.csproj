@@ -26,7 +26,6 @@
     <Folder Include="Areas\DocumentoController\Models\" />
     <Folder Include="Areas\DocumentoController\Views\" />
     <Folder Include="Areas\Funcionario\Controllers\" />
-    <Folder Include="Areas\Funcionario\Views\Funcionario\" />
   </ItemGroup>
 
 </Project>
