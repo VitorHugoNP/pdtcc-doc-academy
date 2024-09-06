@@ -15,11 +15,11 @@ builder.Services.AddDbContext<DbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
         mysqlOptions =>
         {
-            // Configurações adicionais, se necessário
+            
         }));
 
 builder.Services.AddControllersWithViews();
-
+//builder.Services.AddScoped<IFuncionariosRepository, FuncionariosRepository>();
 
 
 var app = builder.Build();
