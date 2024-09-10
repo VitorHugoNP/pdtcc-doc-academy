@@ -1,0 +1,40 @@
+﻿@model pdtcc_doc_academy.Models.Funcionarios
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Funcionarios</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="nomeFunc" class="control-label"></label>
+                <input asp-for="nomeFunc" class="form-control" />
+                <span asp-validation-for="nomeFunc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="emailFunc" class="control-label"></label>
+                <input asp-for="emailFunc" class="form-control" />
+                <span asp-validation-for="emailFunc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="senhaFunc" class="control-label"></label>
+                <input asp-for="senhaFunc" class="form-control" />
+                <span asp-validation-for="senhaFunc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

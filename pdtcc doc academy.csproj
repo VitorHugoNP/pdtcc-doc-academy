@@ -25,7 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Funcionario\Controllers\" />
+    <Folder Include="Areas\Funcionario\Data\" />
+    <Folder Include="Areas\Funcionario\Models\" />
   </ItemGroup>
 
 </Project>

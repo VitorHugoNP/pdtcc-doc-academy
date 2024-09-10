@@ -6,6 +6,7 @@ namespace pdtcc_doc_academy.Models
 {
     public class ModeloAtestadoFrequencia
     {
+        [Key]
         [Required]
         public int IdFrequencia { get; set; }
         [ForeignKey ("IdDoc")]

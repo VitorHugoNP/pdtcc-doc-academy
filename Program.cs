@@ -7,11 +7,11 @@ using pdtcc_doc_academy.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 
 // Add services to the container.
-builder.Services.AddDbContext<DbContext>(options =>
+builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
         mysqlOptions =>
         {

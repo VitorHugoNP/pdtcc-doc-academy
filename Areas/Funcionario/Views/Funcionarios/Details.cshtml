@@ -1,0 +1,36 @@
+﻿@model pdtcc_doc_academy.Models.Funcionarios
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Funcionarios</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.nomeFunc)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.nomeFunc)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.emailFunc)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.emailFunc)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.senhaFunc)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.senhaFunc)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.idFunc">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

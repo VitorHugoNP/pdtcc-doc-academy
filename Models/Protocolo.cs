@@ -14,6 +14,9 @@ namespace SeuProjeto
 
     public class Prof_Materia
     {
+        [Key]
+        public int id { get; set; }
+
         [ForeignKey("Professor")]
         public int ProfessorId { get; set; }
         [ForeignKey("Materia")]
