@@ -1,47 +1,7 @@
-﻿@model IEnumerable<pdtcc_doc_academy.Models.Funcionarios>
-
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
 @{
-    ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.nomeFunc)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.emailFunc)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.senhaFunc)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.nomeFunc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.emailFunc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.senhaFunc)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.idFunc">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.idFunc">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.idFunc">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<h1>aaaaaa</h1>
