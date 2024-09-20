@@ -2,6 +2,7 @@
 
 namespace pdtcc_doc_academy.Models
 {
+    //classe principal
     public class Documentos
     {
         [Key]

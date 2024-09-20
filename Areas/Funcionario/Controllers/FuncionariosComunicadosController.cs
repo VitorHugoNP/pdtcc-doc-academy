@@ -29,7 +29,7 @@ namespace pdtcc_doc_academy.Areas.Funcionario.Controllers
         }
 
         // GET: Funcionario/FuncionariosComunicados/Details/5
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Detalhes(int id)
         {
             var categoria = await _ComunicadosRepository.GetById(id);
             if (categoria == null)
@@ -41,7 +41,7 @@ namespace pdtcc_doc_academy.Areas.Funcionario.Controllers
         }
 
         // GET: Funcionario/FuncionariosComunicados/Create
-        public IActionResult Create()
+        public IActionResult Cadastro()
         {
             return View();
         }
@@ -77,7 +77,7 @@ namespace pdtcc_doc_academy.Areas.Funcionario.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("idComunicados,dataComunicado,fkDoc")] Comunicados comunicados)
+        public async Task<IActionResult> Editar(int id, [Bind("idComunicados,dataComunicado,fkDoc")] Comunicados comunicados)
         {
             if (id != comunicados.idComunicados)
             {
@@ -100,7 +100,7 @@ namespace pdtcc_doc_academy.Areas.Funcionario.Controllers
         }
 
         // GET: Funcionario/FuncionariosComunicados/Delete/5
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Excluir(int id)
         {
             var categoria = await _ComunicadosRepository.GetById(id);
             if (categoria == null)

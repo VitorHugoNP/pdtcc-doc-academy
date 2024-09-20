@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using pdtcc_doc_academy.Areas.Funcionario.Controllers;
 using pdtcc_doc_academy.Repositories;
 //using Microsoft.Extensions.Options;
 //using Microsoft.Extensions.DependencyInjection;
@@ -8,7 +9,7 @@ using pdtcc_doc_academy.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
+builder.Services.AddScoped<IComunicadosRepository, ComunicadosRepository>();
 
 // Add services to the container.
 builder.Services.AddDbContext<AppDBContext>(options =>
@@ -42,6 +43,9 @@ app.UseAuthorization();
 #pragma warning disable ASP0014 // Suggest using top level route registrations
 app.UseEndpoints(endpoints =>
 {
+    //Funcionarios Comunicados
+
+
     endpoints.MapControllerRoute(
       name: "Funcionario",
       pattern: "{area:exists}/{controller=Funcionario}/{action=Index}/{id?}"
