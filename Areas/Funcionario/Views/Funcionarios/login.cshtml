@@ -1,26 +1,36 @@
-﻿@{
+﻿@model pdtcc_doc_academy.Models.LoginViewModel
+
+@{
     ViewData["Title"] = "Login de Funcionários";
 }
 
 <h2>Login</h2>
 
-@if (ViewBag.ErrorMessage != null)
-{
-    <div style="color:red;">
-        <strong>@ViewBag.ErrorMessage</strong>
+<form asp-action="Login" method="post">
+    <div class="form-group">
+        <label asp-for="email"></label>
+        <input asp-for="email" class="form-control" />
+        <span asp-validation-for="email" class="text-danger"></span>
     </div>
-}
 
-<form method="post">
-    <div>
-        <label for="username">Nome de Usuário</label>
-        <input type="text" id="username" name="username" required />
+    <div class="form-group">
+        <label asp-for="senha"></label>
+        <input asp-for="senha" class="form-control" type="senha" />
+        <span asp-validation-for="senha" class="text-danger"></span>
     </div>
-    <div>
-        <label for="password">Senha</label>
-        <input type="password" id="password" name="password" required />
-    </div>
-    <div>
-        <button type="submit">Entrar</button>
-    </div>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">
+            <strong>@ViewBag.ErrorMessage</strong>
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary">Entrar</button>
 </form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
