@@ -1,0 +1,45 @@
+﻿@model pdtcc_doc_academy.Models.Escolas
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Escolas</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="nomeEscola" class="control-label"></label>
+                <input asp-for="nomeEscola" class="form-control" />
+                <span asp-validation-for="nomeEscola" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="enderecoEscola" class="control-label"></label>
+                <input asp-for="enderecoEscola" class="form-control" />
+                <span asp-validation-for="enderecoEscola" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="emailEscola" class="control-label"></label>
+                <input asp-for="emailEscola" class="form-control" />
+                <span asp-validation-for="emailEscola" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="telefoneEscola" class="control-label"></label>
+                <input asp-for="telefoneEscola" class="form-control" />
+                <span asp-validation-for="telefoneEscola" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
