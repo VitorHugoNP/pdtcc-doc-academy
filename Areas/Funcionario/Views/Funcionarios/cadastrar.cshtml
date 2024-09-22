@@ -1,0 +1,39 @@
+﻿@model pdtcc_doc_academy.Models.Funcionarios
+
+@{
+    ViewData["Title"] = "Cadastro de Funcionários";
+}
+
+<h2>Cadastrar Funcionário</h2>
+
+<form asp-action="Cadastrar" method="post">
+    <div>
+        <label for="username">Nome de Usuário</label>
+        <input type="text" id="username" name="Username" value="@Model?.nomeFunc" required />
+    </div>
+    <div>
+        <label for="nome">Nome Completo</label>
+        <input type="text" id="email" name="Email" value="@Model?.emailFunc" required />
+    </div>
+    <div>
+        <label for="password">Senha</label>
+        <input type="password" id="password" name="Password" value="@Model?.senhaFunc" required />
+    </div>
+
+    <div>
+        <button type="submit">Cadastrar</button>
+    </div>
+</form>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div style="color:red;">
+        <strong>Por favor, corrija os erros abaixo.</strong>
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}

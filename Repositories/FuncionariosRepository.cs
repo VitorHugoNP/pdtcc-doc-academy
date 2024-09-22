@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using pdtcc_doc_academy.Models;
 
 namespace pdtcc_doc_academy.Repositories
@@ -41,6 +42,12 @@ namespace pdtcc_doc_academy.Repositories
         public async Task<Funcionarios> GetById(int id)
         {
             return await _dbContext.Funcionario.FirstOrDefaultAsync(c => c.idFunc == id);
+        }
+
+        public async Task<Funcionarios> GetByUsernameAndPassword(string email, string senha)
+        {
+            return await _dbContext.Funcionario
+            .FirstOrDefaultAsync(f => f.emailFunc == email && f.senhaFunc == senha);
         }
 
         public async Task Update(Funcionarios funcionarios)

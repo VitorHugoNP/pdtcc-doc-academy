@@ -19,8 +19,9 @@ builder.Services.AddDbContext<AppDBContext>(options =>
             
         }));
 
+// Registro do repositório no contêiner de dependências
 builder.Services.AddControllersWithViews();
-//builder.Services.AddScoped<IFuncionariosRepository, FuncionariosRepository>();
+builder.Services.AddScoped<IFuncionariosRepository, FuncionariosRepository>();
 
 
 var app = builder.Build();
