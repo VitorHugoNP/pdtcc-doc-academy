@@ -4,35 +4,32 @@
     ViewData["Title"] = "Login de Funcionários";
 }
 
-<h2>Login</h2>
+<h2>Login de Funcionário</h2>
 
-<form asp-action="Login" method="post">
-    <div class="form-group">
-        <label asp-for="EmailFuncionario"></label>
-        <input asp-for="EmailFuncionario" class="form-control" />
-        <span asp-validation-for="EmailFuncionario" class="text-danger"></span>
+<form asp-area="Funcionario" asp-controller="Funcionarios" asp-action="Login" method="post">
+    <div>
+        <label asp-for="EmailFuncionario">Email do usuário</label>
+        <input asp-for="EmailFuncionario" type="email" id="EmailFuncionario" required />
+    </div>
+    <div>
+        <label asp-for="SenhaFuncionario">Senha</label>
+        <input asp-for="SenhaFuncionario" type="password" id="SenhaFuncionario" required />
     </div>
 
-    <div class="form-group">
-        <label asp-for="SenhaFuncionario"></label>
-        <input asp-for="SenhaFuncionario" class="form-control" type="senha_func" />
-        <span asp-validation-for="SenhaFuncionario" class="text-danger"></span>
+    <div>
+        <button type="submit">Login</button>
     </div>
-
-    <a asp-controller="Funcionarios" asp-action="Cadastrar"> cadastre-se como diretor </a>
-
-    @if (ViewBag.ErrorMessage != null)
-    {
-        <div class="alert alert-danger">
-            <strong>@ViewBag.ErrorMessage</strong>
-        </div>
-    }
-
-    <button type="submit" class="btn btn-primary">Entrar</button>
 </form>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+@if (!ViewData.ModelState.IsValid)
+{
+    <div style="color:red;">
+        <strong>Por favor, corrija os erros abaixo.</strong>
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
 }

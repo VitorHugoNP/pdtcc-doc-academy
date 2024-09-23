@@ -44,7 +44,7 @@ namespace pdtcc_doc_academy.Repositories
             return await _dbContext.Funcionario.FirstOrDefaultAsync(c => c.idFuncionario == id);
         }
 
-        public async Task<Funcionarios> GetByUsernameAndPassword(string email, string senha)
+        public async Task<Funcionarios> GetByEmailAndPassword(string email, string senha)
         {
             return await _dbContext.Funcionario
             .FirstOrDefaultAsync(f => f.EmailFuncionario == email && f.SenhaFuncionario == senha);

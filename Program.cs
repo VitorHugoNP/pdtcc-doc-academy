@@ -9,6 +9,7 @@ using pdtcc_doc_academy.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddScoped<IComunicadosRepository, ComunicadosRepository>();
 
 // Add services to the container.

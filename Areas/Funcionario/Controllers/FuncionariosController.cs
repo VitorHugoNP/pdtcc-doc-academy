@@ -22,9 +22,9 @@ namespace pdtcc_doc_academy.Areas.Funcionario.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(string email, string password)
+        public async Task<IActionResult> Login(string email, string senha)
         {
-            var funcionario = await _funcionariosRepository.GetByUsernameAndPassword(email, password);
+            var funcionario = await _funcionariosRepository.GetByEmailAndPassword(email, senha);
 
             if (funcionario != null)
             {
@@ -37,7 +37,7 @@ namespace pdtcc_doc_academy.Areas.Funcionario.Controllers
 
         public IActionResult Dashboard()
         {
-            return View();
+            return View("Index");
         }
 
         // Cadastro de Funcionário
@@ -54,6 +54,7 @@ namespace pdtcc_doc_academy.Areas.Funcionario.Controllers
             {
                 // Chama o repositório para adicionar o funcionário
                 await _funcionariosRepository.Add(funcionario);
+
 
                 // Redireciona para a página de login após o cadastro bem-sucedido
                 return RedirectToAction("Login");

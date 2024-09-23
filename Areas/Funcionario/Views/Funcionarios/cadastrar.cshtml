@@ -9,16 +9,16 @@
 
 <form asp-area="Funcionario" asp-controller="Funcionarios" asp-action="Cadastrar" method="post">
     <div>
-        <label for="nome_func">Nome de Usuário</label>
-        <input type="text" id="nome_func" name="Username" value="@Model?.NomeFuncionario" required />
+        <label asp-for="NomeFuncionario">Nome de Usuário</label>
+        <input asp-for="NomeFuncionario" type="text" id="NomeFuncionario" required />
     </div>
     <div>
-        <label for="email_func">Email do usuário</label>
-        <input type="text" id="email_func" name="Email" value="@Model?.EmailFuncionario" required />
+        <label asp-for="EmailFuncionario">Email do usuário</label>
+        <input asp-for="EmailFuncionario" type="email" id="EmailFuncionario" required />
     </div>
     <div>
-        <label for="senha_func">Senha</label>
-        <input type="password" id="senha_func" name="Password" value="@Model?.SenhaFuncionario" required />
+        <label asp-for="SenhaFuncionario">Senha</label>
+        <input asp-for="SenhaFuncionario" type="password" id="SenhaFuncionario" required />
     </div>
 
     <div>
