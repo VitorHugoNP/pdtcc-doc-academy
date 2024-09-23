@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using pdtcc_doc_academy.Models;
 using pdtcc_doc_academy.Repositories;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 namespace pdtcc_doc_academy.Areas.Funcionario.Controllers
 {
@@ -28,11 +29,15 @@ namespace pdtcc_doc_academy.Areas.Funcionario.Controllers
 
             if (funcionario != null)
             {
+                // Autenticação bem-sucedida - Redirecione para o Dashboard
                 return RedirectToAction("Dashboard");
             }
-
-            ViewBag.ErrorMessage = "Nome de usuário ou senha inválidos";
-            return View();
+            else
+            {
+                // Login inválido - Exiba a mensagem de erro na view Login
+                ViewBag.ErrorMessage = "Nome de usuário ou senha inválidos";
+                return View(); // Retorna a mesma view para exibir a mensagem
+            }
         }
 
         public IActionResult Dashboard()

@@ -9,11 +9,11 @@
 <form asp-area="Funcionario" asp-controller="Funcionarios" asp-action="Login" method="post">
     <div>
         <label asp-for="EmailFuncionario">Email do usuário</label>
-        <input asp-for="EmailFuncionario" type="email" id="EmailFuncionario" required />
+        <input asp-for="EmailFuncionario" type="email" id="EmailFuncionario" name="email" required />
     </div>
     <div>
         <label asp-for="SenhaFuncionario">Senha</label>
-        <input asp-for="SenhaFuncionario" type="password" id="SenhaFuncionario" required />
+        <input asp-for="SenhaFuncionario" type="password" id="SenhaFuncionario" name="senha" required />
     </div>
 
     <div>
