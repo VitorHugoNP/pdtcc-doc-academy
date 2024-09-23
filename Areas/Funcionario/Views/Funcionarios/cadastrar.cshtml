@@ -1,4 +1,5 @@
-﻿@model pdtcc_doc_academy.Models.Funcionarios
+﻿
+@model pdtcc_doc_academy.Models.Funcionarios
 
 @{
     ViewData["Title"] = "Cadastro de Funcionários";
@@ -6,18 +7,18 @@
 
 <h2>Cadastrar Funcionário</h2>
 
-<form asp-action="Cadastrar" method="post">
+<form asp-area="Funcionario" asp-controller="Funcionarios" asp-action="Cadastrar" method="post">
     <div>
-        <label for="username">Nome de Usuário</label>
-        <input type="text" id="username" name="Username" value="@Model?.nomeFunc" required />
+        <label for="nome_func">Nome de Usuário</label>
+        <input type="text" id="nome_func" name="Username" value="@Model?.NomeFuncionario" required />
     </div>
     <div>
-        <label for="nome">Nome Completo</label>
-        <input type="text" id="email" name="Email" value="@Model?.emailFunc" required />
+        <label for="email_func">Email do usuário</label>
+        <input type="text" id="email_func" name="Email" value="@Model?.EmailFuncionario" required />
     </div>
     <div>
-        <label for="password">Senha</label>
-        <input type="password" id="password" name="Password" value="@Model?.senhaFunc" required />
+        <label for="senha_func">Senha</label>
+        <input type="password" id="senha_func" name="Password" value="@Model?.SenhaFuncionario" required />
     </div>
 
     <div>

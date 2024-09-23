@@ -41,13 +41,13 @@ namespace pdtcc_doc_academy.Repositories
 
         public async Task<Funcionarios> GetById(int id)
         {
-            return await _dbContext.Funcionario.FirstOrDefaultAsync(c => c.idFunc == id);
+            return await _dbContext.Funcionario.FirstOrDefaultAsync(c => c.idFuncionario == id);
         }
 
         public async Task<Funcionarios> GetByUsernameAndPassword(string email, string senha)
         {
             return await _dbContext.Funcionario
-            .FirstOrDefaultAsync(f => f.emailFunc == email && f.senhaFunc == senha);
+            .FirstOrDefaultAsync(f => f.EmailFuncionario == email && f.SenhaFuncionario == senha);
         }
 
         public async Task Update(Funcionarios funcionarios)

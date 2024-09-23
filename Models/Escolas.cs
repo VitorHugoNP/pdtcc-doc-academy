@@ -7,12 +7,12 @@ namespace pdtcc_doc_academy.Models
         [Key]
         public int IdEscola { get; set; }
         [Required]
-        public string nomeEscola { get; set; }
+        public required string nomeEscola { get; set; }
         [Required]
-        public string enderecoEscola { get; set; }
+        public required string enderecoEscola { get; set; }
         [Required]
         [EmailAddress]
-        public string emailEscola { get; set; }
+        public required string emailEscola { get; set; }
         [Required]
         public int telefoneEscola { get; set; }
     }

@@ -29,7 +29,8 @@ namespace pdtcc_doc_academy.Repositories
 
         public async Task Delete(Escolas escola)
         {
-            _dbContext.Escola.Remove(escola);
+              _dbContext.Escola.Remove(escola);
+           await _dbContext.SaveChangesAsync();
         }
 
         public async Task<List<Escolas>> Getall()

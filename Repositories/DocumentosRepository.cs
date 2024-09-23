@@ -28,7 +28,7 @@ namespace pdtcc_doc_academy.Repositories
         public async Task Delete(Documentos documentos)
         {
             _dbContext.Documento.Remove(documentos);
-            _dbContext?.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
         }
 
         public Task<List<Documentos>> Getall()
@@ -44,7 +44,7 @@ namespace pdtcc_doc_academy.Repositories
         public async Task Update(Documentos documentos)
         {
             _dbContext.Documento.Update(documentos);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

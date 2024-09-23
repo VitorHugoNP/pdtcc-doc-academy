@@ -6,17 +6,22 @@ namespace pdtcc_doc_academy.Models
     public class Funcionarios
     {
         [Key]
-        public int idFunc { get; set; }
+        [Column("idFuncionario")]
+        public int idFuncionario { get; set; }
+        [Column("nome_func")]
         [Required]
-        public string nomeFunc { get; set; }
+        public required string NomeFuncionario { get; set; }
         [Required]
         [EmailAddress]
-        public string emailFunc { get; set; }
+        [Column("email_func")]
+        public required string EmailFuncionario { get; set; }
         [Required]
-        public string senhaFunc { get; set; }
-        [ForeignKey("Cargo")]
-        private int fkCargo { get; set; }
+        [Column("senha_func")]
+        public required string SenhaFuncionario { get; set; }
         [ForeignKey("Escola")]
-        private int fkEscola { get; set; }
+        private int fk_escola { get; set; }
+        [ForeignKey("Cargo")]
+        private int fk_cargo { get; set; }
+
     }
 }
