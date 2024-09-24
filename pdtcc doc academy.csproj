@@ -8,6 +8,46 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Funcionario\Views\FuncionariosComunicados\**" />
+    <Compile Remove="Areas\Funcionario\Views\FuncionariosEmentas\**" />
+    <Compile Remove="Areas\Funcionario\Views\FuncionariosEscolas\**" />
+    <Compile Remove="Areas\Funcionario\Views\FuncionariosGradeCurriculars\**" />
+    <Compile Remove="Areas\Funcionario\Views\FuncionariosMaterias\**" />
+    <Compile Remove="Areas\Funcionario\Views\FuncionariosRequerimentoEquipamentoes\**" />
+    <Content Remove="Areas\Funcionario\Views\FuncionariosComunicados\**" />
+    <Content Remove="Areas\Funcionario\Views\FuncionariosEmentas\**" />
+    <Content Remove="Areas\Funcionario\Views\FuncionariosEscolas\**" />
+    <Content Remove="Areas\Funcionario\Views\FuncionariosGradeCurriculars\**" />
+    <Content Remove="Areas\Funcionario\Views\FuncionariosMaterias\**" />
+    <Content Remove="Areas\Funcionario\Views\FuncionariosRequerimentoEquipamentoes\**" />
+    <EmbeddedResource Remove="Areas\Funcionario\Views\FuncionariosComunicados\**" />
+    <EmbeddedResource Remove="Areas\Funcionario\Views\FuncionariosEmentas\**" />
+    <EmbeddedResource Remove="Areas\Funcionario\Views\FuncionariosEscolas\**" />
+    <EmbeddedResource Remove="Areas\Funcionario\Views\FuncionariosGradeCurriculars\**" />
+    <EmbeddedResource Remove="Areas\Funcionario\Views\FuncionariosMaterias\**" />
+    <EmbeddedResource Remove="Areas\Funcionario\Views\FuncionariosRequerimentoEquipamentoes\**" />
+    <None Remove="Areas\Funcionario\Views\FuncionariosComunicados\**" />
+    <None Remove="Areas\Funcionario\Views\FuncionariosEmentas\**" />
+    <None Remove="Areas\Funcionario\Views\FuncionariosEscolas\**" />
+    <None Remove="Areas\Funcionario\Views\FuncionariosGradeCurriculars\**" />
+    <None Remove="Areas\Funcionario\Views\FuncionariosMaterias\**" />
+    <None Remove="Areas\Funcionario\Views\FuncionariosRequerimentoEquipamentoes\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Funcionario\Controllers\FuncionariosComunicadosController.cs" />
+    <Compile Remove="Areas\Funcionario\Controllers\FuncionariosEmentasController.cs" />
+    <Compile Remove="Areas\Funcionario\Controllers\FuncionariosEscolasController.cs" />
+    <Compile Remove="Areas\Funcionario\Controllers\FuncionariosGradeCurricularsController.cs" />
+    <Compile Remove="Areas\Funcionario\Controllers\FuncionariosMateriasController.cs" />
+    <Compile Remove="Areas\Funcionario\Controllers\FuncionariosRequerimentoEquipamentoesController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Areas\Funcionario\Views\Funcionarios\Dashboard.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />

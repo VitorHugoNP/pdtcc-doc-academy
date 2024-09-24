@@ -46,7 +46,7 @@ namespace pdtcc_doc_academy.Repositories
 
         public async Task<Funcionarios> GetByEmailAndPassword(string email, string senha)
         {
-            Console.WriteLine($"GetByEmailAndPassword: email={email}, senha={senha}");
+            //Console.WriteLine($"GetByEmailAndPassword: email={email}, senha={senha}");
             return await _dbContext.Funcionario
             .FirstOrDefaultAsync(f => f.EmailFuncionario == email && f.SenhaFuncionario == senha);
         }
