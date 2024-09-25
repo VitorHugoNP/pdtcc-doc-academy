@@ -23,6 +23,7 @@ builder.Services.AddDbContext<AppDBContext>(options =>
 // Registro do repositório no contêiner de dependências
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IFuncionariosRepository, FuncionariosRepository>();
+builder.Services.AddScoped<IEscolaRepository, EscolaRepository>();
 
 
 var app = builder.Build();
@@ -51,6 +52,11 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute(
       name: "Funcionario",
       pattern: "{area:exists}/{controller=Funcionario}/{action=Index}/{id?}"
+    );
+
+    endpoints.MapControllerRoute(
+      name: "Escola",
+      pattern: "{area:exists}/{controller=Escola}/{action=Index}/{id?}"
     );
 
     endpoints.MapControllerRoute(

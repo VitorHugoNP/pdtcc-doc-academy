@@ -20,6 +20,7 @@ namespace pdtcc_doc_academy.Areas.Funcionario.Controllers
         public IActionResult Login()
         {
             return View();
+
         }
 
         [HttpPost]

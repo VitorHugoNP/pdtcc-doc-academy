@@ -1,0 +1,101 @@
+﻿@model IEnumerable<pdtcc_doc_academy.Models.Escolas>
+@{
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Acadêmico</title>
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .hero-section {
+            background-color: #f8f9fa;
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+            .hero-section h1 {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .hero-section p {
+                font-size: 1.2rem;
+                margin-bottom: 1.5rem;
+            }
+
+        .features-section .card {
+            border-radius: 10px;
+        }
+
+            .features-section .card:hover {
+                transform: translateY(-5px);
+                transition: transform 0.3s ease;
+            }
+
+        .footer {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Doc Academy</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Requerimentos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contato</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section d-flex align-items-center">
+        <div class="container">
+            @foreach (var escola in Model)
+            {
+                <h1>@escola.nomeEscola</h1>
+                <p>Endereço: @escola.enderecoEscola</p>
+                <p>Email: @escola.emailEscola</p>
+            }
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer bg-light py-3 border-top">
+        <div class="container text-center">
+            <span class="text-muted">&copy; 2024 Doc Academy. Todos os direitos reservados.</span>
+        </div>
+    </footer>
+
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>

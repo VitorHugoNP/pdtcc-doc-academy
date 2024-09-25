@@ -15,21 +15,9 @@
         <label asp-for="SenhaFuncionario">Senha</label>
         <input asp-for="SenhaFuncionario" type="password" id="SenhaFuncionario" name="senha" required />
     </div>
-
+    <a asp-area="Funcionario"asp-controller="Funcionarios" asp-action="Cadastrar">sedfsfdsfds</a>
     <div>
         <button type="submit">Login</button>
     </div>
 </form>
 
-@if (!ViewData.ModelState.IsValid)
-{
-    <div style="color:red;">
-        <strong>Por favor, corrija os erros abaixo.</strong>
-        <ul>
-            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-            {
-                <li>@error.ErrorMessage</li>
-            }
-        </ul>
-    </div>
-}

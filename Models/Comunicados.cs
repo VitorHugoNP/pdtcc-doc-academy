@@ -9,7 +9,7 @@ namespace pdtcc_doc_academy.Models
         [Key]
         public int idComunicados { get; set; }
         [Required]
-        public int descricaoComunicados {  get; set; }
+        public int descricaoComunicados { get; set; }
         [Required]
         public DateTime dataComunicado { get; set; }
         [ForeignKey("doc")]

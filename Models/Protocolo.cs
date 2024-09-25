@@ -19,11 +19,11 @@ namespace SeuProjeto
 
         [ForeignKey("Professor")]
         public int ProfessorId { get; set; }
-        [ForeignKey("Materia")]
+        [ForeignKey("Aluno")]
         public int MateriaId { get; set; }
 
         public virtual Professor Professor { get; set; }
-        public virtual Materias Materia { get; set; }
+        public virtual Aluno Aluno { get; set; }
     }
 
     public class Professor

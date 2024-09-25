@@ -9,7 +9,7 @@ namespace pdtcc_doc_academy.Models
         [Key]
         [Required]
         public int IdFrequencia { get; set; }
-        [ForeignKey ("IdDoc")]
+        [ForeignKey("IdDoc")]
         private int fkDoc { get; set; }
     }
 }
