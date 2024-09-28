@@ -10,9 +10,10 @@
         <strong>@ViewBag.ErrorMessage</strong>
     </div>
 }
-
-<a asp-area="Funcionario" asp-controller="Funcionarios" asp-action="login"> Entrar como Funcionário</a>
-
+<ul class="list-group">
+    <li class="list-group-item"><a asp-area="Funcionario" asp-controller="Funcionarios" asp-action="login"> Entrar como Funcionário</a></li>
+    <li class="list-group-item"><a asp-area="Escola" asp-controller="Escolas" asp-action="Login"> Entrar como Escola</a></li>
+</ul>
 <form method="post">
     <div>
         <label for="username">Nome de Usuário</label>

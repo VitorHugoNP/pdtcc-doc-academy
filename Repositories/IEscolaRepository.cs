@@ -9,5 +9,6 @@ namespace pdtcc_doc_academy.Repositories
         Task Add(Escolas escola);
         Task Update(Escolas escola);
         Task Delete(Escolas escola);
+        Task<Escolas> GetByDataForLogin(string nome, string endereco, string email, string senha);
     }
 }

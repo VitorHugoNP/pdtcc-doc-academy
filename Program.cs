@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddScoped<IComunicadosRepository, ComunicadosRepository>();
+
 
 // Add services to the container.
 builder.Services.AddDbContext<AppDBContext>(options =>
@@ -24,7 +24,7 @@ builder.Services.AddDbContext<AppDBContext>(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IFuncionariosRepository, FuncionariosRepository>();
 builder.Services.AddScoped<IEscolaRepository, EscolaRepository>();
-
+//builder.Services.AddScoped<IComunicadosRepository, ComunicadosRepository>();
 
 var app = builder.Build();
 
@@ -46,13 +46,15 @@ app.UseAuthorization();
 #pragma warning disable ASP0014 // Suggest using top level route registrations
 app.UseEndpoints(endpoints =>
 {
-    //Funcionarios Comunicados
+    //Funcionarios
 
 
     endpoints.MapControllerRoute(
       name: "Funcionario",
       pattern: "{area:exists}/{controller=Funcionario}/{action=Index}/{id?}"
     );
+
+    //Escolas
 
     endpoints.MapControllerRoute(
       name: "Escola",

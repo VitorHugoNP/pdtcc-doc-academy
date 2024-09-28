@@ -18,5 +18,7 @@ namespace pdtcc_doc_academy.Models
         [EmailAddress]
         [Column("emailEscola")]
         public required string emailEscola { get; set; }
+        [Column("senhaEscola")]
+        public string senhaEscola { get; set; }
     }
 }

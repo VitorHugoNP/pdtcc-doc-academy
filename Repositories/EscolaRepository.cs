@@ -43,6 +43,17 @@ namespace pdtcc_doc_academy.Repositories
             return await _dbContext.Escola.FirstOrDefaultAsync(c => c.IdEscola == id);
         }
 
+        public async Task<Escolas> GetByDataForLogin(string nome, string endereco, string email, string senha)
+        {
+            return await _dbContext.Escola.FirstOrDefaultAsync
+                (
+                f => f.nomeEscola == nome
+                && f.enderecoEscola == endereco 
+                && f.emailEscola == email 
+                && f.senhaEscola == senha
+                );
+        }
+
         public async Task Update(Escolas escola)
         {
             _dbContext.Escola.Update(escola);
