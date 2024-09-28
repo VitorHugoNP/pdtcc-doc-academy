@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+
+<form asp-action="Login">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label for="nomeAluno">Nome</label>
+        <input type="text" id="nomeAluno" name="nomeAluno" class="form-control" />
+        <span asp-validation-for="nomeAluno" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="cpfAluno">CPF</label>
+        <input type="number" id="cpfAluno" name="cpfAluno" class="form-control" />
+        <span asp-validation-for="cpfAluno" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="cursoAluno">Curso</label>
+        <input type="text" id="cursoAluno" name="cursoAluno" class="form-control" />
+        <span asp-validation-for="cursoAluno" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="rmAluno">RM</label>
+        <input type="number" id="rmAluno" name="rmAluno" class="form-control" />
+        <span asp-validation-for="rmAluno" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="senhaAluno">Senha</label>
+        <input type="password" id="senhaAluno" name="senhaAluno" class="form-control" />
+        <span asp-validation-for="senhaAluno" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Login" class="btn btn-primary" />
+    </div>
+</form>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}

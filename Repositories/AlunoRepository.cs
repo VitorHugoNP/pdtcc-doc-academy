@@ -2,7 +2,6 @@
 using pdtcc_doc_academy.Models;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace pdtcc_doc_academy.Repositories
 {
     public class AlunoRepository : IAlunoRepository
@@ -14,11 +13,11 @@ namespace pdtcc_doc_academy.Repositories
             _dbContext = dbContext;
         }
         //Adiciona Aluno
-        public async Task Add(Aluno aluno)
+        public async Task Add(Alunos aluno)
         {
             try
             {
-                _dbContext.Add(aluno);
+                _dbContext.Aluno.Add(aluno);
                 await _dbContext.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -28,24 +27,36 @@ namespace pdtcc_doc_academy.Repositories
 
         }
         //deletar Aluno
-        public async Task Delete(Aluno aluno)
+        public async Task Delete(Alunos aluno)
         {
             _dbContext.Aluno.Remove(aluno);
             await _dbContext.SaveChangesAsync();
         }
 
         //pega o repositorio Aluno
-        public async Task<List<Aluno>> GetAll()
+        public async Task<List<Alunos>> GetAll()
         {
             return await _dbContext.Aluno.ToListAsync();
         }
+
+        public async Task<Alunos> GetByDataForLogin(string nome, int cpf, string curso, int rm, string senha)
+        {
+            return await _dbContext.Aluno.FirstOrDefaultAsync(
+                a => a.nomeAluno == nome
+                && a.cpfAluno == cpf
+                && a.cursoAluno == curso
+                && a.rmAluno == rm
+                && a.senhaAluno == senha
+            );
+        }
+
         //pega o Id do Aluno
-        public async Task<Aluno> GetById(int id)
+        public async Task<Alunos> GetById(int id)
         {
             return await _dbContext.Aluno.FirstOrDefaultAsync(c => c.IdAluno == id);
 
         }
-        public async Task Update(Aluno aluno)
+        public async Task Update(Alunos aluno)
         {
             _dbContext.Aluno.Update(aluno);
             await _dbContext.SaveChangesAsync();

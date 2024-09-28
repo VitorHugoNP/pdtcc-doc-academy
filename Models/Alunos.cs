@@ -2,7 +2,7 @@
 
 namespace pdtcc_doc_academy.Models
 {
-    public class Aluno
+    public class Alunos
     {
         [Key]
         public int IdAluno { get; set; }
