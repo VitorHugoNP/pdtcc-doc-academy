@@ -6,16 +6,23 @@ namespace pdtcc_doc_academy.Models
     {
         [Key]
         public int IdAluno { get; set; }
-        [Required]
-        public string nomeAluno { get; set; }
-        [Required]
-        public int cpfAluno { get; set; }
-        [Required]
-        public string cursoAluno { get; set; }
-        [Required]
-        public int rmAluno { get; set; }
-        [Required]
-        public string senhaAluno { get; set; }
 
+        [Required(ErrorMessage = "Por favor, informe o nome completo do aluno.")]
+        [Display(Name = "Nome Completo")]
+        public string nomeAluno { get; set; }
+
+        [Required(ErrorMessage = "Por favor, informe o CPF do aluno.")]
+        [Display(Name = "CPF")]
+        public int cpfAluno { get; set; }
+
+        [Display(Name = "Curso")]
+        public string cursoAluno { get; set; }
+
+        [Display(Name = "RM")]
+        public int rmAluno { get; set; }
+
+        [Required(ErrorMessage = "Por favor, informe a senha do aluno.")]
+        [Display(Name = "Senha")]
+        public string senhaAluno { get; set; }
     }
 }

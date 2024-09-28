@@ -7,7 +7,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <li class="list-group-item"><a asp-area="Aluno" asp-controller="Aluno" asp-action="Cadastrar"> Cadastrar o aluno</a></li>
 </p>
 <table class="table">
     <thead>
@@ -27,27 +27,4 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.nomeEscola)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.enderecoEscola)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.emailEscola)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.senhaEscola)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdEscola">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdEscola">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdEscola">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
 </table>

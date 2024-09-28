@@ -78,7 +78,7 @@ namespace pdtcc_doc_academy.Areas.Aluno.Controllers
             else
             {
                 // Login inválido - Exiba a mensagem de erro na view Login
-                ViewBag.ErrorMessage = "Nome de usuário ou senha inválidos";
+                ViewBag.ErrorMessage = "tem algo errado, tu fez merda";
                 return View(); // Retorna a mesma view para exibir a mensagem
             }
         }

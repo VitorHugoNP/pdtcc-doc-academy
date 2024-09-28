@@ -24,6 +24,7 @@ builder.Services.AddDbContext<AppDBContext>(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IFuncionariosRepository, FuncionariosRepository>();
 builder.Services.AddScoped<IEscolaRepository, EscolaRepository>();
+builder.Services.AddScoped<IAlunoRepository, AlunoRepository>();
 //builder.Services.AddScoped<IComunicadosRepository, ComunicadosRepository>();
 
 var app = builder.Build();

@@ -8,7 +8,5 @@ namespace pdtcc_doc_academy.Models
         [Key]
         public int IdAutorizacao { get; set; }
         public DateTime? dataAut { get; set; }
-        [ForeignKey("doc")]
-        public int fkDoc { get; set; }
     }
 }
