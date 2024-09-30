@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SeuProjeto;
+using pdtcc_doc_academy.Models;
 
 namespace pdtcc_doc_academy.Repositories
 {
@@ -38,7 +38,7 @@ namespace pdtcc_doc_academy.Repositories
 
         public async Task<Protocolo> GetById(int id)
         {
-            return await _dbContext.Protocolo.FirstOrDefaultAsync(c => c.ProtocoloId == id);
+            return await _dbContext.Protocolo.FirstOrDefaultAsync(c => c.IdProtocolo == id);
         }
 
         public async Task Update(Protocolo protocolo)

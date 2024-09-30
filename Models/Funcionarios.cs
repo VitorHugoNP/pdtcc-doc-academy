@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace pdtcc_doc_academy.Models
@@ -6,22 +7,25 @@ namespace pdtcc_doc_academy.Models
     public class Funcionarios
     {
         [Key]
-        [Column("idFuncionario")]
-        public int idFuncionario { get; set; }
-        [Column("nome_func")]
-        [Required]
-        public required string NomeFuncionario { get; set; }
-        [Required]
-        [EmailAddress]
-        [Column("email_func")]
-        public required string EmailFuncionario { get; set; }
-        [Required]
-        [Column("senha_func")]
-        public required string SenhaFuncionario { get; set; }
-        [ForeignKey("Escola")]
-        private int fk_escola { get; set; }
-        [ForeignKey("Cargo")]
-        private int fk_cargo { get; set; }
+        public int IdFuncionario { get; set; }
 
+        [Required(ErrorMessage = "Por favor, informe o nome do funcionário.")]
+        [Display(Name = "Nome")]
+        public string NomeFuncionario { get; set; }
+
+        [Required(ErrorMessage = "Por favor, informe o CPF do funcionário.")]
+        [Display(Name = "CPF")]
+        public int CpfFuncionario { get; set; }
+
+        [Required(ErrorMessage = "Por favor, informe o email do funcionário.")]
+        [Display(Name = "Email")]
+        public string EmailFuncionario { get; set; }
+
+        [Required(ErrorMessage = "Por favor, informe a senha do funcionário.")]
+        [Display(Name = "Senha")]
+        public string SenhaFuncionario { get; set; }
+
+        // Propriedade de navegação
+        public ICollection<Protocolo> Protocolos { get; set; }
     }
 }
