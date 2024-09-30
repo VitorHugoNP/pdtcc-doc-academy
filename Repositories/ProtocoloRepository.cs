@@ -1,50 +1,29 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using pdtcc_doc_academy.Models;
+using pdtcc_doc_academy.Repositories;
 
-namespace pdtcc_doc_academy.Repositories
+public class ProtocoloRepository
 {
-    public class ProtocoloRepository : IProtocoloRepository
+    private readonly AppDBContext _dbContext;
+
+    public ProtocoloRepository(AppDBContext context)
     {
-        private readonly AppDBContext _dbContext;
+        _dbContext = context;
+    }
 
-        public ProtocoloRepository(AppDBContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
-        public async Task Add(Protocolo protocolo)
-        {
-            try
-            {
-                _dbContext.Add(protocolo);
-                await _dbContext.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                await Task.FromException(ex);
-            }
+    // Método para adicionar um novo protocolo
+    public async Task AddAsync(Protocolo protocolo)
+    {
+        await _dbContext.Protocolo.AddAsync(protocolo);
+        await _dbContext.SaveChangesAsync();
+    }
 
-        }
-
-        public async Task Delete(Protocolo protocolo)
-        {
-            _dbContext.Protocolo.Remove(protocolo);
-            await _dbContext.SaveChangesAsync();
-        }
-
-        public async Task<List<Protocolo>> Getall()
-        {
-            return await _dbContext.Protocolo.ToListAsync();
-        }
-
-        public async Task<Protocolo> GetById(int id)
-        {
-            return await _dbContext.Protocolo.FirstOrDefaultAsync(c => c.IdProtocolo == id);
-        }
-
-        public async Task Update(Protocolo protocolo)
-        {
-            _dbContext.Protocolo.Update(protocolo);
-            await _dbContext.SaveChangesAsync();
-        }
+    // Método para buscar protocolos com relação a Aluno, Funcionario e Professor
+    public async Task<List<Protocolo>> GetAllWithRelationsAsync()
+    {
+        return await _dbContext.Protocolo
+            .Include(p => p.Aluno)
+            .Include(p => p.Funcionario)
+            .ToListAsync();
     }
 }

@@ -19,5 +19,23 @@ namespace pdtcc_doc_academy.Repositories
         public DbSet<AlunoSerie> AlunoSerie { get; set; }
         public DbSet<Serie> Serie { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Protocolo>().HasKey(p => p.Id);
+
+            // Configurando sem chaves estrangeiras explícitas
+            modelBuilder.Entity<Protocolo>()
+                .HasOne(p => p.Aluno)
+                .WithMany() // Aluno pode ter vários Protocolos
+                .HasForeignKey(p => p.Id_Aluno)
+                .OnDelete(DeleteBehavior.Restrict); // Sem deletar cascata
+
+            modelBuilder.Entity<Protocolo>()
+                .HasOne(p => p.Funcionario)
+                .WithMany()
+                .HasForeignKey(p => p.Id_Funcionario)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
+
     }
 }
