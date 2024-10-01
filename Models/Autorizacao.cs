@@ -8,5 +8,8 @@ namespace pdtcc_doc_academy.Models
         [Key]
         public int IdAutorizacao { get; set; }
         public DateTime? dataAut { get; set; }
+        [ForeignKey("fk_prot")]
+        public int fk_prot { get; set; }
+        public virtual Protocolo Protocolo { get; set; }
     }
 }

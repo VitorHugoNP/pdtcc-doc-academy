@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using pdtcc_doc_academy.Models;
+using pdtcc_doc_academy.Repositories;
 
 namespace pdtcc_doc_academy.Repositories
 {
@@ -26,15 +27,32 @@ namespace pdtcc_doc_academy.Repositories
             // Configurando sem chaves estrangeiras explícitas
             modelBuilder.Entity<Protocolo>()
                 .HasOne(p => p.Aluno)
-                .WithMany() // Aluno pode ter vários Protocolos
+                .WithMany(/*p => p.Protocolos*/)
                 .HasForeignKey(p => p.Id_Aluno)
-                .OnDelete(DeleteBehavior.Restrict); // Sem deletar cascata
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Protocolo>()
                 .HasOne(p => p.Funcionario)
                 .WithMany()
                 .HasForeignKey(p => p.Id_Funcionario)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            //ALUNO
+
+
+            modelBuilder.Entity<AlunoSerie>()
+                .HasKey(ase => new { ase.IdAluno, ase.IdSerie });
+
+            // Configurar relacionamento NxN entre Alunos e Serie
+            modelBuilder.Entity<AlunoSerie>()
+                .HasOne(ase => ase.Aluno)
+                .WithMany(/*a => a.AlunoSeries*/)
+                .HasForeignKey(ase => ase.IdAluno);
+
+            modelBuilder.Entity<AlunoSerie>()
+                .HasOne(ase => ase.Serie)
+                .WithMany(/*a => a.AlunoSerie*/)
+                .HasForeignKey(ase => ase.IdSerie);
         }
 
     }

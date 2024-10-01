@@ -24,5 +24,10 @@ namespace pdtcc_doc_academy.Models
         [Required(ErrorMessage = "Por favor, informe a senha do aluno.")]
         [Display(Name = "Senha")]
         public string senhaAluno { get; set; }
+
+        public ICollection<AlunoSerie> AlunoSeries { get; set; }
+        public ICollection<AlunoSerie> AlunoCursos { get; set; }
+
+
     }
 }

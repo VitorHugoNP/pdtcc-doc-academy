@@ -12,7 +12,6 @@ namespace pdtcc_doc_academy.Models
         [Display(Name = "Nome da Série")]
         public string NomeSerie { get; set; }
 
-        // Propriedade de navegação
-        public ICollection<AlunoSerie> AlunoSeries { get; set; }
+        
     }
 }

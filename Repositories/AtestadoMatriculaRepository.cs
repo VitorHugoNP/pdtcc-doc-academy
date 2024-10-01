@@ -41,7 +41,7 @@ namespace pdtcc_doc_academy.Repositories
         //pega o Id do Atestado
         public async Task<AtestadoMatricula> GetById(int id)
         {
-            return await _dbContext.AtestadoMatricula.FirstOrDefaultAsync(c => c.IdAtestMat == id);
+            return await _dbContext.AtestadoMatricula.FirstOrDefaultAsync(c => c.IdAtest_mat == id);
 
         }
         public async Task Update(AtestadoMatricula atestadomatricula)

@@ -10,5 +10,7 @@ namespace pdtcc_doc_academy.Repositories
         Task Add(Protocolo protocolo);
         Task Update(Protocolo protocolo);
         Task Delete(Protocolo protocolo);
+
+
     }
 }
