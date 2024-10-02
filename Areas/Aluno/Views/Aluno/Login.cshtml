@@ -26,15 +26,21 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="cursoAluno" class="control-label"></label>
-                <input asp-for="cursoAluno" class="form-control" name="curso" />
-                <span asp-validation-for="cursoAluno" class="text-danger"></span>
+                <label asp-for="rgAluno" class="control-label"></label>
+                <input asp-for="rgAluno" class="form-control" type="number" name="rg" />
+                <span asp-validation-for="rgAluno" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="rmAluno" class="control-label"></label>
                 <input asp-for="rmAluno" class="form-control" type="number" name="rm" />
                 <span asp-validation-for="rmAluno" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="emailAluno" class="control-label"></label>
+                <input asp-for="emailAluno" class="form-control" name="email" />
+                <span asp-validation-for="emailAluno" class="text-danger"></span>
             </div>
 
             <div class="form-group">

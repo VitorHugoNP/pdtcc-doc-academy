@@ -44,11 +44,11 @@ namespace pdtcc_doc_academy.Repositories
             return await _dbContext.Funcionario.FirstOrDefaultAsync(c => c.IdFuncionario == id);
         }
 
-        public async Task<Funcionarios> GetByEmailAndPassword(string email, string senha)
+        public async Task<Funcionarios> GetByEmailAndPassword(string nome, string email, string senha)
         {
             //Console.WriteLine($"GetByEmailAndPassword: email={email}, senha={senha}");
-            return await _dbContext.Funcionario
-            .FirstOrDefaultAsync(f => f.EmailFuncionario == email && f.SenhaFuncionario == senha);
+            return await _dbContext.Funcionario  
+            .FirstOrDefaultAsync(f => f.nome_Func == nome && f.email_Func == email && f.senha_Func == senha);
         }
 
         public async Task Update(Funcionarios funcionarios)

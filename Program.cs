@@ -25,7 +25,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IFuncionariosRepository, FuncionariosRepository>();
 builder.Services.AddScoped<IEscolaRepository, EscolaRepository>();
 builder.Services.AddScoped<IAlunoRepository, AlunoRepository>();
-//builder.Services.AddScoped<IComunicadosRepository, ComunicadosRepository>();
+builder.Services.AddScoped<IProtocoloRepository, ProtocoloRepository>();
+builder.Services.AddScoped<IAutorizacaoRepository, AutorizacaoRepository>();
+builder.Services.AddScoped<IComunicadoRepository, ComunicadoRepository>();
 
 var app = builder.Build();
 

@@ -27,14 +27,14 @@ namespace pdtcc_doc_academy.Repositories
             // Configurando sem chaves estrangeiras explícitas
             modelBuilder.Entity<Protocolo>()
                 .HasOne(p => p.Aluno)
-                .WithMany(/*p => p.Protocolos*/)
-                .HasForeignKey(p => p.Id_Aluno)
+                .WithMany(p => p.Protocolo)
+                .HasForeignKey(p => p.idAluno)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Protocolo>()
                 .HasOne(p => p.Funcionario)
                 .WithMany()
-                .HasForeignKey(p => p.Id_Funcionario)
+                .HasForeignKey(p => p.idFuncionario)
                 .OnDelete(DeleteBehavior.Restrict);
 
             //ALUNO

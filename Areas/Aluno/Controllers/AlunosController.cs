@@ -66,9 +66,9 @@ namespace pdtcc_doc_academy.Areas.Aluno.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(string nome, int cpf, string curso, int rm, string senha)
+        public async Task<IActionResult> Login(string nome, int cpf, int rg, int rm, string email, string senha)
         {
-            var aluno = await _alunosRepository.GetByDataForLogin(nome, cpf, curso, rm, senha);
+            var aluno = await _alunosRepository.GetByDataForLogin(nome, cpf, rg, rm, email, senha);
 
             if (aluno != null)
             {

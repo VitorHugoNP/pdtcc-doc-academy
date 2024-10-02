@@ -30,7 +30,7 @@ namespace pdtcc_doc_academy.Repositories
             // Relacionar o aluno com a série
             var alunoSerie = new AlunoSerie
             {
-                IdAluno = aluno.IdAluno,
+                IdAluno = aluno.idAluno,
                 IdSerie = idSerie
             };
             await _context.AlunoSerie.AddAsync(alunoSerie);

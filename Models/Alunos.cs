@@ -5,7 +5,7 @@ namespace pdtcc_doc_academy.Models
     public class Alunos
     {
         [Key]
-        public int IdAluno { get; set; }
+        public int idAluno { get; set; }
 
         [Required(ErrorMessage = "Por favor, informe o nome completo do aluno.")]
         [Display(Name = "Nome Completo")]
@@ -15,18 +15,23 @@ namespace pdtcc_doc_academy.Models
         [Display(Name = "CPF")]
         public int cpfAluno { get; set; }
 
-        [Display(Name = "Curso")]
-        public string cursoAluno { get; set; }
+        [Required(ErrorMessage = "Por favor, informe o CPF do aluno.")]
+        [Display(Name = "RG")]
+        public int rgAluno { get; set; }
 
         [Display(Name = "RM")]
         public int rmAluno { get; set; }
+
+        [Required(ErrorMessage = "Por favor, informe o CPF do aluno.")]
+        [Display(Name = "EMAIL")]
+        public string emailAluno { get; set; }
 
         [Required(ErrorMessage = "Por favor, informe a senha do aluno.")]
         [Display(Name = "Senha")]
         public string senhaAluno { get; set; }
 
-        public ICollection<AlunoSerie> AlunoSeries { get; set; }
-        public ICollection<AlunoSerie> AlunoCursos { get; set; }
+        //public ICollection<AlunoSerie> AlunoSeries { get; set; }
+        //public ICollection<AlunoSerie> AlunoCursos { get; set; }
 
 
     }

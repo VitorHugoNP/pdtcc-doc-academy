@@ -11,21 +11,19 @@ namespace pdtcc_doc_academy.Models
 
         [Required(ErrorMessage = "Por favor, informe o nome do funcionário.")]
         [Display(Name = "Nome")]
-        public string NomeFuncionario { get; set; }
-
-        [Required(ErrorMessage = "Por favor, informe o CPF do funcionário.")]
-        [Display(Name = "CPF")]
-        public int CpfFuncionario { get; set; }
+        public string nome_Func { get; set; }
 
         [Required(ErrorMessage = "Por favor, informe o email do funcionário.")]
         [Display(Name = "Email")]
-        public string EmailFuncionario { get; set; }
+        public string email_Func { get; set; }
 
         [Required(ErrorMessage = "Por favor, informe a senha do funcionário.")]
         [Display(Name = "Senha")]
-        public string SenhaFuncionario { get; set; }
+        public string senha_Func { get; set; }
+
+        //public ICollection<Escolas> Escolas { get; set; }
 
         // Propriedade de navegação
-        public ICollection<Protocolo> Protocolos { get; set; }
+        //public ICollection<Protocolo> Protocolos { get; set; }
     }
 }

@@ -11,6 +11,6 @@ namespace pdtcc_doc_academy.Repositories
         Task Update(Funcionarios funcionario);
         Task Delete (Funcionarios funcionarios);
         // Implementação do método de login
-        Task<Funcionarios> GetByEmailAndPassword(string email, string senha);
+        Task<Funcionarios> GetByEmailAndPassword(string nome, string email, string senha);
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace pdtcc_doc_academy.Areas.Aluno.Controllers
 {
+    [Area("Aluno")]
     public class AlunoProtocoloController : Controller
     {
         private readonly IProtocoloRepository _protocoloRepository;
@@ -46,7 +47,7 @@ namespace pdtcc_doc_academy.Areas.Aluno.Controllers
         {
             var protocolo = new Protocolo
             {
-                Tipo_Documento = "Atestado Matricula"
+                tipo_Doc = "Atestado Matricula"
                 // Preencha outros campos conforme necessário
             };
             await _protocoloRepository.Add(protocolo);
@@ -58,7 +59,7 @@ namespace pdtcc_doc_academy.Areas.Aluno.Controllers
         {
             var protocolo = new Protocolo
             {
-                Tipo_Documento = "Autorização"
+                tipo_Doc = "Autorização"
                 // Preencha outros campos conforme necessário
             };
             await _protocoloRepository.Add(protocolo);
@@ -70,7 +71,7 @@ namespace pdtcc_doc_academy.Areas.Aluno.Controllers
         {
             var protocolo = new Protocolo
             {
-                Tipo_Documento = "Comunicado"
+                tipo_Doc = "Comunicado"
                 // Preencha outros campos conforme necessário
             };
             await _protocoloRepository.Add(protocolo);

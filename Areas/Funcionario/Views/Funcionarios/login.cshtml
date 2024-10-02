@@ -8,12 +8,16 @@
 
 <form asp-area="Funcionario" asp-controller="Funcionarios" asp-action="Login" method="post">
     <div>
-        <label asp-for="EmailFuncionario">Email do usuário</label>
-        <input asp-for="EmailFuncionario" type="email" id="EmailFuncionario" name="email" required />
+        <label asp-for="nome_Func">Email do usuário</label>
+        <input asp-for="nome_Func" type="email" id="EmailFuncionario" name="nome" required />
     </div>
     <div>
-        <label asp-for="SenhaFuncionario">Senha</label>
-        <input asp-for="SenhaFuncionario" type="password" id="SenhaFuncionario" name="senha" required />
+        <label asp-for="email_Func">Email do usuário</label>
+        <input asp-for="email_Func" type="email" id="EmailFuncionario" name="email" required />
+    </div>
+    <div>
+        <label asp-for="senha_Func">Senha</label>
+        <input asp-for="senha_Func" type="password" id="SenhaFuncionario" name="senha" required />
     </div>
     <a asp-area="Funcionario"asp-controller="Funcionarios" asp-action="Cadastrar">sedfsfdsfds</a>
     <div>

@@ -9,7 +9,7 @@ namespace pdtcc_doc_academy.Repositories
         Task Add(Alunos aluno);
         Task Delete(Alunos aluno);
         Task<List<Alunos>> GetAll();
-        Task<Alunos> GetByDataForLogin(string nome, int cpf, string curso, int rm, string senha);
+        Task<Alunos> GetByDataForLogin(string nome, int cpf, int rg, int rm, string email, string senha);
         Task<Alunos> GetById(int id);
         Task Update(Alunos aluno);
     }

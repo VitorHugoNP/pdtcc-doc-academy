@@ -24,9 +24,9 @@ namespace pdtcc_doc_academy.Areas.Funcionario.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(string email, string senha)
+        public async Task<IActionResult> Login(string nome, string email, string senha)
         {
-            var funcionario = await _funcionariosRepository.GetByEmailAndPassword(email, senha);
+            var funcionario = await _funcionariosRepository.GetByEmailAndPassword(nome, email, senha);
 
             if (funcionario != null)
             {

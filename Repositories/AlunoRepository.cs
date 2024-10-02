@@ -39,13 +39,14 @@ namespace pdtcc_doc_academy.Repositories
             return await _dbContext.Aluno.ToListAsync();
         }
 
-        public async Task<Alunos> GetByDataForLogin(string nome, int cpf, string curso, int rm, string senha)
+        public async Task<Alunos> GetByDataForLogin(string nome, int cpf, int rg, int rm, string email, string senha)
         {
             return await _dbContext.Aluno.FirstOrDefaultAsync(
                 a => a.nomeAluno == nome
                 && a.cpfAluno == cpf
-                && a.cursoAluno == curso
+                && a.rgAluno == rg
                 && a.rmAluno == rm
+                && a.emailAluno == email
                 && a.senhaAluno == senha
             );
         }
@@ -53,7 +54,7 @@ namespace pdtcc_doc_academy.Repositories
         //pega o Id do Aluno
         public async Task<Alunos> GetById(int id)
         {
-            return await _dbContext.Aluno.FirstOrDefaultAsync(c => c.IdAluno == id);
+            return await _dbContext.Aluno.FirstOrDefaultAsync(c => c.idAluno == id);
 
         }
         public async Task Update(Alunos aluno)
