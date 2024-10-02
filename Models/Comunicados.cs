@@ -4,13 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace pdtcc_doc_academy.Models
 {
-    public enum StatusComunicado
-    {
-        Solicitado,
-        EmAndamento,
-        Finalizado
-    }
-
     public class Comunicados
     {
         [Key]
