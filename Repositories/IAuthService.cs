@@ -4,6 +4,6 @@ namespace pdtcc_doc_academy.Repositories
 {
     public interface IAuthService
     {
-        Task<Funcionarios> AuthenticateAsync(string emailFunc, string senhafunc);
+        Task<funcionario> AuthenticateAsync(string emailFunc, string senhafunc);
     }
 }

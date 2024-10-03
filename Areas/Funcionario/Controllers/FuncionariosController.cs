@@ -54,7 +54,7 @@ namespace pdtcc_doc_academy.Areas.Funcionario.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Cadastrar(Funcionarios funcionario)
+        public async Task<IActionResult> Cadastrar(funcionario funcionario)
         {
             if (ModelState.IsValid)
             {

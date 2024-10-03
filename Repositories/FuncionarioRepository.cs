@@ -13,7 +13,7 @@ namespace pdtcc_doc_academy.Repositories
         {
             _dbContext = dbContext;
         }
-        public async Task Add(Funcionarios funcionarios)
+        public async Task Add(funcionario funcionarios)
         {
 
             try
@@ -28,30 +28,30 @@ namespace pdtcc_doc_academy.Repositories
 
         }
         //deleta Autorização
-        public async Task Delete(Funcionarios funcionarios)
+        public async Task Delete(funcionario funcionarios)
         {
             _dbContext.Funcionario.Remove(funcionarios);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<List<Funcionarios>> Getall()
+        public async Task<List<funcionario>> Getall()
         {
             return await _dbContext.Funcionario.ToListAsync();
         }
 
-        public async Task<Funcionarios> GetById(int id)
+        public async Task<funcionario> GetById(int id)
         {
             return await _dbContext.Funcionario.FirstOrDefaultAsync(c => c.IdFuncionario == id);
         }
 
-        public async Task<Funcionarios> GetByEmailAndPassword(string nome, string email, string senha)
+        public async Task<funcionario> GetByEmailAndPassword(string nome, string email, string senha)
         {
             //Console.WriteLine($"GetByEmailAndPassword: email={email}, senha={senha}");
             return await _dbContext.Funcionario  
             .FirstOrDefaultAsync(f => f.nome_Func == nome && f.email_Func == email && f.senha_Func == senha);
         }
 
-        public async Task Update(Funcionarios funcionarios)
+        public async Task Update(funcionario funcionarios)
         {
             _dbContext.Funcionario.Update(funcionarios);
             await _dbContext.SaveChangesAsync();

@@ -5,12 +5,12 @@ namespace pdtcc_doc_academy.Repositories
 {
     public interface IFuncionariosRepository
     {
-        Task <List<Funcionarios>> Getall();
-        Task <Funcionarios> GetById(int id);
-        Task Add (Funcionarios funcionario);
-        Task Update(Funcionarios funcionario);
-        Task Delete (Funcionarios funcionarios);
+        Task <List<funcionario>> Getall();
+        Task <funcionario> GetById(int id);
+        Task Add (funcionario funcionario);
+        Task Update(funcionario funcionario);
+        Task Delete (funcionario funcionarios);
         // Implementação do método de login
-        Task<Funcionarios> GetByEmailAndPassword(string nome, string email, string senha);
+        Task<funcionario> GetByEmailAndPassword(string nome, string email, string senha);
     }
 }

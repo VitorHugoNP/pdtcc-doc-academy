@@ -10,10 +10,18 @@ namespace pdtcc_doc_academy.Controllers
     public class AccountController : Controller
     {
         private readonly AppDBContext _context;
+        private readonly IAlunoRepository _alunoRepository;
 
-        public AccountController(AppDBContext context)
+        public AccountController(AppDBContext context, IAlunoRepository alunoRepository)
         {
             _context = context;
+            _alunoRepository = alunoRepository;
+        }
+
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
         }
 
         [HttpGet]
@@ -35,7 +43,7 @@ namespace pdtcc_doc_academy.Controllers
                 {
                     new Claim(ClaimTypes.Name, usuario.nome_Usuario),
                     new Claim(ClaimTypes.Email, usuario.email_Usuario),
-                    new Claim("UserId", usuario.idUsuario.ToString())
+                    new Claim("idUsuario", usuario.idUsuario.ToString())  // Adicionar o ID do usuário como claim
                 };
 
                 // Criar o identity do usuário
@@ -44,12 +52,17 @@ namespace pdtcc_doc_academy.Controllers
                 // Autenticar o usuário
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
 
-                return RedirectToAction("Index", "Home");
+                Console.WriteLine("asdasdasdassdasdasd");
+
+                return RedirectToAction("Index");
             }
 
             ViewBag.Erro = "Usuário ou senha inválidos.";
             return View();
         }
+
+
+
 
         public async Task<IActionResult> Logout()
         {

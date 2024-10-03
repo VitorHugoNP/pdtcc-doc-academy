@@ -40,7 +40,7 @@ namespace pdtcc_doc_academy.Repositories
 
         public async Task<Escolas> GetById(int id)
         {
-            return await _dbContext.Escola.FirstOrDefaultAsync(c => c.IdEscola == id);
+            return await _dbContext.Escola.FirstOrDefaultAsync(c => c.idEscola == id);
         }
 
         public async Task<Escolas> GetByDataForLogin(string nome, string endereco, string email, string senha)

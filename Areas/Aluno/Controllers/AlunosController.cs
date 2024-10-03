@@ -58,35 +58,35 @@ namespace pdtcc_doc_academy.Areas.Aluno.Controllers
         //AREA CADASTRO
 
 
-        [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
+        //[HttpGet]
+        //public IActionResult Login()
+        //{
+        //    return View();
 
-        }
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> Login(string nome, int cpf, int rg, int rm, string email, string senha)
-        {
-            var aluno = await _alunosRepository.GetByDataForLogin(nome, cpf, rg, rm, email, senha);
+        //[HttpPost]
+        //public async Task<IActionResult> Login(string nome, int cpf, int rg, int rm, string email, string senha)
+        //{
+        //    var aluno = await _alunosRepository.GetByDataForLogin(nome, cpf, rg, rm, email, senha);
 
-            if (aluno != null)
-            {
-                // Autenticação bem-sucedida - Redirecione para o Dashboard
-                return RedirectToAction("Dashboard");
-            }
-            else
-            {
-                // Login inválido - Exiba a mensagem de erro na view Login
-                ViewBag.ErrorMessage = "tem algo errado, tu fez merda";
-                return View(); // Retorna a mesma view para exibir a mensagem
-            }
-        }
+        //    if (aluno != null)
+        //    {
+        //        // Autenticação bem-sucedida - Redirecione para o Dashboard
+        //        return RedirectToAction("Dashboard");
+        //    }
+        //    else
+        //    {
+        //        // Login inválido - Exiba a mensagem de erro na view Login
+        //        ViewBag.ErrorMessage = "tem algo errado, tu fez merda";
+        //        return View(); // Retorna a mesma view para exibir a mensagem
+        //    }
+        //}
 
-        public IActionResult Dashboard()
-        {
-            return View("Index");
-        }
+        //public IActionResult Dashboard()
+        //{
+        //    return View("Index");
+        //}
 
         // Cadastro de Funcionário
         [HttpGet]
@@ -105,7 +105,7 @@ namespace pdtcc_doc_academy.Areas.Aluno.Controllers
 
 
                 // Redireciona para a página de login após o cadastro bem-sucedido
-                return RedirectToAction("Login");
+                return RedirectToAction();
             }
 
             // Se o modelo estiver inválido, retorna à página de cadastro com os erros

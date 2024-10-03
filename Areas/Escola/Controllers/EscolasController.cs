@@ -70,7 +70,7 @@ namespace pdtcc_doc_academy.Controllers // Ajuste o namespace se necessário
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Editar(int id, [Bind("IdEscola,nomeEscola,enderecoEscola,emailEscola,telefoneEscola")] Escolas escola)
         {
-            if (id != escola.IdEscola)
+            if (id != escola.idEscola)
             {
                 return NotFound();
             }

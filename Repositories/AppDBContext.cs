@@ -13,7 +13,7 @@ namespace pdtcc_doc_academy.Repositories
         public DbSet<Autorizacao> Autorizacao { get; set; }
         public DbSet<Comunicados> Comunicado { get; set; }
         public DbSet<Escolas> Escola { get; set; }
-        public DbSet<Funcionarios> Funcionario { get; set; }
+        public DbSet<funcionario> Funcionario { get; set; }
         public DbSet<Protocolo> Protocolo { get; set; }
         public DbSet<AlunoCurso> AlunoCurso { get; set; }
         public DbSet<Curso> Curso { get; set; }
@@ -39,19 +39,19 @@ namespace pdtcc_doc_academy.Repositories
             //ALUNO
 
 
-            modelBuilder.Entity<AlunoSerie>()
-                .HasKey(ase => new { ase.IdAluno, ase.IdSerie });
+            //modelBuilder.Entity<AlunoSerie>()
+            //    .HasKey(ase => new { ase.IdAluno, ase.IdSerie });
 
             // Configurar relacionamento NxN entre Alunos e Serie
-            modelBuilder.Entity<AlunoSerie>()
-                .HasOne(ase => ase.Aluno)
-                .WithMany(a => a.AlunoSeries)
-                .HasForeignKey(ase => ase.IdAluno);
+            //modelBuilder.Entity<AlunoSerie>()
+            //    .HasOne(ase => ase.Aluno)
+            //    .WithMany(a => a.AlunoSeries)
+            //    .HasForeignKey(ase => ase.IdAluno);
 
-            modelBuilder.Entity<AlunoSerie>()
-                .HasOne(ase => ase.Serie)
-                .WithMany(a => a.AlunoSeries)
-                .HasForeignKey(ase => ase.IdSerie);
+            //modelBuilder.Entity<AlunoSerie>()
+            //    .HasOne(ase => ase.Serie)
+            //    .WithMany(a => a.AlunoSeries)
+            //    .HasForeignKey(ase => ase.IdSerie);
         }
 
     }

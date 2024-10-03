@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace pdtcc_doc_academy.Models
 {
-    public class Funcionarios
+    public class funcionario
     {
         [Key]
         public int IdFuncionario { get; set; }
@@ -26,7 +26,7 @@ namespace pdtcc_doc_academy.Models
         // Propriedade de navegação
         public ICollection<Protocolo> Protocolos { get; set; }
 
-        public ICollection<Usuario> usuarios { get; set; }
+        //public ICollection<Usuario> usuarios { get; set; }
 
     }
 }
