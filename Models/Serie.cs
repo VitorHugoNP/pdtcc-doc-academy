@@ -12,6 +12,9 @@ namespace pdtcc_doc_academy.Models
         [Display(Name = "Nome da Série")]
         public string NomeSerie { get; set; }
 
+        public int IdAluno { get; set; }
+
+        public ICollection<AlunoSerie> AlunoSeries { get; set; }
         
     }
 }

@@ -24,6 +24,6 @@ namespace pdtcc_doc_academy.Models
         //public ICollection<Escolas> Escolas { get; set; }
 
         // Propriedade de navegação
-        //public ICollection<Protocolo> Protocolos { get; set; }
+        public ICollection<Protocolo> Protocolos { get; set; }
     }
 }

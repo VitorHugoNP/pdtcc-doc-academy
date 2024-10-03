@@ -30,8 +30,10 @@ namespace pdtcc_doc_academy.Models
         [Display(Name = "Senha")]
         public string senhaAluno { get; set; }
 
-        //public ICollection<AlunoSerie> AlunoSeries { get; set; }
-        //public ICollection<AlunoSerie> AlunoCursos { get; set; }
+        public ICollection<AlunoSerie> AlunoSeries { get; set; }
+        public ICollection<AlunoSerie> AlunoCursos { get; set; }
+
+        public ICollection<Protocolo> Protocolos { get; set; }
 
 
     }
