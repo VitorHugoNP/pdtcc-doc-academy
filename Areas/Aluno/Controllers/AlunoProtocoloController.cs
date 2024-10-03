@@ -27,12 +27,12 @@ namespace pdtcc_doc_academy.Areas.Aluno.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Requisitar(int selectedOption)
+        public async Task<IActionResult> Requisitar(int selectedOption,, int idaluno)
         {
             switch (selectedOption)
             {
                 case 1:
-                    return await HandleAtestadoMatricula();
+                    return await HandleAtestadoMatricula(idaluno);
                 case 2:
                     return await HandleAutorizacao();
                 case 3:
@@ -43,16 +43,17 @@ namespace pdtcc_doc_academy.Areas.Aluno.Controllers
             }
         }
 
-        private async Task<IActionResult> HandleAtestadoMatricula()
+        private async Task<IActionResult> HandleAtestadoMatricula(int id)
         {
             var protocolo = new Protocolo
             {
                 tipo_Doc = "Atestado Matricula"
+                id = _alunoRepository.GetById(),
                 // Preencha outros campos conforme necessário
             };
             await _protocoloRepository.Add(protocolo);
 
-            return View("Requisitar");
+            return View("Requisitar", protocolo);
         }
 
         private async Task<IActionResult> HandleAutorizacao()
