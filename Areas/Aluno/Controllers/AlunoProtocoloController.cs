@@ -27,7 +27,7 @@ namespace pdtcc_doc_academy.Areas.Aluno.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Requisitar(int selectedOption,, int idaluno)
+        public async Task<IActionResult> Requisitar(int selectedOption, int idaluno)
         {
             switch (selectedOption)
             {
@@ -48,7 +48,7 @@ namespace pdtcc_doc_academy.Areas.Aluno.Controllers
             var protocolo = new Protocolo
             {
                 tipo_Doc = "Atestado Matricula"
-                id = _alunoRepository.GetById(),
+                //fk_aluno = _alunoRepository.GetById(id),
                 // Preencha outros campos conforme necessário
             };
             await _protocoloRepository.Add(protocolo);

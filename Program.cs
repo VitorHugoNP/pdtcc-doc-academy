@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using pdtcc_doc_academy.Areas.Funcionario.Controllers;
 using pdtcc_doc_academy.Repositories;
@@ -29,7 +30,19 @@ builder.Services.AddScoped<IProtocoloRepository, ProtocoloRepository>();
 builder.Services.AddScoped<IAutorizacaoRepository, AutorizacaoRepository>();
 builder.Services.AddScoped<IComunicadoRepository, ComunicadoRepository>();
 
+// Configurar autenticação usando cookies
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";  // Caminho para a página de login
+        options.LogoutPath = "/Account/Logout";  // Caminho para logout
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);  // Tempo de expiração da sessão
+    });
+
+
 var app = builder.Build();
+
+app.UseAuthentication();  // Adiciona o middleware de autenticação
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

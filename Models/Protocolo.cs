@@ -17,5 +17,7 @@ namespace pdtcc_doc_academy.Models
         // Propriedades de navegação (não são chaves estrangeiras diretas)
         public Alunos Aluno { get; set; }
         public Funcionarios Funcionario { get; set; }
+
+        public Usuario Usuario { get; set; }
     }
 }

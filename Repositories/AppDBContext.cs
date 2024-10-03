@@ -19,6 +19,7 @@ namespace pdtcc_doc_academy.Repositories
         public DbSet<Curso> Curso { get; set; }
         public DbSet<AlunoSerie> AlunoSerie { get; set; }
         public DbSet<Serie> Serie { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

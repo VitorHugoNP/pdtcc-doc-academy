@@ -25,5 +25,8 @@ namespace pdtcc_doc_academy.Models
 
         // Propriedade de navegação
         public ICollection<Protocolo> Protocolos { get; set; }
+
+        public ICollection<Usuario> usuarios { get; set; }
+
     }
 }
