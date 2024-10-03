@@ -22,18 +22,18 @@ namespace pdtcc_doc_academy.Repositories
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Protocolo>().HasKey(p => p.Id);
+            modelBuilder.Entity<Protocolo>().HasKey(p => p.idProtocolo);
 
             // Configurando sem chaves estrangeiras explícitas
             modelBuilder.Entity<Protocolo>()
                 .HasOne(p => p.Aluno)
                 .WithMany(a => a.Protocolos)
-                .HasForeignKey(p => p.idAluno);
+                .HasForeignKey(p => p.fk_aluno);
 
             modelBuilder.Entity<Protocolo>()
                 .HasOne(p => p.Funcionario)
                 .WithMany(a => a.Protocolos)
-                .HasForeignKey(p => p.idFuncionario);
+                .HasForeignKey(p => p.fk_func);
 
             //ALUNO
 

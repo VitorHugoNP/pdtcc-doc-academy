@@ -52,7 +52,7 @@ namespace pdtcc_doc_academy.Areas.Aluno.Controllers
             };
             await _protocoloRepository.Add(protocolo);
 
-            return View("AtestadoMatriculaView");
+            return View("Requisitar");
         }
 
         private async Task<IActionResult> HandleAutorizacao()

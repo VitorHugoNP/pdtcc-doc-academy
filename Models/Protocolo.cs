@@ -8,9 +8,9 @@ namespace pdtcc_doc_academy.Models
     public class Protocolo
     {
         [Key]
-        public int Id { get; set; }
-        public int idAluno { get; set; }
-        public int idFuncionario { get; set; }
+        public int idProtocolo { get; set; }
+        public int fk_aluno { get; set; }
+        public int fk_func { get; set; }
 
         public string tipo_Doc { get; set; }
 

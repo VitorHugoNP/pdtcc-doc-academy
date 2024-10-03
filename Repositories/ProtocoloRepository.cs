@@ -39,7 +39,7 @@ public class ProtocoloRepository :IProtocoloRepository
 
     public async Task<Protocolo> GetById(int id)
     {
-        return await _dbContext.Protocolo.FirstOrDefaultAsync(c => c.Id == id);
+        return await _dbContext.Protocolo.FirstOrDefaultAsync(c => c.idProtocolo == id);
     }
 
     public async Task Update(Protocolo protocolo)
