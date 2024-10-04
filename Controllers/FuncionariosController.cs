@@ -60,6 +60,14 @@ namespace pdtcc_doc_academy.Controllers
             {
                 _context.Add(funcionario);
                 await _context.SaveChangesAsync();
+                var usuario = new Usuario // pega os dados para acesso e salva na tabela usuario já com o tipo especifico
+                {
+                    Email = funcionario.email_func,
+                    Senha = funcionario.senha_func,
+                    TipoUsuario = "Funcionario"
+                };
+                _context.Add(usuario);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(funcionario);

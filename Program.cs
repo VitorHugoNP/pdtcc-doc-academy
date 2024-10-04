@@ -26,7 +26,7 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-app.UseAuthentication();  // Adiciona o middleware de autenticação
+//app.UseAuthentication();  // Adiciona o middleware de autenticação
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -49,7 +49,7 @@ app.UseEndpoints(endpoints =>
 
     endpoints.MapControllerRoute(
       name: "default",
-      pattern: "{controller=Home}/{action=Index}/{id?}"
+      pattern: "{controller=autenticacao}/{action=login}/{id?}" //rota default de quando executa o sistema
     );
 });
 #pragma warning restore ASP0014 // Suggest using top level route registrations

@@ -26,6 +26,8 @@ namespace pdtcc_doc_academy.Models
 
         public Escolas Escolas { get; set; }
 
+        public Usuario Usuario { get; set; }
+
         public ICollection<Protocolo> Protocolos { get; set; }
 
         //public ICollection<Escolas> Escolas { get; set; }

@@ -10,22 +10,22 @@ using pdtcc_doc_academy.Repositories;
 
 namespace pdtcc_doc_academy.Controllers
 {
-    public class EscolasController : Controller
+    public class UsuariosController : Controller
     {
         private readonly AppDBContext _context;
 
-        public EscolasController(AppDBContext context)
+        public UsuariosController(AppDBContext context)
         {
             _context = context;
         }
 
-        // GET: Escolas
+        // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Escola.ToListAsync());
+            return View(await _context.Usuarios.ToListAsync());
         }
 
-        // GET: Escolas/Details/5
+        // GET: Usuarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,47 +33,39 @@ namespace pdtcc_doc_academy.Controllers
                 return NotFound();
             }
 
-            var escolas = await _context.Escola
-                .FirstOrDefaultAsync(m => m.idEscola == id);
-            if (escolas == null)
+            var usuario = await _context.Usuarios
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (usuario == null)
             {
                 return NotFound();
             }
 
-            return View(escolas);
+            return View(usuario);
         }
 
-        // GET: Escolas/Create
+        // GET: Usuarios/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Escolas/Create
+        // POST: Usuarios/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("idEscola,nomeEscola,enderecoEscola,emailEscola,senhaEscola")] Escolas escolas)
+        public async Task<IActionResult> Create([Bind("Id,Email,Senha,TipoUsuario")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(escolas);
-                await _context.SaveChangesAsync();
-                var usuario = new Usuario // pega os dados para acesso e salva na tabela usuario já com o tipo especifico
-                {
-                    Email = escolas.emailEscola,
-                    Senha = escolas.senhaEscola,
-                    TipoUsuario = "Escola"
-                };
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(escolas);
+            return View(usuario);
         }
 
-        // GET: Escolas/Edit/5
+        // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,22 +73,22 @@ namespace pdtcc_doc_academy.Controllers
                 return NotFound();
             }
 
-            var escolas = await _context.Escola.FindAsync(id);
-            if (escolas == null)
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario == null)
             {
                 return NotFound();
             }
-            return View(escolas);
+            return View(usuario);
         }
 
-        // POST: Escolas/Edit/5
+        // POST: Usuarios/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("idEscola,nomeEscola,enderecoEscola,emailEscola,senhaEscola")] Escolas escolas)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,Senha,TipoUsuario")] Usuario usuario)
         {
-            if (id != escolas.idEscola)
+            if (id != usuario.Id)
             {
                 return NotFound();
             }
@@ -105,12 +97,12 @@ namespace pdtcc_doc_academy.Controllers
             {
                 try
                 {
-                    _context.Update(escolas);
+                    _context.Update(usuario);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EscolasExists(escolas.idEscola))
+                    if (!UsuarioExists(usuario.Id))
                     {
                         return NotFound();
                     }
@@ -121,10 +113,10 @@ namespace pdtcc_doc_academy.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(escolas);
+            return View(usuario);
         }
 
-        // GET: Escolas/Delete/5
+        // GET: Usuarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,34 +124,34 @@ namespace pdtcc_doc_academy.Controllers
                 return NotFound();
             }
 
-            var escolas = await _context.Escola
-                .FirstOrDefaultAsync(m => m.idEscola == id);
-            if (escolas == null)
+            var usuario = await _context.Usuarios
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (usuario == null)
             {
                 return NotFound();
             }
 
-            return View(escolas);
+            return View(usuario);
         }
 
-        // POST: Escolas/Delete/5
+        // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var escolas = await _context.Escola.FindAsync(id);
-            if (escolas != null)
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario != null)
             {
-                _context.Escola.Remove(escolas);
+                _context.Usuarios.Remove(usuario);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EscolasExists(int id)
+        private bool UsuarioExists(int id)
         {
-            return _context.Escola.Any(e => e.idEscola == id);
+            return _context.Usuarios.Any(e => e.Id == id);
         }
     }
 }

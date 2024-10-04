@@ -17,6 +17,8 @@ namespace pdtcc_doc_academy.Models
         [Required]
         public string senhaEscola { get; set; }
 
+        public Usuario Usuario { get; set; }
+
         //public ICollection<Usuario> Usuario { get; set; }
 
     }
