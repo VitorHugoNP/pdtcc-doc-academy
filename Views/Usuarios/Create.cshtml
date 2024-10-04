@@ -20,19 +20,19 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <label asp-for="emailUsuario" class="control-label"></label>
+                <input asp-for="emailUsuario" class="form-control" />
+                <span asp-validation-for="emailUsuario" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Senha" class="control-label"></label>
-                <input asp-for="Senha" class="form-control" />
-                <span asp-validation-for="Senha" class="text-danger"></span>
+                <label asp-for="senhaUsuario" class="control-label"></label>
+                <input asp-for="senhaUsuario" class="form-control" />
+                <span asp-validation-for="senhaUsuario" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TipoUsuario" class="control-label"></label>
-                <input asp-for="TipoUsuario" class="form-control" />
-                <span asp-validation-for="TipoUsuario" class="text-danger"></span>
+                <label asp-for="tipoUsuario" class="control-label"></label>
+                <input asp-for="tipoUsuario" class="form-control" />
+                <span asp-validation-for="tipoUsuario" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

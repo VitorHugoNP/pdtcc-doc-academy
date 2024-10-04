@@ -56,15 +56,15 @@ namespace pdtcc_doc_academy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("idAluno,nomeAluno,cpfAluno,rgAluno,rmAluno,emailAluno,senhaAluno")] Alunos alunos)
         {
-            if (ModelState.IsValid)
+            if (ModelState != null)
             {
                 _context.Add(alunos);
                 await _context.SaveChangesAsync();
                 var usuario = new Usuario // pega os dados para acesso e salva na tabela usuario já com o tipo especifico
                 {
-                    Email = alunos.emailAluno,
-                    Senha = alunos.senhaAluno,
-                    TipoUsuario="Aluno"
+                    emailUsuario = alunos.emailAluno,
+                    senhaUsuario = alunos.senhaAluno,
+                    tipoUsuario="Aluno"
                 };
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();

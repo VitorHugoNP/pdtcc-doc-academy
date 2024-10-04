@@ -5,16 +5,16 @@ namespace pdtcc_doc_academy.Models
     public class Usuario
     {
         [Key]
-        public int Id { get; set; }
+        public int idUsuario { get; set; }
 
         [Required]
         [EmailAddress]
-        public string Email { get; set; }
+        public string emailUsuario { get; set; }
 
         [Required]
-        public string Senha { get; set; }
+        public string senhaUsuario { get; set; }
 
         [Required]
-        public string TipoUsuario { get; set; }
+        public string tipoUsuario { get; set; }
     }
 }

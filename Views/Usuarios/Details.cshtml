@@ -18,27 +18,27 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.emailUsuario)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
+            @Html.DisplayFor(model => model.emailUsuario)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Senha)
+            @Html.DisplayNameFor(model => model.senhaUsuario)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Senha)
+            @Html.DisplayFor(model => model.senhaUsuario)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TipoUsuario)
+            @Html.DisplayNameFor(model => model.tipoUsuario)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TipoUsuario)
+            @Html.DisplayFor(model => model.tipoUsuario)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.idUsuario">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
 </body>

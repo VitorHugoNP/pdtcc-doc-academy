@@ -19,13 +19,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayNameFor(model => model.emailUsuario)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Senha)
+                @Html.DisplayNameFor(model => model.senhaUsuario)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TipoUsuario)
+                @Html.DisplayNameFor(model => model.tipoUsuario)
             </th>
             <th></th>
         </tr>
@@ -34,18 +34,18 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayFor(modelItem => item.emailUsuario)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Senha)
+                @Html.DisplayFor(modelItem => item.senhaUsuario)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TipoUsuario)
+                @Html.DisplayFor(modelItem => item.tipoUsuario)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.idUsuario">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.idUsuario">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.idUsuario">Delete</a>
             </td>
         </tr>
 }

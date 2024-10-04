@@ -27,20 +27,20 @@ namespace pdtcc_doc_academy.Controllers
             if (ModelState.IsValid)//verifica se os campos que estão vindo da view são validos
             {
                 // Procurar o usuário no banco de dados pelo e-mail 
-                var usuario = _context.Usuarios.SingleOrDefault(u => u.Email == model.Email);
+                var usuario = _context.Usuario.SingleOrDefault(u => u.emailUsuario == model.Email);
 
-                if (usuario != null && (model.Senha == usuario.Senha))//verifica se usuário não é nulo e a senha digitada é igual a salva no banco de dados
+                if (usuario != null && (model.Senha == usuario.senhaUsuario))//verifica se usuário não é nulo e a senha digitada é igual a salva no banco de dados
                 {
                     // Verifica o tipo de usuário e redireciona conforme o tipo para suas rotas especificas
-                    if (usuario.TipoUsuario == "Aluno")
+                    if (usuario.tipoUsuario == "Aluno")
                     {
                         return RedirectToAction("Index", "Alunos");//direciona para controller alunos 
                     }
-                    else if (usuario.TipoUsuario == "Funcionario")
+                    else if (usuario.tipoUsuario == "Funcionario")
                     {
                         return RedirectToAction("Index", "Funcionarios");//direciona para controller funcionários
                     }
-                    else if (usuario.TipoUsuario == "Escola")
+                    else if (usuario.tipoUsuario == "Escola")
                     {
                         return RedirectToAction("Index", "Escolas");//direciona para controller escolas
                     }

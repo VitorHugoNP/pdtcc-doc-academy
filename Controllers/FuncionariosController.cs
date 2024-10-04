@@ -62,9 +62,9 @@ namespace pdtcc_doc_academy.Controllers
                 await _context.SaveChangesAsync();
                 var usuario = new Usuario // pega os dados para acesso e salva na tabela usuario já com o tipo especifico
                 {
-                    Email = funcionario.email_func,
-                    Senha = funcionario.senha_func,
-                    TipoUsuario = "Funcionario"
+                    emailUsuario = funcionario.email_func,
+                    senhaUsuario = funcionario.senha_func,
+                    tipoUsuario = "Funcionario"
                 };
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
