@@ -10,7 +10,7 @@ namespace pdtcc_doc_academy.Models
 
         [Required(ErrorMessage = "Por favor, informe o nome do curso.")]
         [Display(Name = "Nome do Curso")]
-        public string NomeCurso { get; set; }
+        public string nomecurso { get; set; }
 
         // Propriedade de navegação
         public ICollection<AlunoCurso> AlunoCursos { get; set; }

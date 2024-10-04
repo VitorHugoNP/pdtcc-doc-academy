@@ -1,0 +1,45 @@
+﻿@model pdtcc_doc_academy.Models.Escolas
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Escolas</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.nomeEscola)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.nomeEscola)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.enderecoEscola)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.enderecoEscola)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.emailEscola)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.emailEscola)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.senhaEscola)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.senhaEscola)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="idEscola" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

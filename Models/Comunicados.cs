@@ -9,10 +9,8 @@ namespace pdtcc_doc_academy.Models
         [Key]
         public int idComunicados { get; set; }
         [Required]
-        public int descricaoComunicados { get; set; }
-        [Required]
-        public DateTime dataComunicado { get; set; }
-        [ForeignKey("doc")]
-        public int fkDoc { get; set; }
+        public DateTime data_comunicado { get; set; }
+        public int fk_Prot {  get; set; }
+        public virtual Protocolo Protocolo { get; set; }
     }
 }

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<pdtcc_doc_academy.Models.Funcionario>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nome_func)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email_func)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.senha_func)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fk_escola)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nome_func)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email_func)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.senha_func)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fk_escola)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdFuncionario">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdFuncionario">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdFuncionario">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

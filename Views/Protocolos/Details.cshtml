@@ -1,0 +1,36 @@
+﻿@model pdtcc_doc_academy.Models.Protocolo
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Protocolo</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.tipo_Doc)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.tipo_Doc)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Aluno)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Aluno.emailAluno)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Funcionario)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Funcionario.email_func)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.idProtocolo">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

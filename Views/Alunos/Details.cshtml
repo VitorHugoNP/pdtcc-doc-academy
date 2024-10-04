@@ -1,0 +1,54 @@
+﻿@model pdtcc_doc_academy.Models.Alunos
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Alunos</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.nomeAluno)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.nomeAluno)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.cpfAluno)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.cpfAluno)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.rgAluno)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.rgAluno)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.rmAluno)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.rmAluno)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.emailAluno)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.emailAluno)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.senhaAluno)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.senhaAluno)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.idAluno">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

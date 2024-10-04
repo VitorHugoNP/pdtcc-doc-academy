@@ -1,0 +1,41 @@
+﻿@model pdtcc_doc_academy.Models.Protocolo
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Protocolo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="idProtocolo" />
+            <div class="form-group">
+                <label asp-for="fk_aluno" class="control-label"></label>
+                <select asp-for="fk_aluno" class="form-control" asp-items="ViewBag.fk_aluno"></select>
+                <span asp-validation-for="fk_aluno" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="fk_func" class="control-label"></label>
+                <select asp-for="fk_func" class="form-control" asp-items="ViewBag.fk_func"></select>
+                <span asp-validation-for="fk_func" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tipo_Doc" class="control-label"></label>
+                <input asp-for="tipo_Doc" class="form-control" />
+                <span asp-validation-for="tipo_Doc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

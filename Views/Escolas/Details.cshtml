@@ -1,0 +1,42 @@
+﻿@model pdtcc_doc_academy.Models.Escolas
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Escolas</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.nomeEscola)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.nomeEscola)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.enderecoEscola)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.enderecoEscola)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.emailEscola)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.emailEscola)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.senhaEscola)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.senhaEscola)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.idEscola">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -13,13 +13,12 @@ namespace pdtcc_doc_academy.Repositories
         public DbSet<Autorizacao> Autorizacao { get; set; }
         public DbSet<Comunicados> Comunicado { get; set; }
         public DbSet<Escolas> Escola { get; set; }
-        public DbSet<funcionario> Funcionario { get; set; }
+        public DbSet<Funcionario> Funcionario { get; set; }
         public DbSet<Protocolo> Protocolo { get; set; }
         public DbSet<AlunoCurso> AlunoCurso { get; set; }
         public DbSet<Curso> Curso { get; set; }
         public DbSet<AlunoSerie> AlunoSerie { get; set; }
         public DbSet<Serie> Serie { get; set; }
-        public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,25 +32,25 @@ namespace pdtcc_doc_academy.Repositories
 
             modelBuilder.Entity<Protocolo>()
                 .HasOne(p => p.Funcionario)
-                .WithMany(a => a.Protocolos)
+                .WithMany(f => f.Protocolos)
                 .HasForeignKey(p => p.fk_func);
 
             //ALUNO
 
 
-            //modelBuilder.Entity<AlunoSerie>()
-            //    .HasKey(ase => new { ase.IdAluno, ase.IdSerie });
+            modelBuilder.Entity<AlunoSerie>()
+                .HasKey(ase => new { ase.IdAluno, ase.IdSerie });
 
-            // Configurar relacionamento NxN entre Alunos e Serie
-            //modelBuilder.Entity<AlunoSerie>()
-            //    .HasOne(ase => ase.Aluno)
-            //    .WithMany(a => a.AlunoSeries)
-            //    .HasForeignKey(ase => ase.IdAluno);
+            //Configurar relacionamento NxN entre Alunos e Serie
+            modelBuilder.Entity<AlunoSerie>()
+                .HasOne(ase => ase.Aluno)
+                .WithMany(a => a.AlunoSeries)
+                .HasForeignKey(ase => ase.IdAluno);
 
-            //modelBuilder.Entity<AlunoSerie>()
-            //    .HasOne(ase => ase.Serie)
-            //    .WithMany(a => a.AlunoSeries)
-            //    .HasForeignKey(ase => ase.IdSerie);
+            modelBuilder.Entity<AlunoSerie>()
+                .HasOne(ase => ase.Serie)
+                .WithMany(a => a.AlunoSeries)
+                .HasForeignKey(ase => ase.IdSerie);
         }
 
     }

@@ -5,11 +5,9 @@ namespace pdtcc_doc_academy.Models
 {
     public class AlunoCurso
     {
-        [Key]
-        public int IdAlunoCurso { get; set; }
-
         [Required(ErrorMessage = "Por favor, informe o ID do aluno.")]
         [Display(Name = "ID do Aluno")]
+        [Key]
         public int IdAluno { get; set; }
 
         [Required(ErrorMessage = "Por favor, informe o ID do curso.")]

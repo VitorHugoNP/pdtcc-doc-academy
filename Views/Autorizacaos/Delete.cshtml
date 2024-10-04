@@ -1,0 +1,33 @@
+﻿@model pdtcc_doc_academy.Models.Autorizacao
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Autorizacao</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.data_aut)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.data_aut)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.fk_prot)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.fk_prot)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="idAutorizacao" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

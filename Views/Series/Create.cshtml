@@ -1,0 +1,35 @@
+﻿@model pdtcc_doc_academy.Models.Serie
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Serie</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NomeSerie" class="control-label"></label>
+                <input asp-for="NomeSerie" class="form-control" />
+                <span asp-validation-for="NomeSerie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdAluno" class="control-label"></label>
+                <input asp-for="IdAluno" class="form-control" />
+                <span asp-validation-for="IdAluno" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
