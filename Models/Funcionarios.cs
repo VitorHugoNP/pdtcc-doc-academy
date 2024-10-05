@@ -24,7 +24,7 @@ namespace pdtcc_doc_academy.Models
 
         public int fk_escola { get; set; }
 
-        public Escolas Escolas { get; set; }
+        public Escola Escolas { get; set; }
 
         public Usuario Usuario { get; set; }
 

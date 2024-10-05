@@ -56,7 +56,7 @@ namespace pdtcc_doc_academy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdFuncionario,nome_func,email_func,senha_func,fk_escola")] Funcionario funcionario)
         {
-            if (ModelState.IsValid)
+            if (ModelState != null)
             {
                 _context.Add(funcionario);
                 await _context.SaveChangesAsync();

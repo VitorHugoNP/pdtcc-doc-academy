@@ -12,7 +12,7 @@ namespace pdtcc_doc_academy.Repositories
         public DbSet<AtestadoMatricula> AtestadoMatricula { get; set; }
         public DbSet<Autorizacao> Autorizacao { get; set; }
         public DbSet<Comunicados> Comunicado { get; set; }
-        public DbSet<Escolas> Escola { get; set; }
+        public DbSet<Escola> Escola { get; set; }
         public DbSet<Funcionario> Funcionario { get; set; }
         public DbSet<Protocolo> Protocolo { get; set; }
         public DbSet<AlunoCurso> AlunoCurso { get; set; }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace pdtcc_doc_academy.Models
 {
-    public class Escolas
+    public class Escola
     {
         [Key]
         public int idEscola { get; set; }
