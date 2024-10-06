@@ -70,6 +70,7 @@ namespace pdtcc_doc_academy.Controllers
                     return await HandleComunicado();
                 default:
                     // Lógica para opção inválida
+                    ModelState.AddModelError("", "Opção inválida.");
                     return RedirectToAction("Index");
             }
         }
@@ -82,6 +83,7 @@ namespace pdtcc_doc_academy.Controllers
                 // Preencha outros campos conforme necessário
             };
             _context.Add(protocolo);
+            await _context.SaveChangesAsync();
 
             return View(protocolo);
         }
@@ -94,6 +96,7 @@ namespace pdtcc_doc_academy.Controllers
                 // Preencha outros campos conforme necessário
             };
             _context.Add(protocolo);
+            await _context.SaveChangesAsync();
 
             return View("AutorizacaoView");
         }
@@ -106,6 +109,7 @@ namespace pdtcc_doc_academy.Controllers
                 // Preencha outros campos conforme necessário
             };
              _context.Add(protocolo);
+            await _context.SaveChangesAsync();
 
             return View("ComunicadoView");
         }
@@ -127,7 +131,7 @@ namespace pdtcc_doc_academy.Controllers
             {
                 return NotFound();
             }
-            ViewData["fk_aluno"] = new SelectList(_context.Aluno, "idAluno", "emailAluno", protocolo.fk_aluno);
+            ViewData["fk_aluno"] = new SelectList(_context.aluno, "idAluno", "emailAluno", protocolo.fk_aluno);
             ViewData["fk_func"] = new SelectList(_context.Funcionario, "IdFuncionario", "email_func", protocolo.fk_func);
             return View(protocolo);
         }
@@ -164,7 +168,7 @@ namespace pdtcc_doc_academy.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["fk_aluno"] = new SelectList(_context.Aluno, "idAluno", "emailAluno", protocolo.fk_aluno);
+            ViewData["fk_aluno"] = new SelectList(_context.aluno, "idAluno", "emailAluno", protocolo.fk_aluno);
             ViewData["fk_func"] = new SelectList(_context.Funcionario, "IdFuncionario", "email_func", protocolo.fk_func);
             return View(protocolo);
         }

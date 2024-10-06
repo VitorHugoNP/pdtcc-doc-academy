@@ -29,8 +29,9 @@ namespace pdtcc_doc_academy.Models
         public string senhaAluno { get; set; }
 
         // Relacionamento com AlunoCurso e AlunoSerie
-        public ICollection<AlunoCurso> AlunoCursos { get; set; }
-        public ICollection<AlunoSerie> AlunoSeries { get; set; }
-        public ICollection<Protocolo> Protocolos { get; set; }
+        public ICollection<AlunoCurso> alunoCursos { get; set; }
+        public ICollection<AlunoSerie> alunoSeries { get; set; }
+        // Relacionamento com Protocolos
+        public ICollection<Protocolo> protocolos { get; set; }
     }
 }

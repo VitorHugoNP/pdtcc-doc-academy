@@ -22,7 +22,7 @@ namespace pdtcc_doc_academy.Controllers
         // GET: Alunos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Aluno.ToListAsync());
+            return View(await _context.aluno.ToListAsync());
         }
 
         // GET: Alunos/Details/5
@@ -33,7 +33,7 @@ namespace pdtcc_doc_academy.Controllers
                 return NotFound();
             }
 
-            var alunos = await _context.Aluno
+            var alunos = await _context.aluno
                 .FirstOrDefaultAsync(m => m.idAluno == id);
             if (alunos == null)
             {
@@ -81,7 +81,7 @@ namespace pdtcc_doc_academy.Controllers
                 return NotFound();
             }
 
-            var alunos = await _context.Aluno.FindAsync(id);
+            var alunos = await _context.aluno.FindAsync(id);
             if (alunos == null)
             {
                 return NotFound();
@@ -132,7 +132,7 @@ namespace pdtcc_doc_academy.Controllers
                 return NotFound();
             }
 
-            var alunos = await _context.Aluno
+            var alunos = await _context.aluno
                 .FirstOrDefaultAsync(m => m.idAluno == id);
             if (alunos == null)
             {
@@ -147,10 +147,10 @@ namespace pdtcc_doc_academy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var alunos = await _context.Aluno.FindAsync(id);
+            var alunos = await _context.aluno.FindAsync(id);
             if (alunos != null)
             {
-                _context.Aluno.Remove(alunos);
+                _context.aluno.Remove(alunos);
             }
 
             await _context.SaveChangesAsync();
@@ -159,7 +159,7 @@ namespace pdtcc_doc_academy.Controllers
 
         private bool AlunosExists(int id)
         {
-            return _context.Aluno.Any(e => e.idAluno == id);
+            return _context.aluno.Any(e => e.idAluno == id);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace pdtcc_doc_academy.Repositories
     {
         public AppDBContext(DbContextOptions<AppDBContext> options) : base(options) { }
 
-        public DbSet<Alunos> Aluno { get; set; }
+        public DbSet<Alunos> aluno { get; set; }
         public DbSet<AtestadoMatricula> AtestadoMatricula { get; set; }
         public DbSet<Autorizacao> Autorizacao { get; set; }
         public DbSet<Comunicados> Comunicado { get; set; }
