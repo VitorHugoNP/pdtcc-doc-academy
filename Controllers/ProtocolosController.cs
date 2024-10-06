@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace pdtcc_doc_academy.Controllers
         // GET: Protocolos
         public async Task<IActionResult> Index()
         {
-            var appDBContext = _context.Protocolo.Include(p => p.Aluno).Include(p => p.Funcionario);
+            var appDBContext = _context.Protocolo.Include(p => p.aluno).Include(p => p.funcionario);
             return View(await appDBContext.ToListAsync());
         }
 
@@ -35,8 +36,8 @@ namespace pdtcc_doc_academy.Controllers
             }
 
             var protocolo = await _context.Protocolo
-                .Include(p => p.Aluno)
-                .Include(p => p.Funcionario)
+                .Include(p => p.aluno)
+                .Include(p => p.funcionario)
                 .FirstOrDefaultAsync(m => m.idProtocolo == id);
             if (protocolo == null)
             {
@@ -49,8 +50,6 @@ namespace pdtcc_doc_academy.Controllers
         // GET: Protocolos/Create
         public IActionResult Create()
         {
-            ViewData["fk_aluno"] = new SelectList(_context.Aluno, "idAluno", "emailAluno");
-            ViewData["fk_func"] = new SelectList(_context.Funcionario, "IdFuncionario", "email_func");
             return View();
         }
 
@@ -59,18 +58,61 @@ namespace pdtcc_doc_academy.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("idProtocolo,fk_aluno,fk_func,tipo_Doc")] Protocolo protocolo)
+        public async Task<IActionResult> Create(int selectedOption)
         {
-            if (ModelState.IsValid)
+            switch (selectedOption)
             {
-                _context.Add(protocolo);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                case 1:
+                    return await HandleAtestadoMatricula();
+                case 2:
+                    return await HandleAutorizacao();
+                case 3:
+                    return await HandleComunicado();
+                default:
+                    // Lógica para opção inválida
+                    return RedirectToAction("Index");
             }
-            ViewData["fk_aluno"] = new SelectList(_context.Aluno, "idAluno", "emailAluno", protocolo.fk_aluno);
-            ViewData["fk_func"] = new SelectList(_context.Funcionario, "IdFuncionario", "email_func", protocolo.fk_func);
+        }
+
+        private async Task<IActionResult> HandleAtestadoMatricula()
+        {
+            var protocolo = new Protocolo
+            {
+                tipo_Doc = "Atestado Matricula",
+                // Preencha outros campos conforme necessário
+            };
+            _context.Add(protocolo);
+
             return View(protocolo);
         }
+
+        private async Task<IActionResult> HandleAutorizacao()
+        {
+            var protocolo = new Protocolo
+            {
+                tipo_Doc = "Autorização"
+                // Preencha outros campos conforme necessário
+            };
+            _context.Add(protocolo);
+
+            return View("AutorizacaoView");
+        }
+
+        private async Task<IActionResult> HandleComunicado()
+        {
+            var protocolo = new Protocolo
+            {
+                tipo_Doc = "Comunicado"
+                // Preencha outros campos conforme necessário
+            };
+             _context.Add(protocolo);
+
+            return View("ComunicadoView");
+        }
+
+
+
+
 
         // GET: Protocolos/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -136,8 +178,8 @@ namespace pdtcc_doc_academy.Controllers
             }
 
             var protocolo = await _context.Protocolo
-                .Include(p => p.Aluno)
-                .Include(p => p.Funcionario)
+                .Include(p => p.aluno)
+                .Include(p => p.funcionario)
                 .FirstOrDefaultAsync(m => m.idProtocolo == id);
             if (protocolo == null)
             {
@@ -167,4 +209,7 @@ namespace pdtcc_doc_academy.Controllers
             return _context.Protocolo.Any(e => e.idProtocolo == id);
         }
     }
+
+
+
 }

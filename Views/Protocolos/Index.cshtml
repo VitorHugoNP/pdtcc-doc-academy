@@ -16,10 +16,10 @@
                 @Html.DisplayNameFor(model => model.tipo_Doc)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Aluno)
+                @Html.DisplayNameFor(model => model.aluno)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Funcionario)
+                @Html.DisplayNameFor(model => model.funcionario)
             </th>
             <th></th>
         </tr>
@@ -31,10 +31,10 @@
                 @Html.DisplayFor(modelItem => item.tipo_Doc)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Aluno.emailAluno)
+                @Html.DisplayFor(modelItem => item.aluno.emailAluno)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Funcionario.email_func)
+                @Html.DisplayFor(modelItem => item.funcionario.email_func)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.idProtocolo">Edit</a> |
