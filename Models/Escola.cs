@@ -7,19 +7,24 @@ namespace pdtcc_doc_academy.Models
     {
         [Key]
         public int idEscola { get; set; }
+
         [Required]
-        public required string nomeEscola { get; set; }
+        [MaxLength(70)]
+        public string nomeEscola { get; set; }
+
         [Required]
-        public required string enderecoEscola { get; set; }
+        [MaxLength(200)]
+        public string enderecoEscola { get; set; }
+
         [Required]
-        [EmailAddress]
-        public required string emailEscola { get; set; }
+        [MaxLength(150)]
+        public string emailEscola { get; set; }
+
         [Required]
+        [MaxLength(100)]
         public string senhaEscola { get; set; }
 
-        public Usuario Usuario { get; set; }
-
-        //public ICollection<Usuario> Usuario { get; set; }
+        public ICollection<Funcionario> funcionarios { get; set; }
 
     }
 }

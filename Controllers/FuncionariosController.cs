@@ -34,7 +34,7 @@ namespace pdtcc_doc_academy.Controllers
             }
 
             var funcionario = await _context.Funcionario
-                .FirstOrDefaultAsync(m => m.IdFuncionario == id);
+                .FirstOrDefaultAsync(m => m.idFuncionario == id);
             if (funcionario == null)
             {
                 return NotFound();
@@ -96,7 +96,7 @@ namespace pdtcc_doc_academy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdFuncionario,nome_func,email_func,senha_func,fk_escola")] Funcionario funcionario)
         {
-            if (id != funcionario.IdFuncionario)
+            if (id != funcionario.idFuncionario)
             {
                 return NotFound();
             }
@@ -110,7 +110,7 @@ namespace pdtcc_doc_academy.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FuncionarioExists(funcionario.IdFuncionario))
+                    if (!FuncionarioExists(funcionario.idFuncionario))
                     {
                         return NotFound();
                     }
@@ -133,7 +133,7 @@ namespace pdtcc_doc_academy.Controllers
             }
 
             var funcionario = await _context.Funcionario
-                .FirstOrDefaultAsync(m => m.IdFuncionario == id);
+                .FirstOrDefaultAsync(m => m.idFuncionario == id);
             if (funcionario == null)
             {
                 return NotFound();
@@ -159,7 +159,7 @@ namespace pdtcc_doc_academy.Controllers
 
         private bool FuncionarioExists(int id)
         {
-            return _context.Funcionario.Any(e => e.IdFuncionario == id);
+            return _context.Funcionario.Any(e => e.idFuncionario == id);
         }
     }
 }

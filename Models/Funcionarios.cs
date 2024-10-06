@@ -8,33 +8,24 @@ namespace pdtcc_doc_academy.Models
     public class Funcionario
     {
         [Key]
-        public int IdFuncionario { get; set; }
+        public int idFuncionario { get; set; }
 
-        [Required(ErrorMessage = "Por favor, informe o nome do funcionário.")]
-        [Display(Name = "Nome")]
+        [Required]
+        [MaxLength(45)]
         public string nome_func { get; set; }
 
-        [Required(ErrorMessage = "Por favor, informe o email do funcionário.")]
-        [Display(Name = "Email")]
+        [Required]
+        [MaxLength(150)]
         public string email_func { get; set; }
 
-        [Required(ErrorMessage = "Por favor, informe a senha do funcionário.")]
-        [Display(Name = "Senha")]
+        [Required]
+        [MaxLength(150)]
         public string senha_func { get; set; }
-
-        public int fk_escola { get; set; }
-
-        public Escola Escolas { get; set; }
-
-        public Usuario Usuario { get; set; }
+        [ForeignKey("escola")]
+        public int? fk_escola { get; set; }
+        public Escola escola { get; set; }
 
         public ICollection<Protocolo> Protocolos { get; set; }
-
-        //public ICollection<Escolas> Escolas { get; set; }
-
-        // Propriedade de navegação
-
-        //public ICollection<Usuario> usuarios { get; set; }
 
     }
 }
