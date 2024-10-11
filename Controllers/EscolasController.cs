@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Crypto.Generators;
 using pdtcc_doc_academy.Models;
 using pdtcc_doc_academy.Repositories;
 
@@ -49,28 +50,26 @@ namespace pdtcc_doc_academy.Controllers
             return View();
         }
 
-        // POST: Escolas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Account/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("idEscola,nomeEscola,enderecoEscola,emailEscola,senhaEscola")] Escola escolas)
+        public async Task<IActionResult> Create([Bind("idEscola,nomeEscola,enderecoEscola,emailEscola,senhaEscola")] Escola escola)
         {
             if (ModelState != null)
             {
-                _context.Add(escolas);
+                _context.Add(escola);
                 await _context.SaveChangesAsync();
                 var usuario = new Usuario // pega os dados para acesso e salva na tabela usuario já com o tipo especifico
                 {
-                    emailUsuario = escolas.emailEscola,
-                    senhaUsuario = escolas.senhaEscola,
+                    emailUsuario = escola.emailEscola,
+                    senhaUsuario = escola.senhaEscola,
                     tipoUsuario = "Escola"
                 };
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(escolas);
+            return View(escola);
         }
 
         // GET: Escolas/Edit/5
