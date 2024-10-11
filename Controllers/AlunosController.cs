@@ -58,15 +58,26 @@ namespace pdtcc_doc_academy.Controllers
         {
             if (ModelState != null)
             {
-                _context.Add(alunos);
-                await _context.SaveChangesAsync();
                 var usuario = new Usuario // pega os dados para acesso e salva na tabela usuario já com o tipo especifico
                 {
                     emailUsuario = alunos.emailAluno,
                     senhaUsuario = alunos.senhaAluno,
-                    tipoUsuario="Aluno"
+                    tipoUsuario = "Aluno"
                 };
                 _context.Add(usuario);
+                var result = await _context.SaveChangesAsync();
+                var aluno = new Alunos
+                {
+                    cpfAluno = alunos.cpfAluno,
+                    emailAluno = alunos.emailAluno,
+                    senhaAluno = alunos.senhaAluno,
+                    nomeAluno = alunos.nomeAluno,
+                    rgAluno = alunos.rgAluno,
+                    rmAluno = alunos.rmAluno,                    
+                    fk_usuario = usuario.idUsuario
+                };
+
+                _context.Add(aluno);                
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace pdtcc_doc_academy.Models
 {
@@ -28,6 +29,10 @@ namespace pdtcc_doc_academy.Models
         [MaxLength(100)]
         public string senhaAluno { get; set; }
 
+        [ForeignKey("fk_usuario")]
+        public int fk_usuario { get; set; }
+
+        public Usuario usuario { get; set; }
         // Relacionamento com AlunoCurso e AlunoSerie
         public ICollection<AlunoCurso> alunoCursos { get; set; }
         public ICollection<AlunoSerie> alunoSeries { get; set; }

@@ -18,5 +18,7 @@ namespace pdtcc_doc_academy.Models
         [Required]
         [MaxLength(100)]
         public string tipoUsuario { get; set; }
+
+        public ICollection<Alunos> alunos { get; set; }
     }
 }
