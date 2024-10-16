@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -57,8 +58,6 @@ namespace pdtcc_doc_academy.Controllers
         {
             if (ModelState != null)
             {
-                _context.Add(escola);
-                await _context.SaveChangesAsync();
                 var usuario = new Usuario // pega os dados para acesso e salva na tabela usuario já com o tipo especifico
                 {
                     emailUsuario = escola.emailEscola,
@@ -66,6 +65,17 @@ namespace pdtcc_doc_academy.Controllers
                     tipoUsuario = "Escola"
                 };
                 _context.Add(usuario);
+                var result = await _context.SaveChangesAsync();
+                var escolas = new Escola
+                {
+                    nomeEscola = escola.nomeEscola,
+                    enderecoEscola = escola.enderecoEscola,
+                    emailEscola = escola.emailEscola,
+                    senhaEscola = escola.senhaEscola,
+                    fk_usuario = usuario.idUsuario
+                };
+
+                _context.Add(escola);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

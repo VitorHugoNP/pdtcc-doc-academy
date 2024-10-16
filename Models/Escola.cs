@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace pdtcc_doc_academy.Models
 {
+    [Table("escola")]
     public class Escola
     {
         [Key]
@@ -24,6 +25,11 @@ namespace pdtcc_doc_academy.Models
         [Required]
         [MaxLength(100)]
         public string senhaEscola { get; set; }
+
+        [ForeignKey("usuario")]
+        public int fk_usuario { get; set; }
+
+        public Usuario usuario { get; set; }
 
         public ICollection<Funcionario> funcionarios { get; set; }
 
