@@ -26,7 +26,7 @@ namespace pdtcc_doc_academy.Models
         [MaxLength(100)]
         public string senhaEscola { get; set; }
 
-        [ForeignKey("usuario")]
+        [ForeignKey("fk_usuario")]
         public int fk_usuario { get; set; }
 
         public Usuario usuario { get; set; }

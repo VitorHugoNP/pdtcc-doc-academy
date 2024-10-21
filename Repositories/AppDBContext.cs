@@ -29,6 +29,24 @@ namespace pdtcc_doc_academy.Repositories
                 .HasForeignKey(a => a.fk_usuario)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Escola>()
+                .HasOne(a => a.usuario)
+                .WithMany(u => u.escolas)
+                .HasForeignKey(a => a.fk_usuario)
+                .OnDelete(DeleteBehavior.Restrict);           
+           
+            modelBuilder.Entity<Funcionario>()
+                .HasOne(a => a.usuario)
+                .WithMany(u => u.funcionarios)
+                .HasForeignKey(a => a.fk_usuario)
+                .OnDelete(DeleteBehavior.Restrict);
+            
+            modelBuilder.Entity<Funcionario>()
+                .HasOne(a => a.escola)
+                .WithMany(u => u.funcionarios)
+                .HasForeignKey(a => a.fk_escola)
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<Protocolo>()
                 .HasOne(p => p.aluno)
                 .WithMany(a => a.protocolos)

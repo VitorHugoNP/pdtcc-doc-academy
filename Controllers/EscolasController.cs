@@ -75,7 +75,7 @@ namespace pdtcc_doc_academy.Controllers
                     fk_usuario = usuario.idUsuario
                 };
 
-                _context.Add(escola);
+                _context.Add(escolas);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
