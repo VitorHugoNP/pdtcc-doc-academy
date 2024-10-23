@@ -68,7 +68,7 @@ namespace pdtcc_doc_academy.Controllers
                 case 2:
                     return await HandleAutorizacao(idFuncionario,  idAluno);
                 case 3:
-                    return await HandleComunicado(idFuncionario, idAluno);idFuncionario
+                    return await HandleComunicado(idFuncionario, idAluno);
                 default:
                     // Lógica para opção inválida
                     ModelState.AddModelError("", "Opção inválida.");
@@ -76,7 +76,7 @@ namespace pdtcc_doc_academy.Controllers
             }
         }
 
-        private async Task<IActionResult> HandleAtestadoMatricula(int , int idAluno)
+        private async Task<IActionResult> HandleAtestadoMatricula(int idFuncionario, int idAluno)
         {
             var funcionario = await _context.Funcionario.FindAsync(idFuncionario);
             var aluno = await _context.aluno.FindAsync(idAluno);
@@ -92,9 +92,6 @@ namespace pdtcc_doc_academy.Controllers
                 tipo_Doc = "Atestado Matricula",
                 fk_aluno = aluno.idAluno,
                 fk_func = 1
-
-                fk_requisitor = idAluno
-                type = "alunos"
                 // Preencha outros campos conforme necessário
             };
 
@@ -122,8 +119,9 @@ namespace pdtcc_doc_academy.Controllers
 
             var protocolo = new Protocolo
             {
-                tipo_Doc = "Autorização"
-                // Preencha outros campos conforme necessário
+                tipo_Doc = "Autorização",
+                fk_aluno = aluno.idAluno,
+                fk_func = 1
             };
             _context.Add(protocolo);
             await _context.SaveChangesAsync();
@@ -145,7 +143,8 @@ namespace pdtcc_doc_academy.Controllers
             var protocolo = new Protocolo
             {
                 tipo_Doc = "Comunicado"
-                // Preencha outros campos conforme necessário
+                fk_aluno = aluno.idAluno,
+                fk_func = 1
             };
              _context.Add(protocolo);
             await _context.SaveChangesAsync();
