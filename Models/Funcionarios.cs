@@ -21,10 +21,15 @@ namespace pdtcc_doc_academy.Models
         [Required]
         [MaxLength(150)]
         public string senha_func { get; set; }
-        [ForeignKey("escola")]
-        public int? fk_escola { get; set; }
-        public Escola escola { get; set; }
+        
+        [ForeignKey("fk_escola")]
+        public int fk_escola { get; set; }
+        
+        [ForeignKey("fk_usuario")]
+        public int fk_usuario { get; set; }
 
+        public Escola escola { get; set; }
+        public Usuario usuario { get; set; }
         public ICollection<Protocolo> Protocolos { get; set; }
 
     }

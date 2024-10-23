@@ -57,16 +57,25 @@ namespace pdtcc_doc_academy.Controllers
         public async Task<IActionResult> Create([Bind("IdFuncionario,nome_func,email_func,senha_func,fk_escola")] Funcionario funcionario)
         {
             if (ModelState != null)
-            {
-                _context.Add(funcionario);
-                await _context.SaveChangesAsync();
+            {                
                 var usuario = new Usuario // pega os dados para acesso e salva na tabela usuario já com o tipo especifico
                 {
                     emailUsuario = funcionario.email_func,
                     senhaUsuario = funcionario.senha_func,
                     tipoUsuario = "Funcionario"
                 };
+
                 _context.Add(usuario);
+                var result = await _context.SaveChangesAsync();
+                var func = new Funcionario
+                {
+                    nome_func = funcionario.nome_func,
+                    email_func = funcionario.email_func,
+                    senha_func = funcionario.senha_func,
+                    fk_escola = funcionario.fk_escola,
+                    fk_usuario = usuario.idUsuario
+                };
+                _context.Add(func);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
