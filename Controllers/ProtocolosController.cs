@@ -58,16 +58,17 @@ namespace pdtcc_doc_academy.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int selectedOption)
+        public async Task<IActionResult> Create(int selectedOption, int idFuncionario, int idAluno)
         {
+
             switch (selectedOption)
             {
                 case 1:
-                    return await HandleAtestadoMatricula();
+                    return await HandleAtestadoMatricula(idFuncionario, idAluno);
                 case 2:
-                    return await HandleAutorizacao();
+                    return await HandleAutorizacao(idFuncionario,  idAluno);
                 case 3:
-                    return await HandleComunicado();
+                    return await HandleComunicado(idFuncionario, idAluno);idFuncionario
                 default:
                     // Lógica para opção inválida
                     ModelState.AddModelError("", "Opção inválida.");
@@ -75,21 +76,50 @@ namespace pdtcc_doc_academy.Controllers
             }
         }
 
-        private async Task<IActionResult> HandleAtestadoMatricula()
+        private async Task<IActionResult> HandleAtestadoMatricula(int , int idAluno)
         {
+            var funcionario = await _context.Funcionario.FindAsync(idFuncionario);
+            var aluno = await _context.aluno.FindAsync(idAluno);
+
+            if (funcionario == null || aluno == null)
+            {
+                ModelState.AddModelError("", "Funcionario não encontrado");
+                return View();
+            }
+
             var protocolo = new Protocolo
             {
                 tipo_Doc = "Atestado Matricula",
+                fk_aluno = aluno.idAluno,
+                fk_func = 1
+
+                fk_requisitor = idAluno
+                type = "alunos"
                 // Preencha outros campos conforme necessário
             };
+
+            if (protocolo == null)
+            {
+                return NotFound();
+            }
+
             _context.Add(protocolo);
             await _context.SaveChangesAsync();
 
             return View(protocolo);
         }
 
-        private async Task<IActionResult> HandleAutorizacao()
+        private async Task<IActionResult> HandleAutorizacao(int idFuncionario, int idAluno)
         {
+
+            var funcionario = await _context.Funcionario.FindAsync(idFuncionario);
+            var aluno = await _context.aluno.FindAsync(idAluno);
+            if (funcionario == null || aluno == null)
+            {
+                ModelState.AddModelError("", "Funcionario não encontrado");
+                return View();
+            }
+
             var protocolo = new Protocolo
             {
                 tipo_Doc = "Autorização"
@@ -101,8 +131,17 @@ namespace pdtcc_doc_academy.Controllers
             return View("AutorizacaoView");
         }
 
-        private async Task<IActionResult> HandleComunicado()
+        private async Task<IActionResult> HandleComunicado(int idFuncionario, int idAluno)
         {
+
+            var funcionario = await _context.Funcionario.FindAsync(idFuncionario);
+            var aluno = await _context.aluno.FindAsync(idAluno);
+            if (funcionario == null || aluno == null)
+            {
+                ModelState.AddModelError("", "Funcionario não encontrado");
+                return View();
+            }
+
             var protocolo = new Protocolo
             {
                 tipo_Doc = "Comunicado"
@@ -119,7 +158,7 @@ namespace pdtcc_doc_academy.Controllers
 
 
         // GET: Protocolos/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id == null)
             {

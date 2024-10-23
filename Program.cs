@@ -23,7 +23,6 @@ builder.Services.AddDbContext<AppDBContext>(options =>
 // Registro do repositório no contêiner de dependências
 builder.Services.AddControllersWithViews();
 
-
 var app = builder.Build();
 
 //app.UseAuthentication();  // Adiciona o middleware de autenticação

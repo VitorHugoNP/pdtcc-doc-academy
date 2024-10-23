@@ -22,5 +22,6 @@ namespace pdtcc_doc_academy.Models
         public string tipoUsuario { get; set; }
 
         public ICollection<Alunos> alunos { get; set; }
+        public ICollection<Escola> escolas  { get; set; }
     }
 }

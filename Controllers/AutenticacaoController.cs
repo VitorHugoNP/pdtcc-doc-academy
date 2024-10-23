@@ -27,7 +27,7 @@ namespace pdtcc_doc_academy.Controllers
             if (ModelState.IsValid)//verifica se os campos que estão vindo da view são validos
             {
                 // Procurar o usuário no banco de dados pelo e-mail 
-                var usuario = _context.Usuario.SingleOrDefault(u => u.emailUsuario == model.Email);
+                var usuario = _context.Usuario.FirstOrDefault(u => u.emailUsuario == model.Email);
 
                 if (usuario != null && (model.Senha == usuario.senhaUsuario))//verifica se usuário não é nulo e a senha digitada é igual a salva no banco de dados
                 {

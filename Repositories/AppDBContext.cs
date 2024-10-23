@@ -51,6 +51,11 @@ namespace pdtcc_doc_academy.Repositories
                 .WithMany(s => s.AlunoSeries)
                 .HasForeignKey(al => al.IdSerie);
 
+            modelBuilder.Entity<Escola>()
+                .HasOne(e => e.usuario)
+                .WithMany(u => u.escolas)
+                .HasForeignKey(e => e.fk_usuario);
+
             base.OnModelCreating(modelBuilder);
 
             //    modelBuilder.Entity<Protocolo>().HasKey(p => p.idProtocolo);
