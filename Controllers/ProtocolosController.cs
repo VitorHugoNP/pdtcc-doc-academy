@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing.Printing;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -58,6 +59,7 @@ namespace pdtcc_doc_academy.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Aluno")]
         public async Task<IActionResult> Create(int selectedOption, int idFuncionario, int idAluno)
         {
 
@@ -142,7 +144,7 @@ namespace pdtcc_doc_academy.Controllers
 
             var protocolo = new Protocolo
             {
-                tipo_Doc = "Comunicado"
+                tipo_Doc = "Comunicado",
                 fk_aluno = aluno.idAluno,
                 fk_func = 1
             };

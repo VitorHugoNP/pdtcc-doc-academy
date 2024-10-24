@@ -6,9 +6,32 @@ using pdtcc_doc_academy.Repositories;
 //using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 //using Pomelo.EntityFrameworkCore.MySql;
 
+
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+
+ void ConfigureServices(IServiceCollection services)
+{
+    services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        .AddCookie(options =>
+        {
+            options.LoginPath = "/Account/Login"; // Caminho para a página de login
+        });
+
+    services.AddAuthorization(options =>
+    {
+        options.AddPolicy("AlunoPolicy", policy => policy.RequireRole("Aluno"));
+        options.AddPolicy("FuncionarioPolicy", policy => policy.RequireRole("Funcionario"));
+        options.AddPolicy("EscolaPolicy", policy => policy.RequireRole("Escola"));
+    });
+
+    services.AddControllersWithViews();
+}
 
 
 
@@ -17,8 +40,13 @@ builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
         mysqlOptions =>
         {
-            
         }));
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(Options =>
+    {
+
+    });
 
 // Registro do repositório no contêiner de dependências
 builder.Services.AddControllersWithViews();
