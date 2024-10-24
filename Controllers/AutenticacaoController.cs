@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using pdtcc_doc_academy.Repositories;
 using pdtcc_doc_academy.ViewModels;
 using System.Security.Claims;
+using pdtcc_doc_academy.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace pdtcc_doc_academy.Controllers
 {
@@ -26,28 +28,24 @@ namespace pdtcc_doc_academy.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model, string email, string senha)
         {
             if (ModelState.IsValid)
             {
                 var usuario = _context.Usuario.SingleOrDefault(u => u.emailUsuario == model.Email);
+                var alunos = await _context.aluno.FirstOrDefaultAsync(a => a.emailAluno == email && a.senhaAluno == senha);
 
                 if (usuario != null /*&& VerificarSenha(model.Senha, usuario.Senha)*/)
                 {
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Email, usuario.emailUsuario),
-                        new Claim(ClaimTypes.Role, usuario.tipoUsuario), // Aqui adicionamos a role com base no tipo de usuário
-                        
+                        new Claim(ClaimTypes.Name, usuario.emailUsuario),
+                        new Claim(ClaimTypes.Role, "Aluno"), // Define o tipo de usuário como Aluno
+                        new Claim("AlunoId", alunos.idAluno.ToString()) // Inclui o ID do Aluno nas claims
                     };
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    var authProperties = new AuthenticationProperties
-                    {
-                        // Propriedades de autenticação como redirecionamento
-                    };
-
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
                     if (usuario.tipoUsuario == "Aluno")
                     {

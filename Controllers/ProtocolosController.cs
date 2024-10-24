@@ -59,24 +59,34 @@ namespace pdtcc_doc_academy.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Aluno")]
-        public async Task<IActionResult> Create(int selectedOption, int idFuncionario, int idAluno)
+        [Authorize(Roles = "Aluno")] // Somente Alunos podem criar protocolos
+        public async Task<IActionResult> Create(int selectedOption, int idFuncionario)
         {
+            // Buscar o ID do aluno a partir das claims
+            var claimAlunoId = User.Claims.FirstOrDefault(c => c.Type == "AlunoId");
+
+            if (claimAlunoId == null)
+            {
+                return Unauthorized("Você precisa estar logado como aluno para criar um protocolo.");
+            }
+
+            // Converte o valor do claim para int (já que o ID do aluno é um int)
+            int idAluno = int.Parse(claimAlunoId.Value);
 
             switch (selectedOption)
             {
                 case 1:
                     return await HandleAtestadoMatricula(idFuncionario, idAluno);
                 case 2:
-                    return await HandleAutorizacao(idFuncionario,  idAluno);
+                    return await HandleAutorizacao(idFuncionario, idAluno);
                 case 3:
                     return await HandleComunicado(idFuncionario, idAluno);
                 default:
-                    // Lógica para opção inválida
                     ModelState.AddModelError("", "Opção inválida.");
                     return RedirectToAction("Index");
             }
         }
+
 
         private async Task<IActionResult> HandleAtestadoMatricula(int idFuncionario, int idAluno)
         {
@@ -85,7 +95,7 @@ namespace pdtcc_doc_academy.Controllers
 
             if (funcionario == null || aluno == null)
             {
-                ModelState.AddModelError("", "Funcionario não encontrado");
+                ModelState.AddModelError("", "Funcionário ou Aluno não encontrado");
                 return View();
             }
 
@@ -93,20 +103,15 @@ namespace pdtcc_doc_academy.Controllers
             {
                 tipo_Doc = "Atestado Matricula",
                 fk_aluno = aluno.idAluno,
-                fk_func = 1
-                // Preencha outros campos conforme necessário
+                fk_func = idFuncionario
             };
-
-            if (protocolo == null)
-            {
-                return NotFound();
-            }
 
             _context.Add(protocolo);
             await _context.SaveChangesAsync();
 
             return View(protocolo);
         }
+
 
         private async Task<IActionResult> HandleAutorizacao(int idFuncionario, int idAluno)
         {
