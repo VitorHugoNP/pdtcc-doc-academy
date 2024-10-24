@@ -93,7 +93,7 @@ namespace pdtcc_doc_academy.Controllers
             var funcionario = await _context.Funcionario.FindAsync(idFuncionario);
             var aluno = await _context.aluno.FindAsync(idAluno);
 
-            if (funcionario == null || aluno == null)
+            if (aluno == null)
             {
                 ModelState.AddModelError("", "Funcionário ou Aluno não encontrado");
                 return View();
@@ -103,7 +103,7 @@ namespace pdtcc_doc_academy.Controllers
             {
                 tipo_Doc = "Atestado Matricula",
                 fk_aluno = aluno.idAluno,
-                fk_func = idFuncionario
+                fk_func = 1
             };
 
             _context.Add(protocolo);
