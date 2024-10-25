@@ -27,6 +27,26 @@ namespace pdtcc_doc_academy.Controllers
             return View(await _context.Escola.ToListAsync());
         }
 
+        // GET: Protocolos
+        public async Task<IActionResult> Verprotocolo(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var protocolo = await _context.Protocolo
+                .Include(p => p.aluno)
+                .Include(p => p.funcionario)
+                .FirstOrDefaultAsync(m => m.idProtocolo == id);
+            if (protocolo == null)
+            {
+                return NotFound();
+            }
+
+            return View(protocolo);
+        }
+
         // GET: Escolas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
