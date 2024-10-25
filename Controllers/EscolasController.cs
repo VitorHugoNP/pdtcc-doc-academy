@@ -28,23 +28,14 @@ namespace pdtcc_doc_academy.Controllers
         }
 
         // GET: Protocolos
-        public async Task<IActionResult> Verprotocolo(int? id)
+        public async Task<IActionResult> VerProtocolos()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var protocolo = await _context.Protocolo
+            var protocolos = await _context.Protocolo
                 .Include(p => p.aluno)
                 .Include(p => p.funcionario)
-                .FirstOrDefaultAsync(m => m.idProtocolo == id);
-            if (protocolo == null)
-            {
-                return NotFound();
-            }
+                .ToListAsync();
 
-            return View(protocolo);
+            return View(protocolos); // Passa a lista de protocolos para a view
         }
 
         // GET: Escolas/Details/5

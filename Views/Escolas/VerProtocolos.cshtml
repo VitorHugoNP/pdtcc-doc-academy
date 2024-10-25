@@ -1,0 +1,35 @@
+﻿@model IEnumerable<pdtcc_doc_academy.Models.Protocolo> // Substitua pelo namespace correto do seu modelo
+
+@{
+    ViewData["Title"] = "Protocolos";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tipo de Documento</th>
+            <th>Aluno</th>
+            <th>Funcionário</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var protocolo in Model)
+        {
+            <tr>
+                <td>@protocolo.idProtocolo</td>
+                <td>@protocolo.tipo_Doc</td>
+                <td>@protocolo.aluno?.nomeAluno</td> <!-- Supondo que você tenha uma propriedade Nome no modelo Aluno -->
+                <td>@protocolo.funcionario?.nome_func</td> <!-- Supondo que você tenha uma propriedade Nome no modelo Funcionario -->
+                <td>
+                    <a href="@Url.Action("Details", "Protocolos", new { id = protocolo.idProtocolo })">Ver Detalhes</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Index", "Escolas")">Voltar</a>
