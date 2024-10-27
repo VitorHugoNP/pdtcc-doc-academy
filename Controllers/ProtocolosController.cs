@@ -50,7 +50,7 @@ namespace pdtcc_doc_academy.Controllers
         }
 
         // GET: Protocolos/Create
-        public IActionResult CreateA()
+        public IActionResult Create()
         {
             return View();
         }
@@ -61,7 +61,7 @@ namespace pdtcc_doc_academy.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Aluno")] // Somente Alunos podem criar protocolos
-        public async Task<IActionResult> CreateA(int selectedOption, int idFuncionario)
+        public async Task<IActionResult> Create(int selectedOption, int idFuncionario)
         {
             // Buscar o ID do aluno a partir das claims
             var claimAlunoId = User.Claims.FirstOrDefault(c => c.Type == "AlunoId");
@@ -110,7 +110,7 @@ namespace pdtcc_doc_academy.Controllers
             _context.Add(protocolo);
             await _context.SaveChangesAsync();
 
-            return View("~/Views/Escolas/Verprotocolo", protocolo);
+            return RedirectToAction("Index", "Alunos", protocolo);
         }
 
 

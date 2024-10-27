@@ -6,17 +6,13 @@ using pdtcc_doc_academy.Repositories;
 //using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 //using Pomelo.EntityFrameworkCore.MySql;
 
-
-
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 
  void ConfigureServices(IServiceCollection services)
-{
+ {
     services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
         .AddCookie(options =>
         {
@@ -31,7 +27,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
     });
 
     services.AddControllersWithViews();
-}
+ }
 
 
 
