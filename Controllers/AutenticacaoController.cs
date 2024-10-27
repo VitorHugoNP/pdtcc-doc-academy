@@ -43,21 +43,6 @@ namespace pdtcc_doc_academy.Controllers
 
                 if (usuario != null /*&& VerificarSenha(model.Senha, usuario.Senha)*/)
                 {
-                    //var claims = new List<Claim>
-                    //{
-                    //    new Claim(ClaimTypes.Name, usuario.emailUsuario),
-                    //    new Claim(ClaimTypes.Role, "Aluno"), // Define o tipo de usuário como Aluno
-                    //    new Claim(ClaimTypes.Role, "Funcionario"), // Define o tipo de usuário como funcionario
-                    //    new Claim(ClaimTypes.Role, "Escola"), // Define o tipo de usuário como escola
-                        
-                    //    new Claim("AlunoId", alunos.idAluno.ToString()) // Inclui o ID do Aluno nas claims
-                    //    new Claim("idFuncionario", alunos.idAluno.ToString()),
-                    //    new Claim("idEscola", escolas.idEscola.ToString())
-                    //};
-
-                    //var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    //await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-
                     if (usuario.tipoUsuario == "Aluno")
                     {
                         var claims = new List<Claim>
