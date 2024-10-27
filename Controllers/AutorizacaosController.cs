@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -53,16 +56,51 @@ namespace pdtcc_doc_academy.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("idAutorizacao,data_aut,fk_prot")] Autorizacao autorizacao)
+        public async Task<IActionResult> CreateAutorizacao(int fk_prot)
         {
-            if (ModelState.IsValid)
+            // Aqui você pode buscar os dados do usuário ou do protocolo
+            var protocolo = await _context.Protocolo.FindAsync(fk_prot);
+            if (protocolo == null)
             {
-                _context.Add(autorizacao);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return NotFound("Protocolo não encontrado.");
             }
-            return View(autorizacao);
+
+            // Gerar o PDF
+            byte[] pdfData = GeneratePdf(protocolo);
+
+            // Criar a nova autorização
+            var autorizacao = new Autorizacao
+            {
+                data_aut = DateTime.Now,
+                fk_prot = fk_prot,
+                PdfData = pdfData
+            };
+
+            // Adicionar ao contexto e salvar
+            _context.Autorizacao.Add(autorizacao);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index"); // Redirecionar para onde você quiser
+        }
+
+        private byte[] GeneratePdf(Protocolo protocolo)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                // Criar o PDF
+                using (var writer = new PdfWriter(memoryStream))
+                {
+                    using (var pdf = new PdfDocument(writer))
+                    {
+                        var document = new Document(pdf);
+                        document.Add(new Paragraph("Autorização"));
+                        document.Add(new Paragraph($"ID do Protocolo: {protocolo.idProtocolo}"));
+                        document.Add(new Paragraph($"Data: {DateTime.Now}"));
+                        // Adicione mais informações conforme necessário
+                    }
+                }
+                return memoryStream.ToArray(); // Retorna o PDF como um array de bytes
+            }
         }
 
         // GET: Autorizacaos/Edit/5

@@ -11,5 +11,7 @@ namespace pdtcc_doc_academy.Models
         [ForeignKey("fk_prot")]
         public int fk_prot { get; set; }
         public virtual Protocolo Protocolo { get; set; }
+
+        public byte[] PdfData { get; set; }
     }
 }
