@@ -60,7 +60,7 @@ namespace pdtcc_doc_academy.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Aluno")] // Somente Alunos podem criar protocolos
+        [Authorize(Roles = "Escola")] // Somente Alunos podem criar protocolos
         public async Task<IActionResult> Create(int selectedOption, int idFuncionario)
         {
             // Buscar o ID do aluno a partir das claims

@@ -74,37 +74,14 @@ namespace pdtcc_doc_academy.Repositories
                 .WithMany(u => u.escolas)
                 .HasForeignKey(e => e.fk_usuario);
 
+
+
+            modelBuilder.Entity<Autorizacao>()
+                .HasOne(p => p.Protocolo)
+                .WithMany(aut => aut.autorizacao)
+                .HasForeignKey(p => p.fk_prot);
+
             base.OnModelCreating(modelBuilder);
-
-            //    modelBuilder.Entity<Protocolo>().HasKey(p => p.idProtocolo);
-
-            //    // Configurando sem chaves estrangeiras explícitas
-            //    modelBuilder.Entity<Protocolo>()
-            //        .HasOne(p => p.Aluno)
-            //        .WithMany(a => a.Protocolos)
-            //        .HasForeignKey(p => p.fk_aluno);
-
-            //    modelBuilder.Entity<Protocolo>()
-            //        .HasOne(p => p.Funcionario)
-            //        .WithMany(f => f.Protocolos)
-            //        .HasForeignKey(p => p.fk_func);
-
-            //    //ALUNO
-
-
-            //    modelBuilder.Entity<AlunoSerie>()
-            //        .HasKey(ase => new { ase.IdAluno, ase.IdSerie });
-
-            //    //Configurar relacionamento NxN entre Alunos e Serie
-            //    modelBuilder.Entity<AlunoSerie>()
-            //        .HasOne(ase => ase.Aluno)
-            //        .WithMany(a => a.AlunoSeries)
-            //        .HasForeignKey(ase => ase.IdAluno);
-
-            //    modelBuilder.Entity<AlunoSerie>()
-            //        .HasOne(ase => ase.Serie)
-            //        .WithMany(a => a.AlunoSeries)
-            //        .HasForeignKey(ase => ase.IdSerie);
         }
 
     }

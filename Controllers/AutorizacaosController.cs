@@ -7,6 +7,7 @@ using iText.Layout;
 using iText.Layout.Element;
 using pdtcc_doc_academy.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace pdtcc_doc_academy.Controllers
 {
@@ -26,13 +27,12 @@ namespace pdtcc_doc_academy.Controllers
             return View(autorizacao);
         }
 
-        // Exemplo de método que gera um PDF
+        // Ação para gerar e baixar o PDF
         [HttpGet("autorizacao/download/{id}")]
-        public async Task<IActionResult> DownloadPdf(int id)
+        [Authorize(Roles = "Aluno")]
+        public async Task<IActionResult> DownloadPdfAsync(int id)
         {
-            // Aqui você pode buscar dados do banco de dados se necessário
-            // var autorizacao = _context.Autorizacoes.Find(id);
-            // Se você não precisa de dados do banco, pode criar um PDF genérico
+
 
             using (var stream = new MemoryStream())
             {
@@ -42,14 +42,16 @@ namespace pdtcc_doc_academy.Controllers
                     using (var pdf = new PdfDocument(writer))
                     {
                         var document = new Document(pdf);
-                        document.Add(new Paragraph("Este é um PDF gerado dinamicamente."));
-                        document.Add(new Paragraph($"ID da Autorização: {id}"));
-                        // Adicione mais conteúdo conforme necessário
+                        document.Add(new Paragraph("Documento de Autorização"));
+                        document.Add(new Paragraph($"ID: {aluno.idAluno}"));
+                        document.Add(new Paragraph($"Nome: {dados.Nome}"));
+                        document.Add(new Paragraph($"Data: {dados.Data}"));
+                        document.Add(new Paragraph($"Descrição: {dados.Descricao}"));
                     }
                 }
 
                 // Retorne o PDF como um arquivo
-                var fileName = $"Autorizacao_{id}.pdf";
+                var fileName = $"Autorizacao_{dados.idAutorizacao}.pdf";
                 return File(stream.ToArray(), "application/pdf", fileName);
             }
         }
