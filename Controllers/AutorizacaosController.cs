@@ -32,7 +32,22 @@ namespace pdtcc_doc_academy.Controllers
         [Authorize(Roles = "Aluno")]
         public async Task<IActionResult> DownloadPdfAsync(int id)
         {
-
+            var alunoViewModel = await _context.aluno
+                .Where(a => a.idAluno == id)
+                .Select(a => new AlunoAutorizacaoViewModel
+                {
+                    idAluno = a.idAluno,
+                    nomeAluno = a.nomeAluno,
+                    cpfAluno = a.cpfAluno,
+                    rgAluno = a.rgAluno,
+                    rmAluno = a.rmAluno,
+                    fk_usuario = a.fk_usuario,
+                    usuario = a.usuario,
+                    alunoCursos = a.alunoCursos,
+                    alunoSeries = a.alunoSeries,
+                    protocolos = a.protocolos
+                })
+                .FirstOrDefaultAsync();
 
             using (var stream = new MemoryStream())
             {
@@ -43,15 +58,17 @@ namespace pdtcc_doc_academy.Controllers
                     {
                         var document = new Document(pdf);
                         document.Add(new Paragraph("Documento de Autorização"));
-                        document.Add(new Paragraph($"ID: {aluno.idAluno}"));
-                        document.Add(new Paragraph($"Nome: {dados.Nome}"));
-                        document.Add(new Paragraph($"Data: {dados.Data}"));
-                        document.Add(new Paragraph($"Descrição: {dados.Descricao}"));
+                        document.Add(new Paragraph($"ID: {alunoViewModel.idAluno}"));
+                        document.Add(new Paragraph($"Nome: {alunoViewModel.nomeAluno}"));
+                        document.Add(new Paragraph($"CPF: {alunoViewModel.cpfAluno}"));
+                        document.Add(new Paragraph($"RG: {alunoViewModel.rgAluno}"));
+                        document.Add(new Paragraph($"RM: {alunoViewModel.rmAluno}"));
+                        // Adicione mais informações do aluno aqui, se necessário
                     }
                 }
 
                 // Retorne o PDF como um arquivo
-                var fileName = $"Autorizacao_{dados.idAutorizacao}.pdf";
+                var fileName = $"Autorizacao_{alunoViewModel.idAluno}.pdf";
                 return File(stream.ToArray(), "application/pdf", fileName);
             }
         }
