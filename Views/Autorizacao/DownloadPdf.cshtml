@@ -1,0 +1,25 @@
+﻿@model IEnumerable<pdtcc_doc_academy.Models.Autorizacao>
+
+<h2>Lista de Autorizações</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Data de Autorização</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.idAutorizacao</td>
+                <td>@item.data_aut?.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <a href="@Url.Action("DownloadPdf", "Autorizacao", new { id = item.idAutorizacao })">Baixar PDF</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
