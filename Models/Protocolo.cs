@@ -20,7 +20,5 @@ namespace pdtcc_doc_academy.Models
         public Funcionario funcionario { get; set; }
 
 
-        public ICollection<Autorizacao> autorizacaos { get; set; }
-
     }
 }
