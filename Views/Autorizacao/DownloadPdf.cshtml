@@ -1,10 +1,28 @@
 ﻿@model pdtcc_doc_academy.Models.AlunoAutorizacao
 
-<h2>Detalhes do Aluno</h2>
+@{
+    ViewData["Title"] = "Download de Autorização";
+}
 
-<p>ID: @Model.idAluno</p>
-<p>Nome: @Model.nomeAluno</p>
+<h2>@ViewData["Title"]</h2>
 
-<a asp-action="DownloadPdfAsync" asp-route-id="@Model.idAluno" class="btn btn-primary">
-    Baixar Documento PDF
-</a>
+<div>
+    <h3>Informações do Aluno</h3>
+    <p><strong>ID do Aluno:</strong> @Model.idAluno</p>
+    <p><strong>Nome:</strong> @Model.nomeAluno</p>
+    <p><strong>CPF:</strong> @Model.cpfAluno</p>
+    <p><strong>RG:</strong> @Model.rgAluno</p>
+    <p><strong>RM:</strong> @Model.rmAluno</p>
+</div>
+
+<div>
+    <h3>Informações da Autorização</h3>
+    <p><strong>ID da Autorização:</strong> @Model.idAutorizacao</p>
+    <p><strong>Data da Autorização:</strong> @Model.data_aut?.ToString("dd/MM/yyyy") ?? "N/A"</p>
+</div>
+
+<div>
+    <a asp-controller="Autorizacao" asp-action="DownloadPdf/{@Model.idAluno}" class="btn btn-primary">
+        Baixar PDF
+    </a>
+</div>

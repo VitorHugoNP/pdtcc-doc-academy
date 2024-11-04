@@ -32,8 +32,9 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.idProtocolo">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-    <a href="@Url.Action("DownloadPdf", "Autorizacao")">Baixar PDF</a>
+    <a asp-action="Index">Back to List</a> |
+    <a asp-action="DownloadPdf" asp-controller="Autorizacao" asp-route-id="@Model.idProtocolo">Baixar PDF</a>
+    @* <a href="@Url.Action("DownloadPdf/{@Model.fk_aluno", "Autorizacao")">Baixar PDF</a> *@
 </div>
 
 

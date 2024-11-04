@@ -10,7 +10,7 @@ namespace pdtcc_doc_academy.Models
         public int idComunicados { get; set; }
         [Required]
         public DateTime data_comunicado { get; set; }
-        public int fk_Prot {  get; set; }
+        public int fk_prot {  get; set; }
         public virtual Protocolo Protocolo { get; set; }
     }
 }

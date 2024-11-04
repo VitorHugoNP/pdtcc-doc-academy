@@ -9,6 +9,7 @@ using pdtcc_doc_academy.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
+using Org.BouncyCastle.Security;
 
 namespace pdtcc_doc_academy.Controllers
 {
@@ -21,31 +22,20 @@ namespace pdtcc_doc_academy.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> DownloadPdf()
-        {
-            var autorizacao = await _context.Autorizacao.ToListAsync();
-            return View(autorizacao);
-        }
-
         // Ação para gerar e baixar o PDF
-        [HttpGet("autorizacao/download/{id}")]
-        [Authorize(Roles = "Aluno")]
-        public async Task<IActionResult> DownloadPdfAsync(int id)
+        [HttpGet("autorizacao/downloadPdf/{idAutorizacao}")]
+        [Authorize(Roles = "Escola")]
+        public async Task<IActionResult> DownloadPdfAsync(int idAutorizacao)
         {
-            // Buscando o aluno com base no ID
-            var alunos = await _context.aluno.FindAsync(id);
+            // Buscando o aluno pelo ID
+            
+            Autorizacao autorizacao = await _context.Autorizacao.FirstOrDefaultAsync(a => a.idAutorizacao == idAutorizacao);
+            
+            Protocolo protocolo = await _context.Protocolo.FirstOrDefaultAsync(p => p.idProtocolo == autorizacao.fk_prot);
 
-            // Buscando a autorização com base no ID do aluno
-            var autorizacaoEncontrada = await _context.Autorizacao.FirstOrDefaultAsync(a => a.fk_prot == id); // Ajuste conforme necessário
-
-            // Verifica se o aluno ou a autorização foram encontrados
-            if (alunos == null || autorizacaoEncontrada == null)
-            {
-                return NotFound();
-            }
-
-            // Prepara o modelo para o PDF
+            Alunos alunos = await _context.aluno.FirstOrDefaultAsync(x => x.idAluno == protocolo.fk_aluno);
+            
+            // Preenchendo o ViewModel
             var viewModel = new AlunoAutorizacao
             {
                 idAluno = alunos.idAluno,
@@ -53,8 +43,8 @@ namespace pdtcc_doc_academy.Controllers
                 cpfAluno = alunos.cpfAluno,
                 rgAluno = alunos.rgAluno,
                 rmAluno = alunos.rmAluno,
-                idAutorizacao = autorizacaoEncontrada.idAutorizacao,
-                data_aut = autorizacaoEncontrada.data_aut,
+                idAutorizacao = autorizacao.idAutorizacao,
+                data_aut = autorizacao?.data_aut
             };
 
             using (var stream = new MemoryStream())
@@ -66,12 +56,13 @@ namespace pdtcc_doc_academy.Controllers
                     {
                         var document = new Document(pdf);
                         document.Add(new Paragraph("Documento de Autorização"));
-                        document.Add(new Paragraph($"ID: {viewModel.idAluno}"));
+                        document.Add(new Paragraph($"ID do Aluno: {viewModel.idAluno}"));
                         document.Add(new Paragraph($"Nome: {viewModel.nomeAluno}"));
                         document.Add(new Paragraph($"CPF: {viewModel.cpfAluno}"));
                         document.Add(new Paragraph($"RG: {viewModel.rgAluno}"));
                         document.Add(new Paragraph($"RM: {viewModel.rmAluno}"));
-                        // Adicione mais informações do aluno aqui, se necessário
+                        document.Add(new Paragraph($"ID da Autorização: {viewModel.idAutorizacao}"));
+                        document.Add(new Paragraph($"Data da Autorização: {viewModel.data_aut?.ToString("dd/MM/yyyy") ?? "N/A"}"));
                     }
                 }
 

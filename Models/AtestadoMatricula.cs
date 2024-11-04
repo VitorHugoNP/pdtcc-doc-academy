@@ -8,7 +8,7 @@ namespace pdtcc_doc_academy.Models
         [Key]
         public int IdAtest_mat { get; set; }
         [ForeignKey("fk_prot")]
-        private int fk_prot { get; set; }
+        public int fk_prot { get; set; }
         public virtual Protocolo Protocolo { get; set; }
     }
 }

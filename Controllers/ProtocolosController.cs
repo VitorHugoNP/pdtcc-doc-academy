@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing.Printing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -60,7 +61,7 @@ namespace pdtcc_doc_academy.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Escola")] // Somente Alunos podem criar protocolos
+        [Authorize(Roles = "Aluno")] // Somente Alunos podem criar protocolos
         public async Task<IActionResult> Create(int selectedOption, int idFuncionario)
         {
             // Buscar o ID do aluno a partir das claims
@@ -110,7 +111,14 @@ namespace pdtcc_doc_academy.Controllers
             _context.Add(protocolo);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Index", "Alunos", protocolo);
+            var atestadoMatricula = new AtestadoMatricula
+            {
+                fk_prot = protocolo.idProtocolo,
+            };
+            _context.Add(atestadoMatricula);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Alunos");
         }
 
 
@@ -119,11 +127,6 @@ namespace pdtcc_doc_academy.Controllers
 
             var funcionario = await _context.Funcionario.FindAsync(idFuncionario);
             var aluno = await _context.aluno.FindAsync(idAluno);
-            if (funcionario == null || aluno == null)
-            {
-                ModelState.AddModelError("", "Funcionario não encontrado");
-                return View();
-            }
 
             var protocolo = new Protocolo
             {
@@ -134,7 +137,14 @@ namespace pdtcc_doc_academy.Controllers
             _context.Add(protocolo);
             await _context.SaveChangesAsync();
 
-            return View("AutorizacaoView");
+            var autorizacao = new Autorizacao
+            {
+                data_aut = DateTime.Now,
+                fk_prot = protocolo.idProtocolo,
+            };
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Alunos");
         }
 
         private async Task<IActionResult> HandleComunicado(int idFuncionario, int idAluno)
@@ -157,7 +167,14 @@ namespace pdtcc_doc_academy.Controllers
              _context.Add(protocolo);
             await _context.SaveChangesAsync();
 
-            return View("ComunicadoView");
+            var comunicados = new Comunicados
+            {
+                data_comunicado = DateTime.Now,
+                fk_prot = protocolo.idProtocolo,
+            };
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Alunos");
         }
 
 
