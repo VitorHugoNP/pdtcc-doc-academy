@@ -27,14 +27,31 @@ namespace pdtcc_doc_academy.Controllers
         [Authorize(Roles = "Escola")]
         public async Task<IActionResult> DownloadPdfAsync(int idProcolo)
         {
-            // Buscando o aluno pelo ID
-            
+            // Buscando a autorização pelo ID do protocolo
             Autorizacao autorizacao = await _context.Autorizacao.FirstOrDefaultAsync(a => a.fk_prot == idProcolo);
-            
+
+            // Verifica se a autorização foi encontrada
+            if (autorizacao == null)
+            {
+                return NotFound("Autorização não encontrada.");
+            }
+
             Protocolo protocolo = await _context.Protocolo.FirstOrDefaultAsync(p => p.idProtocolo == autorizacao.fk_prot);
 
+            // Verifica se o protocolo foi encontrado
+            if (protocolo == null)
+            {
+                return NotFound("Protocolo não encontrado.");
+            }
+
             Alunos alunos = await _context.aluno.FirstOrDefaultAsync(x => x.idAluno == protocolo.fk_aluno);
-            
+
+            // Verifica se o aluno foi encontrado
+            if (alunos == null)
+            {
+                return NotFound("Aluno não encontrado.");
+            }
+
             // Preenchendo o ViewModel
             var viewModel = new AlunoAutorizacao
             {
@@ -44,7 +61,7 @@ namespace pdtcc_doc_academy.Controllers
                 rgAluno = alunos.rgAluno,
                 rmAluno = alunos.rmAluno,
                 idAutorizacao = autorizacao.idAutorizacao,
-                data_aut = autorizacao?.data_aut
+                data_aut = autorizacao.data_aut // Não precisa do operador de coalescência aqui, pois já verificamos que autorizacao não é null
             };
 
             using (var stream = new MemoryStream())
