@@ -23,13 +23,13 @@ namespace pdtcc_doc_academy.Controllers
         }
 
         // Ação para gerar e baixar o PDF
-        [HttpGet("autorizacao/downloadPdf/{idAutorizacao}")]
+        [HttpGet("autorizacao/downloadPdf/{idProcolo}")]
         [Authorize(Roles = "Escola")]
-        public async Task<IActionResult> DownloadPdfAsync(int idAutorizacao)
+        public async Task<IActionResult> DownloadPdfAsync(int idProcolo)
         {
             // Buscando o aluno pelo ID
             
-            Autorizacao autorizacao = await _context.Autorizacao.FirstOrDefaultAsync(a => a.idAutorizacao == idAutorizacao);
+            Autorizacao autorizacao = await _context.Autorizacao.FirstOrDefaultAsync(a => a.fk_prot == idProcolo);
             
             Protocolo protocolo = await _context.Protocolo.FirstOrDefaultAsync(p => p.idProtocolo == autorizacao.fk_prot);
 

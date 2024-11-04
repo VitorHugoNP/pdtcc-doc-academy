@@ -111,7 +111,7 @@ namespace pdtcc_doc_academy.Controllers
             _context.Add(protocolo);
             await _context.SaveChangesAsync();
 
-            var atestadoMatricula = new AtestadoMatricula
+            var atestadoMatricula = new Atestado_Matricula
             {
                 fk_prot = protocolo.idProtocolo,
             };
@@ -142,6 +142,7 @@ namespace pdtcc_doc_academy.Controllers
                 data_aut = DateTime.Now,
                 fk_prot = protocolo.idProtocolo,
             };
+            _context.Add(autorizacao);
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index", "Alunos");

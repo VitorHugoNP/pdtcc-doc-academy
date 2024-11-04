@@ -54,7 +54,7 @@ namespace pdtcc_doc_academy.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdAtest_mat")] AtestadoMatricula atestadoMatricula)
+        public async Task<IActionResult> Create([Bind("IdAtest_mat")] Atestado_Matricula atestadoMatricula)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace pdtcc_doc_academy.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdAtest_mat")] AtestadoMatricula atestadoMatricula)
+        public async Task<IActionResult> Edit(int id, [Bind("IdAtest_mat")] Atestado_Matricula atestadoMatricula)
         {
             if (id != atestadoMatricula.IdAtest_mat)
             {

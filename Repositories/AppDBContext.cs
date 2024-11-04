@@ -9,7 +9,7 @@ namespace pdtcc_doc_academy.Repositories
         public AppDBContext(DbContextOptions<AppDBContext> options) : base(options) { }
 
         public DbSet<Alunos> aluno { get; set; }
-        public DbSet<AtestadoMatricula> Atestado_Matricula { get; set; }
+        public DbSet<Atestado_Matricula> Atestado_Matricula { get; set; }
         public DbSet<Autorizacao> Autorizacao { get; set; }
         public DbSet<Comunicados> Comunicado { get; set; }
         public DbSet<Escola> Escola { get; set; }
@@ -79,6 +79,11 @@ namespace pdtcc_doc_academy.Repositories
             modelBuilder.Entity<Autorizacao>()
                 .HasOne(p => p.Protocolo)
                 .WithMany(aut => aut.autorizacao)
+                .HasForeignKey(p => p.fk_prot);
+
+            modelBuilder.Entity<Atestado_Matricula>()
+                .HasOne(p => p.Protocolo)
+                .WithMany(at => at.Atestado_Matricula)
                 .HasForeignKey(p => p.fk_prot);
 
             base.OnModelCreating(modelBuilder);

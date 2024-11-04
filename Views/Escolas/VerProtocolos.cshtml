@@ -26,6 +26,7 @@
                 <td>@protocolo.funcionario?.nome_func</td> <!-- Supondo que você tenha uma propriedade Nome no modelo Funcionario -->
                 <td>
                     <a href="@Url.Action("Details", "Protocolos", new { id = protocolo.idProtocolo })">Ver Detalhes</a>
+                    <a href="@Url.Action("Details", "Protocolos", new { id = protocolo.idProtocolo })">baixar PDF</a>
                 </td>
             </tr>
         }

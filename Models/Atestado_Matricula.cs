@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace pdtcc_doc_academy.Models
 {
-    public class AtestadoMatricula
+    public class Atestado_Matricula
     {
         [Key]
         public int IdAtest_mat { get; set; }
         [ForeignKey("fk_prot")]
         public int fk_prot { get; set; }
-        public virtual Protocolo Protocolo { get; set; }
+        public Protocolo Protocolo { get; set; }
     }
 }

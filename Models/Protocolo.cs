@@ -20,6 +20,7 @@ namespace pdtcc_doc_academy.Models
         public Funcionario funcionario { get; set; }
 
         public ICollection<Autorizacao> autorizacao { get; set; }
+        public ICollection<Atestado_Matricula> Atestado_Matricula { get; set; }
 
     }
 }
