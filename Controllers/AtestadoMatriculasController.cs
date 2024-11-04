@@ -22,7 +22,7 @@ namespace pdtcc_doc_academy.Controllers
         // GET: AtestadoMatriculas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.AtestadoMatricula.ToListAsync());
+            return View(await _context.Atestado_Matricula.ToListAsync());
         }
 
         // GET: AtestadoMatriculas/Details/5
@@ -33,7 +33,7 @@ namespace pdtcc_doc_academy.Controllers
                 return NotFound();
             }
 
-            var atestadoMatricula = await _context.AtestadoMatricula
+            var atestadoMatricula = await _context.Atestado_Matricula
                 .FirstOrDefaultAsync(m => m.IdAtest_mat == id);
             if (atestadoMatricula == null)
             {
@@ -73,7 +73,7 @@ namespace pdtcc_doc_academy.Controllers
                 return NotFound();
             }
 
-            var atestadoMatricula = await _context.AtestadoMatricula.FindAsync(id);
+            var atestadoMatricula = await _context.Atestado_Matricula.FindAsync(id);
             if (atestadoMatricula == null)
             {
                 return NotFound();
@@ -124,7 +124,7 @@ namespace pdtcc_doc_academy.Controllers
                 return NotFound();
             }
 
-            var atestadoMatricula = await _context.AtestadoMatricula
+            var atestadoMatricula = await _context.Atestado_Matricula
                 .FirstOrDefaultAsync(m => m.IdAtest_mat == id);
             if (atestadoMatricula == null)
             {
@@ -139,10 +139,10 @@ namespace pdtcc_doc_academy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var atestadoMatricula = await _context.AtestadoMatricula.FindAsync(id);
+            var atestadoMatricula = await _context.Atestado_Matricula.FindAsync(id);
             if (atestadoMatricula != null)
             {
-                _context.AtestadoMatricula.Remove(atestadoMatricula);
+                _context.Atestado_Matricula.Remove(atestadoMatricula);
             }
 
             await _context.SaveChangesAsync();
@@ -151,7 +151,7 @@ namespace pdtcc_doc_academy.Controllers
 
         private bool AtestadoMatriculaExists(int id)
         {
-            return _context.AtestadoMatricula.Any(e => e.IdAtest_mat == id);
+            return _context.Atestado_Matricula.Any(e => e.IdAtest_mat == id);
         }
     }
 }
