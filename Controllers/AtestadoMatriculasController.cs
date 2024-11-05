@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using iText.Kernel.Pdf;
+using iText.Layout.Element;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -43,26 +46,69 @@ namespace pdtcc_doc_academy.Controllers
             return View(atestadoMatricula);
         }
 
-        // GET: AtestadoMatriculas/Create
-        public IActionResult Create()
+        // Ação para gerar e baixar o PDF
+        [HttpGet("autorizacao/downloadPdf/{idProcolo}")]
+        [Authorize(Roles = "Escola")]
+        public async Task<IActionResult> DownloadComunicadoPdfAsync(int idProcolo)
         {
-            return View();
-        }
+            // Buscando a autorização pelo ID do protocolo
+            Atestado_Matricula atestado_Matricula = await _context.Atestado_Matricula.FirstOrDefaultAsync(a => a.fk_prot == idProcolo);
 
-        // POST: AtestadoMatriculas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdAtest_mat")] Atestado_Matricula atestadoMatricula)
-        {
-            if (ModelState.IsValid)
+            // Verifica se a autorização foi encontrada
+            if (atestado_Matricula == null)
             {
-                _context.Add(atestadoMatricula);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return NotFound("Autorização não encontrada.");
             }
-            return View(atestadoMatricula);
+
+            Protocolo protocolo = await _context.Protocolo.FirstOrDefaultAsync(p => p.idProtocolo == atestado_Matricula.fk_prot);
+
+            // Verifica se o protocolo foi encontrado
+            if (protocolo == null)
+            {
+                return NotFound("Protocolo não encontrado.");
+            }
+
+            Alunos alunos = await _context.aluno.FirstOrDefaultAsync(x => x.idAluno == protocolo.fk_aluno);
+
+            // Verifica se o aluno foi encontrado
+            if (alunos == null)
+            {
+                return NotFound("Aluno não encontrado.");
+            }
+
+            // Preenchendo o ViewModel
+            var viewModel = new AlunoAtestadoMatricula
+            {
+                idAluno = alunos.idAluno,
+                nomeAluno = alunos.nomeAluno,
+                cpfAluno = alunos.cpfAluno,
+                rgAluno = alunos.rgAluno,
+                rmAluno = alunos.rmAluno,
+                IdAtest_mat = atestado_Matricula.IdAtest_mat
+            };
+
+            using (var stream = new MemoryStream())
+            {
+                // Criação do PDF
+                using (var writer = new PdfWriter(stream))
+                {
+                    using (var pdf = new PdfDocument(writer))
+                    {
+                        var document = new Document(pdf);
+                        document.Add(new Paragraph("Documento de Autorização"));
+                        document.Add(new Paragraph($"ID do Aluno: {viewModel.idAluno}"));
+                        document.Add(new Paragraph($"Nome: {viewModel.nomeAluno}"));
+                        document.Add(new Paragraph($"CPF: {viewModel.cpfAluno}"));
+                        document.Add(new Paragraph($"RG: {viewModel.rgAluno}"));
+                        document.Add(new Paragraph($"RM: {viewModel.rmAluno}"));
+                        document.Add(new Paragraph($"ID da Autorização: {viewModel.IdAtest_mat}"));
+                    }
+                }
+
+                // Retorne o PDF como um arquivo
+                var fileName = $"Autorizacao_{viewModel.idAluno}.pdf";
+                return File(stream.ToArray(), "application/pdf", fileName);
+            }
         }
 
         // GET: AtestadoMatriculas/Edit/5

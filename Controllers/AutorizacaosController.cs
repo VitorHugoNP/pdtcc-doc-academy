@@ -25,7 +25,7 @@ namespace pdtcc_doc_academy.Controllers
         // Ação para gerar e baixar o PDF
         [HttpGet("autorizacao/downloadPdf/{idProcolo}")]
         [Authorize(Roles = "Escola")]
-        public async Task<IActionResult> DownloadPdfAsync(int idProcolo)
+        public async Task<IActionResult> DownloadAutorizacaoPdfAsync(int idProcolo)
         {
             // Buscando a autorização pelo ID do protocolo
             Autorizacao autorizacao = await _context.Autorizacao.FirstOrDefaultAsync(a => a.fk_prot == idProcolo);
