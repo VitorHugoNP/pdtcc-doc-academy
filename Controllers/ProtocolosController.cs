@@ -61,7 +61,8 @@ namespace pdtcc_doc_academy.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Aluno")] // Somente Alunos podem criar protocolos
+        [Authorize(Roles = "Aluno")]
+        [Authorize(Roles = "Funcionario")]// Somente Alunos e Funcionarios podem criar protocolos
         public async Task<IActionResult> Create(int selectedOption, int idFuncionario)
         {
             // Buscar o ID do aluno a partir das claims
@@ -97,30 +98,45 @@ namespace pdtcc_doc_academy.Controllers
 
             if (aluno == null)
             {
-                ModelState.AddModelError("", "Funcionário ou Aluno não encontrado");
-                return View();
+                var protocolo = new Protocolo
+                {
+                    tipo_Doc = "Atestado Matricula",
+                    fk_aluno = 1,
+                    fk_func = funcionario.idFuncionario
+                };
+
+                 _context.Add(protocolo);
+                 await _context.SaveChangesAsync();
+
+                var atestadoMatricula = new Atestado_Matricula
+                {
+                    fk_prot = protocolo.idProtocolo,
+                };
+                _context.Add(atestadoMatricula);
+                await _context.SaveChangesAsync();
+            } 
+            else if (funcionario == null)
+            {
+                var protocolo = new Protocolo
+                {
+                    tipo_Doc = "Atestado Matricula",
+                    fk_aluno = aluno.idAluno,
+                    fk_func = 1
+                };
+
+                _context.Add(protocolo);
+                await _context.SaveChangesAsync();
+
+                var atestadoMatricula = new Atestado_Matricula
+                {
+                    fk_prot = protocolo.idProtocolo,
+                };
+                _context.Add(atestadoMatricula);
+                await _context.SaveChangesAsync();
             }
-
-            var protocolo = new Protocolo
-            {
-                tipo_Doc = "Atestado Matricula",
-                fk_aluno = aluno.idAluno,
-                fk_func = 1
-            };
-
-            _context.Add(protocolo);
-            await _context.SaveChangesAsync();
-
-            var atestadoMatricula = new Atestado_Matricula
-            {
-                fk_prot = protocolo.idProtocolo,
-            };
-            _context.Add(atestadoMatricula);
-            await _context.SaveChangesAsync();
 
             return RedirectToAction("Index", "Alunos");
         }
-
 
         private async Task<IActionResult> HandleAutorizacao(int idFuncionario, int idAluno)
         {
@@ -128,24 +144,52 @@ namespace pdtcc_doc_academy.Controllers
             var funcionario = await _context.Funcionario.FindAsync(idFuncionario);
             var aluno = await _context.aluno.FindAsync(idAluno);
 
-            var protocolo = new Protocolo
+            if (aluno == null)
             {
-                tipo_Doc = "Autorização",
-                fk_aluno = aluno.idAluno,
-                fk_func = 1
-            };
-            _context.Add(protocolo);
-            await _context.SaveChangesAsync();
+                var protocolo = new Protocolo
+                {
+                    tipo_Doc = "Atestado Matricula",
+                    fk_aluno = 1,
+                    fk_func = funcionario.idFuncionario
+                };
 
-            var autorizacao = new Autorizacao
+                _context.Add(protocolo);
+                await _context.SaveChangesAsync();
+
+                var autorizacao = new Autorizacao
+                {
+                    fk_prot = protocolo.idProtocolo,
+                    data_aut = DateTime.UtcNow
+                };
+                _context.Add(autorizacao);
+                await _context.SaveChangesAsync();
+
+            }
+            else if (funcionario == null)
             {
-                data_aut = DateTime.Now,
-                fk_prot = protocolo.idProtocolo,
-            };
-            _context.Add(autorizacao);
-            await _context.SaveChangesAsync();
+                var protocolo = new Protocolo
+                {
+                    tipo_Doc = "Atestado Matricula",
+                    fk_aluno = aluno.idAluno,
+                    fk_func = 1
+                };
+
+                _context.Add(protocolo);
+                await _context.SaveChangesAsync();
+
+                var autorizacao = new Autorizacao
+                {
+                    fk_prot = protocolo.idProtocolo,
+                    data_aut = DateTime.UtcNow
+                };
+                _context.Add(autorizacao);
+                await _context.SaveChangesAsync();
+
+
+            }
 
             return RedirectToAction("Index", "Alunos");
+
         }
 
         private async Task<IActionResult> HandleComunicado(int idFuncionario, int idAluno)
@@ -153,29 +197,52 @@ namespace pdtcc_doc_academy.Controllers
 
             var funcionario = await _context.Funcionario.FindAsync(idFuncionario);
             var aluno = await _context.aluno.FindAsync(idAluno);
-            if (funcionario == null || aluno == null)
+            if (aluno == null)
             {
-                ModelState.AddModelError("", "Funcionario não encontrado");
-                return View();
+                var protocolo = new Protocolo
+                {
+                    tipo_Doc = "Atestado Matricula",
+                    fk_aluno = 1,
+                    fk_func = funcionario.idFuncionario
+                };
+
+                _context.Add(protocolo);
+                await _context.SaveChangesAsync();
+
+                var comunicado = new Comunicados
+                {
+                    fk_prot = protocolo.idProtocolo,
+                    data_comunicado = DateTime.UtcNow
+                };
+                _context.Add(comunicado);
+                await _context.SaveChangesAsync();
+
+            }
+            else if (funcionario == null)
+            {
+                var protocolo = new Protocolo
+                {
+                    tipo_Doc = "Atestado Matricula",
+                    fk_aluno = aluno.idAluno,
+                    fk_func = 1
+                };
+
+                _context.Add(protocolo);
+                await _context.SaveChangesAsync();
+
+                var comunicado = new Comunicados
+                {
+                    fk_prot = protocolo.idProtocolo,
+                    
+                };
+                _context.Add(comunicado);
+                await _context.SaveChangesAsync();
+
+
             }
 
-            var protocolo = new Protocolo
-            {
-                tipo_Doc = "Comunicado",
-                fk_aluno = aluno.idAluno,
-                fk_func = 1
-            };
-             _context.Add(protocolo);
-            await _context.SaveChangesAsync();
-
-            var comunicados = new Comunicados
-            {
-                data_comunicado = DateTime.Now,
-                fk_prot = protocolo.idProtocolo,
-            };
-            await _context.SaveChangesAsync();
-
             return RedirectToAction("Index", "Alunos");
+
         }
 
 
