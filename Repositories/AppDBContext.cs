@@ -11,7 +11,7 @@ namespace pdtcc_doc_academy.Repositories
         public DbSet<Alunos> aluno { get; set; }
         public DbSet<Atestado_Matricula> Atestado_Matricula { get; set; }
         public DbSet<Autorizacao> Autorizacao { get; set; }
-        public DbSet<Comunicados> Comunicado { get; set; }
+        public DbSet<Comunicados> Comunicados { get; set; }
         public DbSet<Escola> Escola { get; set; }
         public DbSet<Funcionario> Funcionario { get; set; }
         public DbSet<Protocolo> Protocolo { get; set; }
@@ -84,6 +84,11 @@ namespace pdtcc_doc_academy.Repositories
             modelBuilder.Entity<Atestado_Matricula>()
                 .HasOne(p => p.Protocolo)
                 .WithMany(at => at.Atestado_Matricula)
+                .HasForeignKey(p => p.fk_prot);
+
+            modelBuilder.Entity<Comunicados>()
+                .HasOne(p => p.Protocolo)
+                .WithMany(com => com.comunicados)
                 .HasForeignKey(p => p.fk_prot);
 
             base.OnModelCreating(modelBuilder);

@@ -28,7 +28,7 @@ namespace pdtcc_doc_academy.Controllers
         // GET: Comunicados
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Comunicado.ToListAsync());
+            return View(await _context.Comunicados.ToListAsync());
         }
 
         // GET: Comunicados/Details/5
@@ -39,7 +39,7 @@ namespace pdtcc_doc_academy.Controllers
                 return NotFound();
             }
 
-            var comunicados = await _context.Comunicado
+            var comunicados = await _context.Comunicados
                 .FirstOrDefaultAsync(m => m.idComunicados == id);
             if (comunicados == null)
             {
@@ -49,73 +49,7 @@ namespace pdtcc_doc_academy.Controllers
             return View(comunicados);
         }
 
-        // GET: Comunicados/Create
-        // Ação para gerar e baixar o PDF
-        [HttpGet("autorizacao/downloadPdf/{idProcolo}")]
-        [Authorize(Roles = "Escola")]
-        public async Task<IActionResult> DownloadComunicadoPdfAsync(int idProcolo)
-        {
-            // Buscando a autorização pelo ID do protocolo
-            Comunicados comunicado = await _context.Comunicado.FirstOrDefaultAsync(a => a.fk_prot == idProcolo);
-
-            // Verifica se a autorização foi encontrada
-            if (comunicado == null)
-            {
-                return NotFound("Autorização não encontrada.");
-            }
-
-            Protocolo protocolo = await _context.Protocolo.FirstOrDefaultAsync(p => p.idProtocolo == comunicado.fk_prot);
-
-            // Verifica se o protocolo foi encontrado
-            if (protocolo == null)
-            {
-                return NotFound("Protocolo não encontrado.");
-            }
-
-            Alunos alunos = await _context.aluno.FirstOrDefaultAsync(x => x.idAluno == protocolo.fk_aluno);
-
-            // Verifica se o aluno foi encontrado
-            if (alunos == null)
-            {
-                return NotFound("Aluno não encontrado.");
-            }
-
-            // Preenchendo o ViewModel
-            var viewModel = new AlunoComunicado
-            {
-                idAluno = alunos.idAluno,
-                nomeAluno = alunos.nomeAluno,
-                cpfAluno = alunos.cpfAluno,
-                rgAluno = alunos.rgAluno,
-                rmAluno = alunos.rmAluno,
-                idComunicados = comunicado.idComunicados,
-                data_comunicado = comunicado.data_comunicado // Não precisa do operador de coalescência aqui, pois já verificamos que autorizacao não é null
-            };
-
-            using (var stream = new MemoryStream())
-            {
-                // Criação do PDF
-                using (var writer = new PdfWriter(stream))
-                {
-                    using (var pdf = new PdfDocument(writer))
-                    {
-                        var document = new Document(pdf);
-                        document.Add(new Paragraph("Documento de Autorização"));
-                        document.Add(new Paragraph($"ID do Aluno: {viewModel.idAluno}"));
-                        document.Add(new Paragraph($"Nome: {viewModel.nomeAluno}"));
-                        document.Add(new Paragraph($"CPF: {viewModel.cpfAluno}"));
-                        document.Add(new Paragraph($"RG: {viewModel.rgAluno}"));
-                        document.Add(new Paragraph($"RM: {viewModel.rmAluno}"));
-                        document.Add(new Paragraph($"ID da Autorização: {viewModel.idComunicados}"));
-                        document.Add(new Paragraph($"Data da Autorização: {viewModel.data_comunicado.ToString("dd/MM/yyyy") ?? "N/A"}"));
-                    }
-                }
-
-                // Retorne o PDF como um arquivo
-                var fileName = $"Autorizacao_{viewModel.idAluno}.pdf";
-                return File(stream.ToArray(), "application/pdf", fileName);
-            }
-        }
+        
 
         // GET: Comunicados/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -125,7 +59,7 @@ namespace pdtcc_doc_academy.Controllers
                 return NotFound();
             }
 
-            var comunicados = await _context.Comunicado.FindAsync(id);
+            var comunicados = await _context.Comunicados.FindAsync(id);
             if (comunicados == null)
             {
                 return NotFound();
@@ -176,7 +110,7 @@ namespace pdtcc_doc_academy.Controllers
                 return NotFound();
             }
 
-            var comunicados = await _context.Comunicado
+            var comunicados = await _context.Comunicados
                 .FirstOrDefaultAsync(m => m.idComunicados == id);
             if (comunicados == null)
             {
@@ -191,10 +125,10 @@ namespace pdtcc_doc_academy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var comunicados = await _context.Comunicado.FindAsync(id);
+            var comunicados = await _context.Comunicados.FindAsync(id);
             if (comunicados != null)
             {
-                _context.Comunicado.Remove(comunicados);
+                _context.Comunicados.Remove(comunicados);
             }
 
             await _context.SaveChangesAsync();
@@ -203,7 +137,7 @@ namespace pdtcc_doc_academy.Controllers
 
         private bool ComunicadosExists(int id)
         {
-            return _context.Comunicado.Any(e => e.idComunicados == id);
+            return _context.Comunicados.Any(e => e.idComunicados == id);
         }
     }
 }
