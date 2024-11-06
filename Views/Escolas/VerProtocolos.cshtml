@@ -1,19 +1,13 @@
-﻿@model IEnumerable<pdtcc_doc_academy.Models.Protocolo> // Substitua pelo namespace correto do seu modelo
+﻿@model IEnumerable<pdtcc_doc_academy.Models.Protocolo>
 
-@{
-    ViewData["Title"] = "Protocolos";
-}
-
-<h1>@ViewData["Title"]</h1>
+<h2>Selecionar Protocolo</h2>
 
 <table class="table">
     <thead>
         <tr>
             <th>ID</th>
             <th>Tipo de Documento</th>
-            <th>Aluno</th>
-            <th>Funcionário</th>
-            <th>Ações</th>
+            <th>Ação</th>
         </tr>
     </thead>
     <tbody>
@@ -22,15 +16,11 @@
             <tr>
                 <td>@protocolo.idProtocolo</td>
                 <td>@protocolo.tipo_Doc</td>
-                <td>@protocolo.aluno?.nomeAluno</td> <!-- Supondo que você tenha uma propriedade Nome no modelo Aluno -->
-                <td>@protocolo.funcionario?.nome_func</td> <!-- Supondo que você tenha uma propriedade Nome no modelo Funcionario -->
                 <td>
-                    <a href="@Url.Action("Details", "Protocolos", new { id = protocolo.idProtocolo })">Ver Detalhes</a>
-                    <a href="@Url.Action("Details", "Protocolos", new { id = protocolo.idProtocolo })">baixar PDF</a>
+                    <a asp-controller="Protocolos" asp-action="DownloadPdf" asp-route-idProcolo="@protocolo.idProtocolo" class="btn btn-primary">Baixar PDF</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
 <a href="@Url.Action("Index", "Escolas")">Voltar</a>

@@ -351,10 +351,39 @@ namespace pdtcc_doc_academy.Controllers
 
 
 
+        //selecionar o tipo de documento
 
 
 
-        //fazer documentos em pdf
+        [HttpGet("downloadPdf/{idProcolo}")]
+        public async Task<IActionResult> DownloadPdfAsync(int idProcolo)
+        {
+            // Buscando o protocolo pelo ID
+            Protocolo protocolo = await _context.Protocolo.FirstOrDefaultAsync(p => p.idProtocolo == idProcolo);
+
+            // Verifica se o protocolo foi encontrado
+            if (protocolo == null)
+            {
+                return NotFound("Protocolo não encontrado.");
+            }
+
+            // Verifica o tipo de documento e redireciona para a ação correspondente
+            switch (protocolo.tipo_Doc)
+            {
+                case "Autorizacao":
+                    return await DownloadAutorizacaoPdfAsync(idProcolo);
+                case "Comunicado":
+                    return await DownloadComunicadoPdfAsync(idProcolo);
+                case "Atestado Matricula":
+                    return await DownloadAtestadoMatriculaPdfAsync(idProcolo);
+                default:
+                    return NotFound("Tipo de documento não suportado.");
+            }
+        }
+
+
+
+            //fazer documentos em pdf
 
 
 
@@ -362,7 +391,7 @@ namespace pdtcc_doc_academy.Controllers
 
 
 
-        //AUTORIZAÇÃO
+            //AUTORIZAÇÃO
         [HttpGet("autorizacao/downloadPdf/{idProcolo}")]
         [Authorize(Roles = "Escola")]
         public async Task<IActionResult> DownloadAutorizacaoPdfAsync(int idProcolo)
@@ -370,11 +399,6 @@ namespace pdtcc_doc_academy.Controllers
             // Buscando a autorização pelo ID do protocolo
             Autorizacao autorizacao = await _context.Autorizacao.FirstOrDefaultAsync(a => a.fk_prot == idProcolo);
 
-            // Verifica se a autorização foi encontrada
-            if (autorizacao == null)
-            {
-                return NotFound("Autorização não encontrada.");
-            }
 
             Protocolo protocolo = await _context.Protocolo.FirstOrDefaultAsync(p => p.idProtocolo == autorizacao.fk_prot);
 
@@ -385,17 +409,12 @@ namespace pdtcc_doc_academy.Controllers
             }
 
             Alunos alunos = await _context.aluno.FirstOrDefaultAsync(x => x.idAluno == protocolo.fk_aluno);
-
-            // Verifica se o aluno foi encontrado
-            if (alunos == null)
-            {
-                return NotFound("Aluno não encontrado.");
-            }
+            Funcionario funcionario = await _context.Funcionario.FirstOrDefaultAsync(f => f.idFuncionario == protocolo.fk_func);
+            
 
             // Preenchendo o ViewModel
             var viewModel = new AlunoAutorizacao
             {
-                idAluno = alunos.idAluno,
                 nomeAluno = alunos.nomeAluno,
                 cpfAluno = alunos.cpfAluno,
                 rgAluno = alunos.rgAluno,
@@ -481,7 +500,7 @@ namespace pdtcc_doc_academy.Controllers
                     using (var pdf = new PdfDocument(writer))
                     {
                         var document = new Document(pdf);
-                        document.Add(new Paragraph("Documento de Autorização"));
+                        document.Add(new Paragraph("Documento de Comunicado"));
                         document.Add(new Paragraph($"ID do Aluno: {viewModel.idAluno}"));
                         document.Add(new Paragraph($"Nome: {viewModel.nomeAluno}"));
                         document.Add(new Paragraph($"CPF: {viewModel.cpfAluno}"));
@@ -493,7 +512,7 @@ namespace pdtcc_doc_academy.Controllers
                 }
 
                 // Retorne o PDF como um arquivo
-                var fileName = $"Autorizacao_{viewModel.idAluno}.pdf";
+                var fileName = $"Comunicado_{viewModel.idAluno}.pdf";
                 return File(stream.ToArray(), "application/pdf", fileName);
             }
         }
@@ -548,7 +567,7 @@ namespace pdtcc_doc_academy.Controllers
                     using (var pdf = new PdfDocument(writer))
                     {
                         var document = new Document(pdf);
-                        document.Add(new Paragraph("Documento de Autorização"));
+                        document.Add(new Paragraph("Documento de Atestado Matricula"));
                         document.Add(new Paragraph($"ID do Aluno: {viewModel.idAluno}"));
                         document.Add(new Paragraph($"Nome: {viewModel.nomeAluno}"));
                         document.Add(new Paragraph($"CPF: {viewModel.cpfAluno}"));
@@ -559,7 +578,7 @@ namespace pdtcc_doc_academy.Controllers
                 }
 
                 // Retorne o PDF como um arquivo
-                var fileName = $"Autorizacao_{viewModel.idAluno}.pdf";
+                var fileName = $"Atestado_Matriculas_{viewModel.idAluno}.pdf";
                 return File(stream.ToArray(), "application/pdf", fileName);
             }
         }
