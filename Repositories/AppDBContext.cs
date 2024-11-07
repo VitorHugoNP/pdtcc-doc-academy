@@ -59,6 +59,10 @@ namespace pdtcc_doc_academy.Repositories
                 .HasForeignKey(p => p.fk_func)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            ///////////////////////////////////////
+
+            //aluno Série
+
             modelBuilder.Entity<AlunoSerie>()
                 .HasOne(al => al.Aluno)
                 .WithMany(a => a.alunoSeries)
@@ -68,6 +72,20 @@ namespace pdtcc_doc_academy.Repositories
                 .HasOne(al => al.Serie)
                 .WithMany(s => s.AlunoSeries)
                 .HasForeignKey(al => al.IdSerie);
+
+            //Aluno curso
+
+            modelBuilder.Entity<AlunoCurso>()
+                .HasOne(al => al.Aluno)
+                .WithMany(a => a.alunoCursos)
+                .HasForeignKey(al => al.IdAluno);
+
+            modelBuilder.Entity<AlunoCurso>()
+                .HasOne(ac => ac.Curso)
+                .WithMany(s => s.AlunoCursos)
+                .HasForeignKey(al => al.IdCurso);
+
+            ///////////////////////////////////////
 
             modelBuilder.Entity<Escola>()
                 .HasOne(e => e.usuario)
