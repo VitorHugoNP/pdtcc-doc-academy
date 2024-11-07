@@ -1,0 +1,20 @@
+﻿@model pdtcc_doc_academy.Models.Curso
+
+<h2>Editar Curso</h2>
+
+<form asp-action="Edit">
+    <div class="form-group">
+        <label asp-for="IdCurso" class="control-label"></label>
+        <input asp-for="IdCurso" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="nomecurso" class="control-label"></label>
+        <input asp-for="nomecurso" class="form-control" />
+        <span asp-validation-for="nomecurso" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Salvar" class="btn btn-primary" />
+    </div>
+</form>
+
+<a asp-action="Index" class="btn btn-secondary">Voltar</a>

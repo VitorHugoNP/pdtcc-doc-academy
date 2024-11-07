@@ -8,11 +8,11 @@ namespace pdtcc_doc_academy.Models
         [Required(ErrorMessage = "Por favor, informe o ID do aluno.")]
         [Display(Name = "ID do Aluno")]
         [Key]
-        public int IdAluno { get; set; }
+        public int fk_aluno { get; set; }
 
         [Required(ErrorMessage = "Por favor, informe o ID do curso.")]
         [Display(Name = "ID do Curso")]
-        public int IdCurso { get; set; }
+        public int fk_curso { get; set; }
 
         // Propriedades de navegação
         public Alunos Aluno { get; set; }

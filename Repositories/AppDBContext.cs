@@ -15,7 +15,7 @@ namespace pdtcc_doc_academy.Repositories
         public DbSet<Escola> Escola { get; set; }
         public DbSet<Funcionario> Funcionario { get; set; }
         public DbSet<Protocolo> Protocolo { get; set; }
-        public DbSet<AlunoCurso> AlunoCurso { get; set; }
+        public DbSet<AlunoCurso> aluno_curso { get; set; }
         public DbSet<Curso> Curso { get; set; }
         public DbSet<AlunoSerie> AlunoSerie { get; set; }
         public DbSet<Serie> Serie { get; set; }
@@ -78,7 +78,7 @@ namespace pdtcc_doc_academy.Repositories
             modelBuilder.Entity<AlunoCurso>()
                 .HasOne(al => al.Aluno)
                 .WithMany(a => a.alunoCursos)
-                .HasForeignKey(al => al.IdAluno);
+                .HasForeignKey(al => al.fk_aluno);
 
             modelBuilder.Entity<AlunoCurso>()
                 .HasOne(ac => ac.Curso)

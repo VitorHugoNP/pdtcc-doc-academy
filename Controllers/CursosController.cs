@@ -1,31 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using pdtcc_doc_academy.Models;
 using pdtcc_doc_academy.Repositories;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace pdtcc_doc_academy.Controllers
 {
-    public class CursosController : Controller
+    public class CursoController : Controller
     {
         private readonly AppDBContext _context;
 
-        public CursosController(AppDBContext context)
+        public CursoController(AppDBContext context)
         {
             _context = context;
         }
 
-        // GET: Cursoes
+        // GET: Curso
         public async Task<IActionResult> Index()
         {
             return View(await _context.Curso.ToListAsync());
         }
 
-        // GET: Cursoes/Details/5
+        // GET: Curso/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,29 +41,36 @@ namespace pdtcc_doc_academy.Controllers
             return View(curso);
         }
 
-        // GET: Cursoes/Create
+        // GET: Curso/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Cursoes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Curso/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdCurso,nomecurso")] Curso curso)
+        [Authorize(Roles = "Escola")]
+        public async Task<IActionResult> Create(Curso curso)
         {
-            if (ModelState.IsValid)
+
+            _context.Add(curso);
+            await _context.SaveChangesAsync();
+            
+
+            var alunoCurso = new AlunoCurso
             {
-                _context.Add(curso);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+                IdCurso = curso.IdCurso,
+                fk_aluno = 1
+            };
+            _context.Add(alunoCurso);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
             return View(curso);
         }
 
-        // GET: Cursoes/Edit/5
+        // GET: Curso/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,9 +86,7 @@ namespace pdtcc_doc_academy.Controllers
             return View(curso);
         }
 
-        // POST: Cursoes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Curso/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdCurso,nomecurso")] Curso curso)
@@ -116,7 +119,7 @@ namespace pdtcc_doc_academy.Controllers
             return View(curso);
         }
 
-        // GET: Cursoes/Delete/5
+        // GET: Curso/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,17 +137,13 @@ namespace pdtcc_doc_academy.Controllers
             return View(curso);
         }
 
-        // POST: Cursoes/Delete/5
+        // POST: Curso/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var curso = await _context.Curso.FindAsync(id);
-            if (curso != null)
-            {
-                _context.Curso.Remove(curso);
-            }
-
+            _context.Curso.Remove(curso);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
