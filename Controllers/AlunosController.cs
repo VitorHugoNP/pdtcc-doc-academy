@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -44,8 +45,9 @@ namespace pdtcc_doc_academy.Controllers
         }
 
         // GET: Alunos/Create
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAluno()
         {
+            ViewBag.Curso = await _context.Curso.ToListAsync();
             return View();
         }
 
@@ -54,6 +56,7 @@ namespace pdtcc_doc_academy.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Escola")]
         public async Task<IActionResult> CreateAluno([Bind("idAluno,nomeAluno,cpfAluno,rgAluno,rmAluno,emailAluno,senhaAluno")] Alunos alunos, int cursoId)
         {
             if (ModelState != null)
@@ -64,7 +67,7 @@ namespace pdtcc_doc_academy.Controllers
                     senhaUsuario = alunos.senhaAluno,
                     tipoUsuario = "Aluno"
                 };
-                _context.Add(usuario);
+                _context.AddAsync(usuario);
                 var result = await _context.SaveChangesAsync();
                 var aluno = new Alunos
                 {
@@ -76,6 +79,8 @@ namespace pdtcc_doc_academy.Controllers
                     rmAluno = alunos.rmAluno,                    
                     fk_usuario = usuario.idUsuario
                 };
+                _context.AddAsync(aluno);
+                await _context.SaveChangesAsync();
 
                 // Associar o aluno ao curso
                 var alunoCurso = new AlunoCurso
@@ -84,10 +89,7 @@ namespace pdtcc_doc_academy.Controllers
                     fk_curso = cursoId // ID do curso selecionado
                 };
 
-                _context.aluno_curso.Add(alunoCurso);
-                _context.SaveChanges();
-
-                _context.Add(aluno);                
+                _context.aluno_curso.AddAsync(alunoCurso);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

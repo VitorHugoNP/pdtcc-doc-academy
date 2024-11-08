@@ -8,7 +8,7 @@
 
 <p>
     <a asp-action="Create">Cadastrar Escola</a>
-    <a asp-action="CreateAluno">Cadastrar aluno</a>
+    <a asp-action="CreateAluno" asp-controller="Alunos">Cadastrar Aluno</a>
     <a href="@Url.Action("VerProtocolos", "Escolas")">Ver Protocolos</a>
     <a href="@Url.Action("Create", "Curso")"> criar </a>
 
