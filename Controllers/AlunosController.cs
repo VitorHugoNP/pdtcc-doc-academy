@@ -91,7 +91,7 @@ namespace pdtcc_doc_academy.Controllers
 
                 _context.aluno_curso.AddAsync(alunoCurso);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Escolas");
             }
             return View(alunos);
         }

@@ -63,6 +63,9 @@ namespace pdtcc_doc_academy.Repositories
 
             //aluno Série
 
+            modelBuilder.Entity<AlunoCurso>()
+            .HasKey(ac => new { ac.fk_aluno, ac.fk_curso }); // Chave primária composta
+
             modelBuilder.Entity<AlunoSerie>()
                 .HasOne(al => al.Aluno)
                 .WithMany(a => a.alunoSeries)
@@ -76,14 +79,17 @@ namespace pdtcc_doc_academy.Repositories
             //Aluno curso
 
             modelBuilder.Entity<AlunoCurso>()
-                .HasOne(al => al.Aluno)
-                .WithMany(a => a.alunoCursos)
-                .HasForeignKey(al => al.fk_aluno);
+                .HasKey(ac => new { ac.fk_aluno, ac.fk_curso }); // Chave primária composta
+
+            modelBuilder.Entity<AlunoCurso>()
+                .HasOne(ac => ac.Aluno)
+                .WithMany(a => a.alunoCursos) // Supondo que Alunos tenha uma coleção de AlunoCursos
+                .HasForeignKey(ac => ac.fk_aluno);
 
             modelBuilder.Entity<AlunoCurso>()
                 .HasOne(ac => ac.Curso)
-                .WithMany(s => s.AlunoCursos)
-                .HasForeignKey(al => al.fk_curso);
+                .WithMany(c => c.AlunoCursos) // Supondo que Curso tenha uma coleção de AlunoCursos
+                .HasForeignKey(ac => ac.fk_curso);
 
             ///////////////////////////////////////
 
