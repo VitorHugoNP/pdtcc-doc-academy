@@ -56,16 +56,6 @@ namespace pdtcc_doc_academy.Controllers
 
             _context.Add(curso);
             await _context.SaveChangesAsync();
-            
-
-            var alunoCurso = new AlunoCurso
-            {
-                IdCurso = curso.IdCurso,
-                fk_aluno = 1
-            };
-            _context.Add(alunoCurso);
-            await _context.SaveChangesAsync();
-
             return RedirectToAction(nameof(Index));
             return View(curso);
         }

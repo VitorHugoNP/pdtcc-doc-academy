@@ -54,7 +54,7 @@ namespace pdtcc_doc_academy.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("idAluno,nomeAluno,cpfAluno,rgAluno,rmAluno,emailAluno,senhaAluno")] Alunos alunos)
+        public async Task<IActionResult> CreateAluno([Bind("idAluno,nomeAluno,cpfAluno,rgAluno,rmAluno,emailAluno,senhaAluno")] Alunos alunos, int cursoId)
         {
             if (ModelState != null)
             {
@@ -76,6 +76,16 @@ namespace pdtcc_doc_academy.Controllers
                     rmAluno = alunos.rmAluno,                    
                     fk_usuario = usuario.idUsuario
                 };
+
+                // Associar o aluno ao curso
+                var alunoCurso = new AlunoCurso
+                {
+                    fk_aluno = aluno.idAluno, // ID do aluno que foi criado
+                    fk_curso = cursoId // ID do curso selecionado
+                };
+
+                _context.aluno_curso.Add(alunoCurso);
+                _context.SaveChanges();
 
                 _context.Add(aluno);                
                 await _context.SaveChangesAsync();

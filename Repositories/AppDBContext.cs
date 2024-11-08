@@ -83,7 +83,7 @@ namespace pdtcc_doc_academy.Repositories
             modelBuilder.Entity<AlunoCurso>()
                 .HasOne(ac => ac.Curso)
                 .WithMany(s => s.AlunoCursos)
-                .HasForeignKey(al => al.IdCurso);
+                .HasForeignKey(al => al.fk_curso);
 
             ///////////////////////////////////////
 
