@@ -134,7 +134,8 @@ namespace pdtcc_doc_academy.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("idAluno,nomeAluno,cpfAluno,rgAluno,rmAluno,emailAluno,senhaAluno")] Alunos alunos)
+        [Authorize(Roles = "Escola")]
+        public async Task<IActionResult> EditAluno(int id, [Bind("idAluno,nomeAluno,cpfAluno,rgAluno,rmAluno,emailAluno,senhaAluno")] Alunos alunos)
         {
             if (id != alunos.idAluno)
             {
@@ -145,6 +146,16 @@ namespace pdtcc_doc_academy.Controllers
             {
                 try
                 {
+                    // Update the user information
+                    var usuario = await _context.Usuario.FindAsync(alunos.fk_usuario);
+                    if (usuario != null)
+                    {
+                        usuario.emailUsuario = alunos.emailAluno;
+                        usuario.senhaUsuario = alunos.senhaAluno; // Consider hashing the password
+                        _context.Update(usuario);
+                    }
+
+                    // Update the student information
                     _context.Update(alunos);
                     await _context.SaveChangesAsync();
                 }
@@ -159,27 +170,36 @@ namespace pdtcc_doc_academy.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Escolas");
             }
             return View(alunos);
         }
 
-        // GET: Alunos/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        private bool AlunosExists(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            return _context.aluno.Any(e => e.idAluno == id);
+        }
 
-            var alunos = await _context.aluno
-                .FirstOrDefaultAsync(m => m.idAluno == id);
-            if (alunos == null)
+        // GET: Alunos/Delete/5
+        [HttpPost, ActionName("DeleteAluno")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Escola")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var aluno = await _context.aluno.FindAsync(id);
+            if (aluno != null)
             {
-                return NotFound();
-            }
+                // Remove associated user and other related data if necessary
+                var usuario = await _context.Usuario.FindAsync(aluno.fk_usuario);
+                if (usuario != null)
+                {
+                    _context.Usuario.Remove(usuario);
+                }
 
-            return View(alunos);
+                _context.aluno.Remove(aluno);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index", "Escolas");
         }
 
         // POST: Alunos/Delete/5
@@ -197,9 +217,5 @@ namespace pdtcc_doc_academy.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AlunosExists(int id)
-        {
-            return _context.aluno.Any(e => e.idAluno == id);
-        }
     }
 }
