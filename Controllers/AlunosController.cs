@@ -97,7 +97,13 @@ namespace pdtcc_doc_academy.Controllers
                  _context.Serie.Add(serie);
                  await _context.SaveChangesAsync();
 
-                 return RedirectToAction("Index"); // Redireciona para a lista ou outra ação
+                var alunoSerie = new AlunoSerie
+                {
+                    fk_aluno = aluno.idAluno, // ID do aluno que foi criado
+                    fk_serie = serie.idSerie // ID do curso selecionado
+                };
+                _context.aluno_serie.AddAsync(alunoSerie);
+                await _context.SaveChangesAsync();
 
 
                 _context.aluno_curso.AddAsync(alunoCurso);

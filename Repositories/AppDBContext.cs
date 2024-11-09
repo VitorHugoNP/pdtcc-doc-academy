@@ -17,7 +17,7 @@ namespace pdtcc_doc_academy.Repositories
         public DbSet<Protocolo> Protocolo { get; set; }
         public DbSet<AlunoCurso> aluno_curso { get; set; }
         public DbSet<Curso> Curso { get; set; }
-        public DbSet<AlunoSerie> AlunoSerie { get; set; }
+        public DbSet<AlunoSerie> aluno_serie { get; set; }
         public DbSet<Serie> Serie { get; set; }
         public DbSet<Usuario> Usuario { get; set; }// contexto da tabela usuários do banco de dados
 
@@ -63,18 +63,18 @@ namespace pdtcc_doc_academy.Repositories
 
             //aluno Série
 
-            modelBuilder.Entity<AlunoCurso>()
-            .HasKey(ac => new { ac.fk_aluno, ac.fk_curso }); // Chave primária composta
+            modelBuilder.Entity<AlunoSerie>()
+            .HasKey(ac => new { ac.fk_aluno, ac.fk_serie }); // Chave primária composta
 
             modelBuilder.Entity<AlunoSerie>()
                 .HasOne(al => al.Aluno)
                 .WithMany(a => a.alunoSeries)
-                .HasForeignKey(al => al.IdAluno);
+                .HasForeignKey(al => al.fk_aluno);
 
             modelBuilder.Entity<AlunoSerie>()
                 .HasOne(al => al.Serie)
                 .WithMany(s => s.AlunoSeries)
-                .HasForeignKey(al => al.IdSerie);
+                .HasForeignKey(al => al.fk_serie);
 
             //Aluno curso
 
