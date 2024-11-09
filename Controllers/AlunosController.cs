@@ -57,7 +57,7 @@ namespace pdtcc_doc_academy.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Escola")]
-        public async Task<IActionResult> CreateAluno([Bind("idAluno,nomeAluno,cpfAluno,rgAluno,rmAluno,emailAluno,senhaAluno")] Alunos alunos, int cursoId)
+        public async Task<IActionResult> CreateAluno([Bind("idAluno,nomeAluno,cpfAluno,rgAluno,rmAluno,emailAluno,senhaAluno")] Alunos alunos, int cursoId, string serieCurso)
         {
             if (ModelState != null)
             {
@@ -88,6 +88,17 @@ namespace pdtcc_doc_academy.Controllers
                     fk_aluno = aluno.idAluno, // ID do aluno que foi criado
                     fk_curso = cursoId // ID do curso selecionado
                 };
+
+                 var serie = new Serie
+                 {
+                        serieCurso = serieCurso // Armazena a série selecionada
+                 };
+
+                 _context.Serie.Add(serie);
+                 await _context.SaveChangesAsync();
+
+                 return RedirectToAction("Index"); // Redireciona para a lista ou outra ação
+
 
                 _context.aluno_curso.AddAsync(alunoCurso);
                 await _context.SaveChangesAsync();

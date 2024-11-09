@@ -10,9 +10,7 @@ namespace pdtcc_doc_academy.Models
 
         [Required(ErrorMessage = "Por favor, informe o nome da série.")]
         [Display(Name = "Nome da Série")]
-        public string NomeSerie { get; set; }
-
-        public int IdAluno { get; set; }
+        public string serieCurso { get; set; }
 
         public ICollection<AlunoSerie> AlunoSeries { get; set; }
         
