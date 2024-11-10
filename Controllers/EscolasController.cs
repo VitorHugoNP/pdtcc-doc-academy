@@ -93,7 +93,7 @@ namespace pdtcc_doc_academy.Controllers
             return View(escola);
         }
 
-        // GET: Escolas/Edit/5
+        // GET: Schools/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -101,22 +101,22 @@ namespace pdtcc_doc_academy.Controllers
                 return NotFound();
             }
 
-            var escolas = await _context.Escola.FindAsync(id);
-            if (escolas == null)
+            var escola = await _context.Escola.FindAsync(id);
+            if (escola == null)
             {
                 return NotFound();
             }
-            return View(escolas);
+            return View(escola);
         }
 
-        // POST: Escolas/Edit/5
+        // POST: Schools/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("idEscola,nomeEscola,enderecoEscola,emailEscola,senhaEscola")] Escola escolas)
+        public async Task<IActionResult> Edit(int id, [Bind("idEscola,nomeEscola,enderecoEscola,emailEscola,senhaEscola")] Escola escola)
         {
-            if (id != escolas.idEscola)
+            if (id != escola.idEscola)
             {
                 return NotFound();
             }
@@ -125,12 +125,12 @@ namespace pdtcc_doc_academy.Controllers
             {
                 try
                 {
-                    _context.Update(escolas);
+                    _context.Update(escola);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EscolasExists(escolas.idEscola))
+                    if (!EscolaExists(escola.idEscola))
                     {
                         return NotFound();
                     }
@@ -141,7 +141,7 @@ namespace pdtcc_doc_academy.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(escolas);
+            return View(escola);
         }
 
         // GET: Escolas/Delete/5
@@ -177,7 +177,7 @@ namespace pdtcc_doc_academy.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EscolasExists(int id)
+        private bool EscolaExists(int id)
         {
             return _context.Escola.Any(e => e.idEscola == id);
         }

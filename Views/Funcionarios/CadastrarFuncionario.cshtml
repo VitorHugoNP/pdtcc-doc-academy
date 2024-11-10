@@ -1,0 +1,48 @@
+﻿@model pdtcc_doc_academy.Models.Funcionario
+
+@{
+    ViewData["Title"] = "CadastrarFuncionario";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>Funcionário</h4>
+<hr />
+<div>
+    <form asp-action="CadastrarFuncionario">
+        <div class="form-group">
+            <label asp-for="nome_func" class="control-label"></label>
+            <input asp-for="nome_func" class="form-control" />
+            <span asp-validation-for="nome_func" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="email_func" class="control-label"></label>
+            <input asp-for="email_func" class="form-control" />
+            <span asp-validation-for="email_func" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="senha_func" class="control-label"></label>
+            <input asp-for="senha_func" class="form-control" type="password" />
+            <span asp-validation-for="senha_func" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="fk_escola" class="control-label"></label>
+            <input asp-for="fk_escola" class="form-control" />
+            <span asp-validation-for="fk_escola" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Cadastrar" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar à lista</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -114,7 +114,7 @@ namespace pdtcc_doc_academy.Controllers
         }
 
         // GET: Alunos/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> EditAluno(int? id)
         {
             if (id == null)
             {
@@ -200,21 +200,6 @@ namespace pdtcc_doc_academy.Controllers
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction("Index", "Escolas");
-        }
-
-        // POST: Alunos/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var alunos = await _context.aluno.FindAsync(id);
-            if (alunos != null)
-            {
-                _context.aluno.Remove(alunos);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
     }

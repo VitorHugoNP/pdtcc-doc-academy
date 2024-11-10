@@ -44,7 +44,7 @@ namespace pdtcc_doc_academy.Controllers
         }
 
         // GET: Funcionarios/Create
-        public IActionResult Create()
+        public IActionResult CadastrarFuncionario()
         {
             return View();
         }
@@ -54,7 +54,7 @@ namespace pdtcc_doc_academy.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdFuncionario,nome_func,email_func,senha_func,fk_escola")] Funcionario funcionario)
+        public async Task<IActionResult> CadastrarFuncionario([Bind("IdFuncionario,nome_func,email_func,senha_func,fk_escola")] Funcionario funcionario)
         {
             if (ModelState != null)
             {                
@@ -77,7 +77,7 @@ namespace pdtcc_doc_academy.Controllers
                 };
                 _context.Add(func);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Escola");
             }
             return View(funcionario);
         }
