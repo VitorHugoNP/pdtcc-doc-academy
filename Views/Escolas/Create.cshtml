@@ -1,45 +1,107 @@
 ﻿@model pdtcc_doc_academy.Models.Escola
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Registro Acadêmico";
 }
 
-<h1>Create</h1>
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/style.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light gray background */
+            color: #212529; /* Dark gray text */
+        }
 
-<h4>Escolas</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="nomeEscola" class="control-label"></label>
-                <input asp-for="nomeEscola" class="form-control" />
-                <span asp-validation-for="nomeEscola" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="enderecoEscola" class="control-label"></label>
-                <input asp-for="enderecoEscola" class="form-control" />
-                <span asp-validation-for="enderecoEscola" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="emailEscola" class="control-label"></label>
-                <input asp-for="emailEscola" class="form-control" />
-                <span asp-validation-for="emailEscola" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="senhaEscola" class="control-label"></label>
-                <input asp-for="senhaEscola" class="form-control" />
-                <span asp-validation-for="senhaEscola" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+        .form-container {
+            background-color: #ffffff; /* White background */
+            border: 2px solid #000000; /* Black border */
+            border-radius: 10px; /* Rounded borders */
+            padding: 20px; /* Internal spacing */
+        }
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+        .welcome h4 {
+            color: #000000; /* Black text */
+        }
 
+        footer {
+            background-color: #f8f9fa; /* Light gray footer */
+            color: #212529; /* Dark gray text */
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="d-flex justify-content-around border-primary">
+            <div class="contents order">
+                <div class="container col-md-12 card border-dark rounded">
+                    <div class="row align-items-center justify-content-md-center">
+                        <div class="col-md-12">
+                            <div id="welcome-message" class="welcome">
+                                <div class="d-flex align-items-center">
+                                    <h4 class="mx-auto" style="font-size: 40px;">DocAcademy</h4>
+                                    <img src="~/images/logofoda.png" class="rounded mx-auto" style="height: auto; width: 100px;" />
+                                </div>
+                                <br>
+                                <div class="form-container">
+                                    <h4>Registro de Escola</h4>
+                                    <h3 class="mb-4" style="font-size: 20px;">Bem-vindo ao DocAcademy! Faça seu cadastro para acessar nossa plataforma.</h3>
+                                    <form asp-action="Create" method="post">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="form-group first rounded mb-2">
+                                            <label asp-for="nomeEscola" class="control-label"></label>
+                                            <input asp-for="nomeEscola" class="form-control" required />
+                                            <span asp-validation-for="nomeEscola" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group rounded mb-2">
+                                            <label asp-for="emailEscola" class="control-label"></label>
+                                            <input asp-for="emailEscola" class="form-control" required />
+                                            <span asp-validation-for="emailEscola" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group rounded mb-2">
+                                            <label asp-for="enderecoEscola" class="control-label"></label>
+                                            <input asp-for="enderecoEscola" class="form-control" required />
+                                            <span asp-validation-for="enderecoEscola" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group rounded last mb-2 border-dark">
+                                            <label asp-for="senhaEscola" class="control-label"></label>
+                                            <input asp-for="senhaEscola" class="form-control" type="password" required />
+                                            <span asp-validation-for="senhaEscola" class="text-danger"></span>
+                                        </div>
+                                        <div class="d-flex mb-3 align-items-center">
+                                            <label class="control control--checkbox mb-0">
+                                                <span class="caption">Lembre de mim</span>
+                                                <input type="checkbox" checked="checked" />
+                                                <div class="control__indicator"></div>
+                                            </label>
+                                            <span class="ms-auto"><a href="#" class="forgot-pass">Esqueci a senha</a></span>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Registrar</button>
+                                        <p class="mt-3"><a href="../login-form-06/index.html">Já tem Login? Entre com sua conta</a></p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="text-center py-4">
+        <p>&copy; 2024 Portal Acadêmico. Todos os direitos reservados.</p>
+    </footer>
+    <!--scripts-->
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="https://kit.fontawesome.com/92c2a44805.js" crossorigin="anonymous"></script>
+</body>
+</html>
