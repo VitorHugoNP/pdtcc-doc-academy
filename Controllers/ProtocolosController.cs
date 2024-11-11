@@ -53,28 +53,22 @@ namespace pdtcc_doc_academy.Controllers
             return View(protocolo);
         }
 
-        // GET: Protocolos/Create
-        public IActionResult Create()
+
+        public IActionResult Create(string userType)
         {
-            return View();
+            ViewBag.Alunos = _context.aluno.ToList(); // Busca todos os alunos do banco de dados
+            return View(); // Retorna a view de criação de protocolo
         }
 
         // POST: Protocolos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int selectedOption, int idFuncionario, int idAluno)
+        public async Task<IActionResult> Create(int selectedOption, int idAluno)
         {
             // Busca os IDs de funcionário a partir das claims
             var claimFuncionarioId = User.Claims.FirstOrDefault(c => c.Type == "FuncionarioId");
             int idFuncionario = claimFuncionarioId != null ? int.Parse(claimFuncionarioId.Value) : 1;
 
-            // Verifica se o aluno existe
-            var aluno = await _context.aluno.FindAsync(idAluno);
-            if (aluno == null)
-            {
-                ModelState.AddModelError("", "Aluno não encontrado.");
-                return RedirectToAction("Index");
-            }
 
             // Lógica para lidar com o tipo de documento selecionado
             switch (selectedOption)
@@ -256,10 +250,15 @@ namespace pdtcc_doc_academy.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
         private bool ProtocoloExists(int id)
         {
             return _context.Protocolo.Any(e => e.idProtocolo == id);
         }
+
+
+
+
 
         // Download PDF
         [HttpGet("downloadPdf/{idProcolo}")]

@@ -1,19 +1,32 @@
-﻿@model pdtcc_doc_academy.Models.Funcionario
+﻿@model pdtcc_doc_academy.Models.Protocolo
 
-﻿@{
-    ViewData["Title"] = "Requisitar Documento";
+@{
+    ViewData["Title"] = "Criar Protocolo - Funcionário";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h1>Criar Protocolo - Funcionário</h1>
 
 <form asp-action="Create" method="post">
     <div class="form-group">
-        <label for="selectedOption">Selecione o Tipo de Documento:</label>
-        <select id="selectedOption" name="selectedOption" class="form-control">
+        <label for="selectedOption">Selecione uma opção:</label>
+        <select name="selectedOption" id="selectedOption" class="form-control">
             <option value="1">Atestado de Matrícula</option>
             <option value="2">Autorização</option>
             <option value="3">Comunicado</option>
         </select>
     </div>
-    <button type="submit" class="btn btn-primary">Requisitar</button>
+
+    <div class="form-group">
+        <label for="fk_aluno">Selecione um Aluno:</label>
+        <select name="fk_aluno" id="fk_aluno" class="form-control">
+            @foreach (var aluno in ViewBag.Alunos)
+            {
+                <option value="@aluno.idAluno">@aluno.nomeAluno</option>
+            }
+        </select>
+    </div>
+
+    <input type="hidden" name="fk_funcionario" value="@User .FindFirst(" idFuncionario").Value" /> <!-- ID do funcionário -->
+
+    <button type="submit" class="btn btn-primary">Criar Protocolo</button>
 </form>

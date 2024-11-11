@@ -1,0 +1,32 @@
+﻿@model IEnumerable<pdtcc_doc_academy.Models.Protocolo>
+
+@{
+    ViewData["Title"] = "Lista de Protocolos";
+}
+
+<h1>Lista de Protocolos</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tipo de Documento</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var protocolo in Model)
+        {
+            <tr>
+                <td>@protocolo.idProtocolo</td>
+                <td>@protocolo.tipo_Doc</td>
+                <td>
+                    <form asp-action="Edit" method="post">
+                        <input type="hidden" name="id" value="@protocolo.idProtocolo" />
+                        <button type="submit" class="btn btn-warning">Editar Protocolo</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
