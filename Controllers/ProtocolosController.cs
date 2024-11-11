@@ -73,11 +73,32 @@ namespace pdtcc_doc_academy.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Funcionario")]
         public async Task<IActionResult> RequerimentosFuncionario(int selectedOption, int idAluno, int idFunc)
         {
-            // complementar código para salvar no banco de dados
-            // coloquei como padrão o Model Protocolo como parametros que vem da view, mas pode ser alterado para um aviewmodel se for necessário
-            return View("RequerimentosFuncionario"); 
+            // Obter o ID do funcionário a partir das claims
+            var claimFuncionarioId = User.Claims.FirstOrDefault(c => c.Type == "idFuncionario");
+
+            if (claimFuncionarioId == null)
+            {
+                return Unauthorized("Você precisa estar logado como funcionário para criar um protocolo.");
+            }
+
+            int idFuncionario = int.Parse(claimFuncionarioId.Value);
+
+            // Criar um novo protocolo
+            var protocolo = new Protocolo
+            {
+                fk_aluno = idAluno, // ID do aluno selecionado
+                fk_func = idFuncionario, // ID do funcionário logado
+                tipo_Doc = "Tipo do Documento" // Defina o tipo de documento conforme necessário
+            };
+
+            // Adicionar o protocolo ao contexto e salvar
+            _context.Protocolo.Add(protocolo);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index)); // Redireciona para a lista de protocolos ou outra ação desejada 
         }
 
         // POST: Protocolos/Create

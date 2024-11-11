@@ -17,8 +17,8 @@
     </div>
 
     <div class="form-group">
-        <label for="fk_aluno">Selecione um Aluno:</label>
-        <select name="fk_aluno" id="fk_aluno" class="form-control">
+        <label for="alunoSelect">Selecione um Aluno:</label>
+        <select name="idAluno" id="alunoSelect" class="form-control">
             @foreach (var aluno in ViewBag.Alunos)
             {
                 <option value="@aluno.idAluno">@aluno.nomeAluno</option>
