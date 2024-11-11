@@ -39,21 +39,14 @@ namespace pdtcc_doc_academy.Controllers
         }
 
         // GET: Escolas/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int id)
         {
-            if (id == null)
+            var escola = _context.Escola.Find(id); // Obtém a escola específica pelo ID
+            if (escola == null)
             {
                 return NotFound();
             }
-
-            var escolas = await _context.Escola
-                .FirstOrDefaultAsync(m => m.idEscola == id);
-            if (escolas == null)
-            {
-                return NotFound();
-            }
-
-            return View(escolas);
+            return View(escola); // Passa o objeto escola para a view
         }
 
         // GET: Escolas/Create
