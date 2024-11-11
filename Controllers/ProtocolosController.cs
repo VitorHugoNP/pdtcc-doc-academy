@@ -34,7 +34,7 @@ namespace pdtcc_doc_academy.Controllers
         }
 
         // GET: Protocolos/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id == null)
             {
@@ -42,8 +42,8 @@ namespace pdtcc_doc_academy.Controllers
             }
 
             var protocolo = await _context.Protocolo
-                .Include(p => p.aluno)
-                .Include(p => p.funcionario)
+                .Include(p => p.fk_aluno == id)
+                .Include(p => p.fk_func == id)
                 .FirstOrDefaultAsync(m => m.idProtocolo == id);
             if (protocolo == null)
             {
