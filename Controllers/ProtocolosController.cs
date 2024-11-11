@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -35,7 +36,6 @@ namespace pdtcc_doc_academy.Controllers
         // GET: Protocolos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-
             if (id == null)
             {
                 return NotFound();
@@ -60,195 +60,113 @@ namespace pdtcc_doc_academy.Controllers
         }
 
         // POST: Protocolos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int selectedOption, int idFuncionario)
+        public async Task<IActionResult> Create(int selectedOption, int idFuncionario, int idAluno)
         {
-            // Buscar o ID do aluno a partir das claims
-            var claimAlunoId = User.Claims.FirstOrDefault(c => c.Type == "AlunoId");
+            // Busca os IDs de funcionário a partir das claims
+            var claimFuncionarioId = User.Claims.FirstOrDefault(c => c.Type == "FuncionarioId");
+            int idFunc = claimFuncionarioId != null ? int.Parse(claimFuncionarioId.Value) : 1;
 
-            if (claimAlunoId == null)
+            // Verifica se o aluno existe
+            var aluno = await _context.aluno.FindAsync(idAluno);
+            if (aluno == null)
             {
-                return Unauthorized("Você precisa estar logado como aluno para criar um protocolo.");
+                ModelState.AddModelError("", "Aluno não encontrado.");
+                return RedirectToAction("Index");
             }
 
-            // Converte o valor do claim para int (já que o ID do aluno é um int)
-            int idAluno = int.Parse(claimAlunoId.Value);
-
+            // Lógica para lidar com o tipo de documento selecionado
             switch (selectedOption)
             {
-                case 1:
-                    return await HandleAtestadoMatricula(idFuncionario, idAluno);
-                case 2:
-                    return await HandleAutorizacao(idFuncionario, idAluno);
-                case 3:
-                    return await HandleComunicado(idFuncionario, idAluno);
+                case 1: // Atestado de Matrícula
+                    return await HandleAtestadoMatricula(idFunc, idAluno);
+                case 2: // Autorização
+                    return await HandleAutorizacao(idFunc, idAluno);
+                case 3: // Comunicado
+                    return await HandleComunicado(idFunc, idAluno);
                 default:
                     ModelState.AddModelError("", "Opção inválida.");
                     return RedirectToAction("Index");
             }
         }
 
-
         private async Task<IActionResult> HandleAtestadoMatricula(int idFuncionario, int idAluno)
         {
             var funcionario = await _context.Funcionario.FindAsync(idFuncionario);
             var aluno = await _context.aluno.FindAsync(idAluno);
 
-            if (aluno == null)
+            var protocolo = new Protocolo
             {
-                var protocolo = new Protocolo
-                {
-                    tipo_Doc = "Atestado Matricula",
-                    fk_aluno = 1,
-                    fk_func = funcionario.idFuncionario
-                };
+                tipo_Doc = "Atestado Matricula",
+                fk_aluno = aluno?.idAluno ?? 1, // Use 1 se aluno for null
+                fk_func = funcionario?.idFuncionario ?? 1 // Use 1 se funcionário for null
+            };
 
-                 _context.Add(protocolo);
-                 await _context.SaveChangesAsync();
+            _context.Add(protocolo);
+            await _context.SaveChangesAsync();
 
-                var atestadoMatricula = new Atestado_Matricula
-                {
-                    fk_prot = protocolo.idProtocolo,
-                };
-                _context.Add(atestadoMatricula);
-                await _context.SaveChangesAsync();
-            } 
-            else if (funcionario == null)
+            var atestadoMatricula = new Atestado_Matricula
             {
-                var protocolo = new Protocolo
-                {
-                    tipo_Doc = "Atestado Matricula",
-                    fk_aluno = aluno.idAluno,
-                    fk_func = 1
-                };
-
-                _context.Add(protocolo);
-                await _context.SaveChangesAsync();
-
-                var atestadoMatricula = new Atestado_Matricula
-                {
-                    fk_prot = protocolo.idProtocolo,
-                };
-                _context.Add(atestadoMatricula);
-                await _context.SaveChangesAsync();
-            }
+                fk_prot = protocolo.idProtocolo,
+            };
+            _context.Add(atestadoMatricula);
+            await _context.SaveChangesAsync();
 
             return RedirectToAction("Index", "Alunos");
         }
 
         private async Task<IActionResult> HandleAutorizacao(int idFuncionario, int idAluno)
         {
-
             var funcionario = await _context.Funcionario.FindAsync(idFuncionario);
             var aluno = await _context.aluno.FindAsync(idAluno);
 
-            if (aluno == null)
+            var protocolo = new Protocolo
             {
-                var protocolo = new Protocolo
-                {
-                    tipo_Doc = "Atestado Matricula",
-                    fk_aluno = 1,
-                    fk_func = funcionario.idFuncionario
-                };
+                tipo_Doc = "Autorizacao",
+                fk_aluno = aluno?.idAluno ?? 1, // Use 1 se aluno for null
+                fk_func = funcionario?.idFuncionario ?? 1 // Use 1 se funcionário for null
+            };
 
-                _context.Add(protocolo);
-                await _context.SaveChangesAsync();
+            _context.Add(protocolo);
+            await _context.SaveChangesAsync();
 
-                var autorizacao = new Autorizacao
-                {
-                    fk_prot = protocolo.idProtocolo,
-                    data_aut = DateTime.UtcNow
-                };
-                _context.Add(autorizacao);
-                await _context.SaveChangesAsync();
-
-            }
-            else if (funcionario == null)
+            var autorizacao = new Autorizacao
             {
-                var protocolo = new Protocolo
-                {
-                    tipo_Doc = "Atestado Matricula",
-                    fk_aluno = aluno.idAluno,
-                    fk_func = 1
-                };
-
-                _context.Add(protocolo);
-                await _context.SaveChangesAsync();
-
-                var autorizacao = new Autorizacao
-                {
-                    fk_prot = protocolo.idProtocolo,
-                    data_aut = DateTime.UtcNow
-                };
-                _context.Add(autorizacao);
-                await _context.SaveChangesAsync();
-
-
-            }
+                fk_prot = protocolo.idProtocolo,
+                data_aut = DateTime.UtcNow
+            };
+            _context.Add(autorizacao);
+            await _context.SaveChangesAsync();
 
             return RedirectToAction("Index", "Alunos");
-
         }
 
         private async Task<IActionResult> HandleComunicado(int idFuncionario, int idAluno)
         {
-
             var funcionario = await _context.Funcionario.FindAsync(idFuncionario);
             var aluno = await _context.aluno.FindAsync(idAluno);
-            if (aluno == null)
+
+            var protocolo = new Protocolo
             {
-                var protocolo = new Protocolo
-                {
-                    tipo_Doc = "Atestado Matricula",
-                    fk_aluno = 1,
-                    fk_func = funcionario.idFuncionario
-                };
+                tipo_Doc = "Comunicado",
+                fk_aluno = aluno?.idAluno ?? 1, // Use 1 se aluno for null
+                fk_func = funcionario?.idFuncionario ?? 1 // Use 1 se funcionário for null
+            };
 
-                _context.Add(protocolo);
-                await _context.SaveChangesAsync();
+            _context.Add(protocolo);
+            await _context.SaveChangesAsync();
 
-                var comunicados = new Comunicados
-                {
-                    fk_prot = protocolo.idProtocolo,
-                    data_comunicado = DateTime.UtcNow
-                };
-                _context.Add(comunicados);
-                await _context.SaveChangesAsync();
-
-            }
-            else if (funcionario == null)
+            var comunicados = new Comunicados
             {
-                var protocolo = new Protocolo
-                {
-                    tipo_Doc = "Atestado Matricula",
-                    fk_aluno = aluno.idAluno,
-                    fk_func = 1
-                };
-
-                _context.Add(protocolo);
-                await _context.SaveChangesAsync();
-
-                var comunicado = new Comunicados
-                {
-                    fk_prot = protocolo.idProtocolo,
-                    
-                };
-                _context.Add(comunicado);
-                await _context.SaveChangesAsync();
-
-
-            }
+                fk_prot = protocolo.idProtocolo,
+                data_comunicado = DateTime.UtcNow
+            };
+            _context.Add(comunicados);
+            await _context.SaveChangesAsync();
 
             return RedirectToAction("Index", "Alunos");
-
         }
-
-
-
-
 
         // GET: Protocolos/Edit/5
         public async Task<IActionResult> Edit(int id)
@@ -269,8 +187,6 @@ namespace pdtcc_doc_academy.Controllers
         }
 
         // POST: Protocolos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("idProtocolo,fk_aluno,fk_func,tipo_Doc")] Protocolo protocolo)
@@ -345,29 +261,20 @@ namespace pdtcc_doc_academy.Controllers
             return _context.Protocolo.Any(e => e.idProtocolo == id);
         }
 
-
-
-
-
-
-
-        //selecionar o tipo de documento
-
-
-
+        // Download PDF
         [HttpGet("downloadPdf/{idProcolo}")]
         public async Task<IActionResult> DownloadPdfAsync(int idProcolo)
         {
-            // Buscando o protocolo pelo ID
             Protocolo protocolo = await _context.Protocolo.FirstOrDefaultAsync(p => p.idProtocolo == idProcolo);
 
-            // Verifica se o protocolo foi encontrado
             if (protocolo == null)
             {
                 return NotFound("Protocolo não encontrado.");
             }
 
-            // Verifica o tipo de documento e redireciona para a ação correspondente
+            var claimFuncionarioId = User.Claims.FirstOrDefault(c => c.Type == "FuncionarioId");
+            var claimAlunoId = User.Claims.FirstOrDefault(c => c.Type == "AlunoId");
+
             switch (protocolo.tipo_Doc)
             {
                 case "Autorizacao":
@@ -381,28 +288,13 @@ namespace pdtcc_doc_academy.Controllers
             }
         }
 
-
-
-            //fazer documentos em pdf
-
-
-
-
-
-
-
-            //AUTORIZAÇÃO
+        // AUTORIZAÇÃO
         [HttpGet("autorizacao/downloadPdf/{idProcolo}")]
-        [Authorize(Roles = "Escola")]
         public async Task<IActionResult> DownloadAutorizacaoPdfAsync(int idProcolo)
         {
-            // Buscando a autorização pelo ID do protocolo
             Autorizacao autorizacao = await _context.Autorizacao.FirstOrDefaultAsync(a => a.fk_prot == idProcolo);
-
-
             Protocolo protocolo = await _context.Protocolo.FirstOrDefaultAsync(p => p.idProtocolo == autorizacao.fk_prot);
 
-            // Verifica se o protocolo foi encontrado
             if (protocolo == null)
             {
                 return NotFound("Protocolo não encontrado.");
@@ -410,9 +302,7 @@ namespace pdtcc_doc_academy.Controllers
 
             Alunos alunos = await _context.aluno.FirstOrDefaultAsync(x => x.idAluno == protocolo.fk_aluno);
             Funcionario funcionario = await _context.Funcionario.FirstOrDefaultAsync(f => f.idFuncionario == protocolo.fk_func);
-            
 
-            // Preenchendo o ViewModel
             var viewModel = new AlunoAutorizacao
             {
                 nomeAluno = alunos.nomeAluno,
@@ -420,12 +310,11 @@ namespace pdtcc_doc_academy.Controllers
                 rgAluno = alunos.rgAluno,
                 rmAluno = alunos.rmAluno,
                 idAutorizacao = autorizacao.idAutorizacao,
-                data_aut = autorizacao.data_aut // Não precisa do operador de coalescência aqui, pois já verificamos que autorizacao não é null
+                data_aut = autorizacao.data_aut
             };
 
             using (var stream = new MemoryStream())
             {
-                // Criação do PDF
                 using (var writer = new PdfWriter(stream))
                 {
                     using (var pdf = new PdfDocument(writer))
@@ -442,45 +331,25 @@ namespace pdtcc_doc_academy.Controllers
                     }
                 }
 
-                // Retorne o PDF como um arquivo
                 var fileName = $"Autorizacao_{viewModel.idAluno}.pdf";
                 return File(stream.ToArray(), "application/pdf", fileName);
             }
         }
 
-        //COMUNICADOS
-        // GET: Comunicados/Create
-        // Ação para gerar e baixar o PDF
-        [HttpGet("autorizacao/downloadPdf/{idProcolo}")]
-        [Authorize(Roles = "Escola")]
+        // COMUNICADOS
+        [HttpGet("comunicado/downloadPdf/{idProcolo}")]
         public async Task<IActionResult> DownloadComunicadoPdfAsync(int idProcolo)
         {
-            // Buscando a autorização pelo ID do protocolo
             Comunicados comunicado = await _context.Comunicados.FirstOrDefaultAsync(a => a.fk_prot == idProcolo);
 
-            // Verifica se a autorização foi encontrada
             if (comunicado == null)
             {
-                return NotFound("Autorização não encontrada.");
+                return NotFound("Comunicado não encontrado.");
             }
 
             Protocolo protocolo = await _context.Protocolo.FirstOrDefaultAsync(p => p.idProtocolo == comunicado.fk_prot);
-
-            // Verifica se o protocolo foi encontrado
-            if (protocolo == null)
-            {
-                return NotFound("Protocolo não encontrado.");
-            }
-
             Alunos alunos = await _context.aluno.FirstOrDefaultAsync(x => x.idAluno == protocolo.fk_aluno);
 
-            // Verifica se o aluno foi encontrado
-            if (alunos == null)
-            {
-                return NotFound("Aluno não encontrado.");
-            }
-
-            // Preenchendo o ViewModel
             var viewModel = new AlunoComunicado
             {
                 idAluno = alunos.idAluno,
@@ -489,12 +358,11 @@ namespace pdtcc_doc_academy.Controllers
                 rgAluno = alunos.rgAluno,
                 rmAluno = alunos.rmAluno,
                 idComunicados = comunicado.idComunicados,
-                data_comunicado = comunicado.data_comunicado // Não precisa do operador de coalescência aqui, pois já verificamos que autorizacao não é null
+                data_comunicado = comunicado.data_comunicado
             };
 
             using (var stream = new MemoryStream())
             {
-                // Criação do PDF
                 using (var writer = new PdfWriter(stream))
                 {
                     using (var pdf = new PdfDocument(writer))
@@ -506,49 +374,30 @@ namespace pdtcc_doc_academy.Controllers
                         document.Add(new Paragraph($"CPF: {viewModel.cpfAluno}"));
                         document.Add(new Paragraph($"RG: {viewModel.rgAluno}"));
                         document.Add(new Paragraph($"RM: {viewModel.rmAluno}"));
-                        document.Add(new Paragraph($"ID da Autorização: {viewModel.idComunicados}"));
-                        document.Add(new Paragraph($"Data da Autorização: {viewModel.data_comunicado.ToString("dd/MM/yyyy") ?? "N/A"}"));
+                        document.Add(new Paragraph($"ID do Comunicado: {viewModel.idComunicados}"));
+                        document.Add(new Paragraph($"Data do Comunicado: {viewModel.data_comunicado.ToString("dd/MM/yyyy") ?? "N/A"}"));
                     }
                 }
-
-                // Retorne o PDF como um arquivo
                 var fileName = $"Comunicado_{viewModel.idAluno}.pdf";
                 return File(stream.ToArray(), "application/pdf", fileName);
             }
         }
 
-        //ATESTA DO DE MATRICULA
-        // Ação para gerar e baixar o PDF
-        [HttpGet("autorizacao/downloadPdf/{idProcolo}")]
-        [Authorize(Roles = "Escola")]
+        // ATESTADO ```csharp
+        // ATESTADO DE MATRICULA
+        [HttpGet("atestado/downloadPdf/{idProcolo}")]
         public async Task<IActionResult> DownloadAtestadoMatriculaPdfAsync(int idProcolo)
         {
-            // Buscando a autorização pelo ID do protocolo
             Atestado_Matricula atestado_Matricula = await _context.Atestado_Matricula.FirstOrDefaultAsync(a => a.fk_prot == idProcolo);
 
-            // Verifica se a autorização foi encontrada
             if (atestado_Matricula == null)
             {
-                return NotFound("Autorização não encontrada.");
+                return NotFound("Atestado não encontrado.");
             }
 
             Protocolo protocolo = await _context.Protocolo.FirstOrDefaultAsync(p => p.idProtocolo == atestado_Matricula.fk_prot);
-
-            // Verifica se o protocolo foi encontrado
-            if (protocolo == null)
-            {
-                return NotFound("Protocolo não encontrado.");
-            }
-
             Alunos alunos = await _context.aluno.FirstOrDefaultAsync(x => x.idAluno == protocolo.fk_aluno);
 
-            // Verifica se o aluno foi encontrado
-            if (alunos == null)
-            {
-                return NotFound("Aluno não encontrado.");
-            }
-
-            // Preenchendo o ViewModel
             var viewModel = new AlunoAtestadoMatricula
             {
                 idAluno = alunos.idAluno,
@@ -561,7 +410,6 @@ namespace pdtcc_doc_academy.Controllers
 
             using (var stream = new MemoryStream())
             {
-                // Criação do PDF
                 using (var writer = new PdfWriter(stream))
                 {
                     using (var pdf = new PdfDocument(writer))
@@ -573,11 +421,10 @@ namespace pdtcc_doc_academy.Controllers
                         document.Add(new Paragraph($"CPF: {viewModel.cpfAluno}"));
                         document.Add(new Paragraph($"RG: {viewModel.rgAluno}"));
                         document.Add(new Paragraph($"RM: {viewModel.rmAluno}"));
-                        document.Add(new Paragraph($"ID da Autorização: {viewModel.IdAtest_mat}"));
+                        document.Add(new Paragraph($"ID do Atestado: {viewModel.IdAtest_mat}"));
                     }
                 }
 
-                // Retorne o PDF como um arquivo
                 var fileName = $"Atestado_Matriculas_{viewModel.idAluno}.pdf";
                 return File(stream.ToArray(), "application/pdf", fileName);
             }
