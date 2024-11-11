@@ -66,7 +66,7 @@ namespace pdtcc_doc_academy.Controllers
         {
             // Busca os IDs de funcionário a partir das claims
             var claimFuncionarioId = User.Claims.FirstOrDefault(c => c.Type == "FuncionarioId");
-            int idFunc = claimFuncionarioId != null ? int.Parse(claimFuncionarioId.Value) : 1;
+            int idFuncionario = claimFuncionarioId != null ? int.Parse(claimFuncionarioId.Value) : 1;
 
             // Verifica se o aluno existe
             var aluno = await _context.aluno.FindAsync(idAluno);
@@ -80,11 +80,11 @@ namespace pdtcc_doc_academy.Controllers
             switch (selectedOption)
             {
                 case 1: // Atestado de Matrícula
-                    return await HandleAtestadoMatricula(idFunc, idAluno);
+                    return await HandleAtestadoMatricula(idFuncionario, idAluno);
                 case 2: // Autorização
-                    return await HandleAutorizacao(idFunc, idAluno);
+                    return await HandleAutorizacao(idFuncionario, idAluno);
                 case 3: // Comunicado
-                    return await HandleComunicado(idFunc, idAluno);
+                    return await HandleComunicado(idFuncionario, idAluno);
                 default:
                     ModelState.AddModelError("", "Opção inválida.");
                     return RedirectToAction("Index");
