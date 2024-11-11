@@ -1,4 +1,5 @@
-﻿﻿@{
+﻿
+@{
     ViewData["Title"] = "Requisitar Documento";
 }
 
@@ -12,6 +13,14 @@
             <option value="2">Autorização</option>
             <option value="3">Comunicado</option>
         </select>
+        <label for="alunoSelect">Escolha um aluno:</label>
+            <select id="alunoSelect" name="idAluno">
+                @foreach (var aluno in Model)
+                {
+                    <option value="@aluno.IdAluno">@aluno.nomeAluno</option>
+                }
+        </select>
+        <button type="submit">Selecionar</button>
     </div>
     <button type="submit" class="btn btn-primary">Requisitar</button>
 </form>

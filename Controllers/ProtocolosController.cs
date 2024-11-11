@@ -32,6 +32,11 @@ namespace pdtcc_doc_academy.Controllers
             var appDBContext = _context.Protocolo.Include(p => p.aluno).Include(p => p.funcionario);
             return View(await appDBContext.ToListAsync());
         }
+        public async Task<IActionResult> createFuncionario()
+        {
+            var appDBContext = _context.Protocolo.Include(p => p.aluno).Include(p => p.funcionario);
+            return View(await appDBContext.ToListAsync());
+        }
 
         // GET: Protocolos/Details/5
         public async Task<IActionResult> Details(int id)
