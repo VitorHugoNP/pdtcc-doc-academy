@@ -1,11 +1,10 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Requisitar Documento";
 }
 
 <h2>@ViewData["Title"]</h2>
 
-<form asp-action="Create" method="post">
+<form asp-action="RequerimentosFuncionario" method="post">
     <div class="form-group">
         <label for="selectedOption">Selecione o Tipo de Documento:</label>
         <select id="selectedOption" name="selectedOption" class="form-control">
@@ -13,14 +12,15 @@
             <option value="2">Autorização</option>
             <option value="3">Comunicado</option>
         </select>
+
         <label for="alunoSelect">Escolha um aluno:</label>
-            <select id="alunoSelect" name="idAluno">
-                @foreach (var aluno in Model)
-                {
-                    <option value="@aluno.IdAluno">@aluno.nomeAluno</option>
-                }
+        <select id="alunoSelect" name="idAluno" class="form-control">
+            @foreach (var aluno in ViewBag.Alunos)
+            {
+                <option value="@aluno.idAluno">@aluno.nomeAluno</option>
+            }
         </select>
-        <button type="submit">Selecionar</button>
+
+        <button type="submit" class="btn btn-primary">Requisitar</button>
     </div>
-    <button type="submit" class="btn btn-primary">Requisitar</button>
 </form>

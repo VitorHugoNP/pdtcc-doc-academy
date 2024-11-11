@@ -65,6 +65,21 @@ namespace pdtcc_doc_academy.Controllers
             return View(); // Retorna a view de criação de protocolo
         }
 
+        [HttpGet]
+        public async Task<IActionResult> RequerimentosFuncionario()
+        {
+            ViewBag.Alunos = await _context.aluno.ToListAsync(); 
+            return View(); 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RequerimentosFuncionario(int selectedOption, int idAluno, int idFunc)
+        {
+            // complementar código para salvar no banco de dados
+            // coloquei como padrão o Model Protocolo como parametros que vem da view, mas pode ser alterado para um aviewmodel se for necessário
+            return View("RequerimentosFuncionario"); 
+        }
+
         // POST: Protocolos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
