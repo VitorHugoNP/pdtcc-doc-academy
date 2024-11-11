@@ -87,16 +87,46 @@ namespace pdtcc_doc_academy.Controllers
             int idFuncionario = int.Parse(claimFuncionarioId.Value);
 
             // Criar um novo protocolo
-            var protocolo = new Protocolo
-            {
-                fk_aluno = idAluno, // ID do aluno selecionado
-                fk_func = idFuncionario, // ID do funcionário logado
-                tipo_Doc = "Tipo do Documento" // Defina o tipo de documento conforme necessário
-            };
 
-            // Adicionar o protocolo ao contexto e salvar
-            _context.Protocolo.Add(protocolo);
-            await _context.SaveChangesAsync();
+
+            switch (selectedOption)
+            {
+                case 1: // Atestado de Matrícula
+                    var protocolo1 = new Protocolo
+                    {
+                        fk_aluno = idAluno, // ID do aluno selecionado
+                        fk_func = idFuncionario, // ID do funcionário logado
+                        tipo_Doc = "Atestado de Matricula" // Defina o tipo de documento conforme necessário
+                    };
+                    _context.Add(protocolo1);
+                    await _context.SaveChangesAsync();
+
+                    break;
+                case 2: // Autorização
+                    var protocolo2 = new Protocolo
+                    {
+                        fk_aluno = idAluno, // ID do aluno selecionado
+                        fk_func = idFuncionario, // ID do funcionário logado
+                        tipo_Doc = "Autorização" // Defina o tipo de documento conforme necessário
+                    };
+                    _context.Add(protocolo2);
+                    await _context.SaveChangesAsync();
+
+                    break;
+                case 3: // Comunicado
+                    var protocolo3 = new Protocolo
+                    {
+                        fk_aluno = idAluno, // ID do aluno selecionado
+                        fk_func = idFuncionario, // ID do funcionário logado
+                        tipo_Doc = "Comunicado" // Defina o tipo de documento conforme necessário
+                    };
+                    _context.Add(protocolo3);
+                    await _context.SaveChangesAsync();
+                    break;
+                default:
+                    ModelState.AddModelError("", "Opção inválida.");
+                    return RedirectToAction("Index");
+            }
 
             return RedirectToAction(nameof(Index)); // Redireciona para a lista de protocolos ou outra ação desejada 
         }
@@ -147,6 +177,7 @@ namespace pdtcc_doc_academy.Controllers
             };
             _context.Add(atestadoMatricula);
             await _context.SaveChangesAsync();
+
 
             return RedirectToAction("Index", "Alunos");
         }
