@@ -106,7 +106,7 @@ namespace pdtcc_doc_academy.Controllers
                     {
                         fk_aluno = idAluno, // ID do aluno selecionado
                         fk_func = idFuncionario, // ID do funcionário logado
-                        tipo_Doc = "Atestado de Matricula" // Defina o tipo de documento conforme necessário
+                        tipo_Doc = "Atestado Matricula" // Defina o tipo de documento conforme necessário
                     };
                     _context.Add(protocolo1);
                     await _context.SaveChangesAsync();
@@ -117,7 +117,7 @@ namespace pdtcc_doc_academy.Controllers
                     {
                         fk_aluno = idAluno, // ID do aluno selecionado
                         fk_func = idFuncionario, // ID do funcionário logado
-                        tipo_Doc = "Autorização" // Defina o tipo de documento conforme necessário
+                        tipo_Doc = "Autorizacao" // Defina o tipo de documento conforme necessário
                     };
                     _context.Add(protocolo2);
                     await _context.SaveChangesAsync();
@@ -342,9 +342,6 @@ namespace pdtcc_doc_academy.Controllers
         }
 
 
-
-
-
         // Download PDF
         [HttpGet("downloadPdf/{idProcolo}")]
         public async Task<IActionResult> DownloadPdfAsync(int idProcolo)
@@ -425,7 +422,6 @@ namespace pdtcc_doc_academy.Controllers
         public async Task<IActionResult> DownloadComunicadoPdfAsync(int idProcolo)
         {
             Comunicados comunicado = await _context.Comunicados.FirstOrDefaultAsync(a => a.fk_prot == idProcolo);
-
             if (comunicado == null)
             {
                 return NotFound("Comunicado não encontrado.");
