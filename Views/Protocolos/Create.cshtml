@@ -1,6 +1,4 @@
-﻿﻿@{
-    ViewData["Title"] = "Requisitar Documento";
-}
+﻿@model IEnumerable<pdtcc_doc_academy.Models.Protocolo>
 
 <h2>@ViewData["Title"]</h2>
 
@@ -13,6 +11,36 @@
             <option value="3">Comunicado</option>
         </select>
     </div>
-    <button type="submit" class="btn btn-primary">Requisitar</button>
-
+    <button type="submit" class="btn btn-primary">Requisitar</button
 </form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tipo de Documento</th>
+            <th>Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var protocolo in Model)
+            {
+                <tr>
+                    <td>@protocolo.idProtocolo</td>
+                    <td>@protocolo.tipo_Doc</td>
+                    <td>
+                        <a asp-controller="Protocolos" asp-action="DownloadPdf" asp-route-idProcolo="@protocolo.idProtocolo" class="btn btn-primary">Baixar PDF</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3">Nenhum protocolo encontrado para este aluno.</td>
+            </tr>
+        }
+    </tbody>
+</table>

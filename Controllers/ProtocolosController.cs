@@ -58,7 +58,7 @@ namespace pdtcc_doc_academy.Controllers
             return View(protocolo);
         }
 
-        
+        //GET
         public async Task<IActionResult> Create(string userType)
         {
             var claimAlunoId = User.Claims.FirstOrDefault(c => c.Type == "AlunoId");
