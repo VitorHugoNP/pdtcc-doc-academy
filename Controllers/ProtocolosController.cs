@@ -58,18 +58,28 @@ namespace pdtcc_doc_academy.Controllers
             return View(protocolo);
         }
 
-
-        public IActionResult Create(string userType)
+        
+        public async Task<IActionResult> Create(string userType)
         {
-            ViewBag.Alunos = _context.aluno.ToList(); // Busca todos os alunos do banco de dados
-            return View(); // Retorna a view de criação de protocolo
+            var claimAlunoId = User.Claims.FirstOrDefault(c => c.Type == "AlunoId");
+
+            // Converte o valor do claim para int
+            int alunoId = int.Parse(claimAlunoId.Value);
+
+            var protocolos = await _context.Protocolo
+                .Where(p => p.fk_aluno == alunoId) // Filtra os protocolos pelo ID do aluno
+                .Include(p => p.aluno)
+                .Include(p => p.funcionario)
+                .ToListAsync();
+
+            return View(protocolos); // Retorna a view com os protocolos encontrados
         }
 
         [HttpGet]
         public async Task<IActionResult> RequerimentosFuncionario()
         {
-            ViewBag.Alunos = await _context.aluno.ToListAsync(); 
-            return View(); 
+            ViewBag.Alunos = await _context.aluno.ToListAsync();
+            return View();
         }
 
         [HttpPost]
@@ -134,11 +144,14 @@ namespace pdtcc_doc_academy.Controllers
         // POST: Protocolos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int selectedOption, int idAluno)
+        public async Task<IActionResult> Create(int selectedOption)
         {
             // Busca os IDs de funcionário a partir das claims
             var claimFuncionarioId = User.Claims.FirstOrDefault(c => c.Type == "FuncionarioId");
             int idFuncionario = claimFuncionarioId != null ? int.Parse(claimFuncionarioId.Value) : 1;
+
+            var claimAlunoId = User.Claims.FirstOrDefault(cl => cl.Type == "AlunoId");
+            int idAluno = claimAlunoId != null ? int.Parse(claimAlunoId.Value) : 1;
 
 
             // Lógica para lidar com o tipo de documento selecionado
@@ -499,6 +512,18 @@ namespace pdtcc_doc_academy.Controllers
                 var fileName = $"Atestado_Matriculas_{viewModel.idAluno}.pdf";
                 return File(stream.ToArray(), "application/pdf", fileName);
             }
+        }
+
+        // GET: Protocolos/PorAluno
+        public async Task<IActionResult> PorAluno(int alunoId)
+        {
+            var protocolos = await _context.Protocolo
+                .Where(p => p.fk_aluno == alunoId) // Filtra os protocolos pelo ID do aluno
+                .Include(p => p.aluno)
+                .Include(p => p.funcionario)
+                .ToListAsync();
+
+            return View(protocolos); // Retorna a view com os protocolos filtrados
         }
     }
 }
