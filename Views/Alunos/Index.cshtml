@@ -9,6 +9,9 @@
 <p>
     <a asp-action="Create">Create New</a>
     <a asp-controller="Protocolos" asp-action="create">criar protocolo</a>
+    <form asp-controller="Autenticacao" asp-action="Logout" method="post">
+        <button type="submit" class="btn btn-link nav-link" style="color: black;">Sair</button>
+    </form>
 </p>
 <table class="table">
     <thead>
