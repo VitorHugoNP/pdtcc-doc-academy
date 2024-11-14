@@ -59,7 +59,7 @@ namespace pdtcc_doc_academy.Controllers
         }
 
         //GET
-        public async Task<IActionResult> Create(string userType)
+        public async Task<IActionResult> Create()
         {
             var claimAlunoId = User.Claims.FirstOrDefault(c => c.Type == "AlunoId");
 
@@ -120,6 +120,7 @@ namespace pdtcc_doc_academy.Controllers
                         tipo_Doc = "Autorizacao" // Defina o tipo de documento conforme necessário
                     };
                     _context.Add(protocolo2);
+
                     await _context.SaveChangesAsync();
 
                     break;
@@ -144,8 +145,9 @@ namespace pdtcc_doc_academy.Controllers
         // POST: Protocolos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int selectedOption)
+        public async Task<IActionResult> CreateProtocolo(string selectedOption)
         {
+            
             // Busca os IDs de funcionário a partir das claims
             var claimFuncionarioId = User.Claims.FirstOrDefault(c => c.Type == "FuncionarioId");
             int idFuncionario = claimFuncionarioId != null ? int.Parse(claimFuncionarioId.Value) : 1;
@@ -157,11 +159,11 @@ namespace pdtcc_doc_academy.Controllers
             // Lógica para lidar com o tipo de documento selecionado
             switch (selectedOption)
             {
-                case 1: // Atestado de Matrícula
+                case "1": // Atestado de Matrícula
                     return await HandleAtestadoMatricula(idFuncionario, idAluno);
-                case 2: // Autorização
+                case "2": // Autorização
                     return await HandleAutorizacao(idFuncionario, idAluno);
-                case 3: // Comunicado
+                case "3": // Comunicado
                     return await HandleComunicado(idFuncionario, idAluno);
                 default:
                     ModelState.AddModelError("", "Opção inválida.");
@@ -352,9 +354,6 @@ namespace pdtcc_doc_academy.Controllers
             {
                 return NotFound("Protocolo não encontrado.");
             }
-
-            var claimFuncionarioId = User.Claims.FirstOrDefault(c => c.Type == "FuncionarioId");
-            var claimAlunoId = User.Claims.FirstOrDefault(c => c.Type == "AlunoId");
 
             switch (protocolo.tipo_Doc)
             {

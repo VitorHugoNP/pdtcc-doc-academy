@@ -2,7 +2,7 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<form asp-action="Create" method="post">
+<form asp-controller="Protocolos" asp-action="CreateProtocolo" method="post">
     <div class="form-group">
         <label for="selectedOption">Selecione o Tipo de Documento:</label>
         <select id="selectedOption" name="selectedOption" class="form-control">
@@ -11,7 +11,7 @@
             <option value="3">Comunicado</option>
         </select>
     </div>
-    <button type="submit" class="btn btn-primary">Requisitar</button
+    <button type="submit" class="btn btn-primary">Requisitar</button>
 </form>
 
 <table class="table">
