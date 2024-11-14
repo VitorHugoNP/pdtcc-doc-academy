@@ -1,4 +1,4 @@
-﻿@model List<pdtcc_doc_academy.Models.Escola>
+﻿@model pdtcc_doc_academy.Models.Escola
 
 <!doctype html>
 <html lang="pt-br">
@@ -15,7 +15,6 @@
             background-color: #c4c4c4;
             color: #212529;
             font-weight: 300;
-            padding-top: 70px;
         }
 
         .jumbotron {
@@ -25,17 +24,22 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .navbar {
-            background-color: #343a40;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            z-index: 1000;
+        .dashboard {
+            padding: 2rem;
+            background-color: #fff;
+            margin-top: 2rem;
+            border-radius: 10px;
         }
 
-        footer {
-            background-color: #c4c4c4;
-            color: #212529;
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .welcome-message h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #007bff;
         }
     </style>
 </head>
@@ -43,29 +47,50 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-bottom">
             <a class="navbar-brand mx-auto" href="#">
-                <span class="ms-auto" style="color: white;">DocAcademy</span>
+                <i class="fas fa-school" style="color: white;"></i>
+                <span class="ms-auto" style="color: white; padding: 2rem;">DocAcademy</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="../../home_page/html/index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="@Url.Action("VerProtocolos", "Escolas")">Acessar Protocolos</a></li>
+                <ul class="navbar-nav mx-auto links">
+                    <li class="nav-item">
+                        <a class="nav-link" href=@Url.Action("Index", "Escolas")>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Escolas" asp-action="VerProtocolos">Ver Protocolo</a>
+                    </li>
+                    <li class="nav-item">
+                        <form asp-controller="Autenticacao" asp -action="Logout" method="post">
+                            <button type="submit" class="btn btn-link nav-link">Sair da conta</button>
+                        </form>
+                    </li>
                     <li class="nav-item"><a class="nav-link" href="@Url.Action("CreateAluno", "Alunos")">Cadastrar Aluno</a></li>
                     <li class="nav-item"><a class="nav-link" href="@Url.Action("CadastrarFuncionario", "Funcionarios")">Cadastrar Funcionario</a></li>
                 </ul>
             </div>
         </nav>
     </header>
-
-    <footer class="text-center py-4">
-        <p>&copy; 2024 Portal Acadêmico. Todos os direitos reservados.</p>
-    </footer>
+    <main>
+        <div class="container">
+            <div class="dashboard">
+                <div class="welcome-message">
+                    <h1>Bem-vindo ao Portal Acadêmico!</h1>
+                </div>
+                <p>Informações da escola logada:</p>
+                <div>
+                    <strong>Nome da Escola:</strong> @Model.nomeEscola <br />
+                    <strong>Email:</strong> @Model.emailEscola <br />
+                    <strong>Endereço:</strong> @Model.enderecoEscola <br />
+                </div>
+            </div>
+        </div>
+    </main>
 
     <script src="~/js/jquery-3.3.1.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/92c2a44805.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s 9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -24,7 +24,29 @@ namespace pdtcc_doc_academy.Controllers
         // GET: Escolas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Escola.ToListAsync());
+            //return View(await _context.Escola.ToListAsync());
+
+            // Obtém o ID da escola a partir das claims do usuário autenticado
+            var idEscolaClaim = User.Claims.FirstOrDefault(c => c.Type == "idEscola")?.Value;
+
+            if (idEscolaClaim == null)
+            {
+                return NotFound("Escola não encontrada.");
+            }
+
+            // Converte o ID da escola para int
+            int idEscola = int.Parse(idEscolaClaim);
+
+            // Busca a escola logada no banco de dados
+            var escola = await _context.Escola
+                .FirstOrDefaultAsync(e => e.idEscola == idEscola);
+
+            if (escola == null)
+            {
+                return NotFound("Escola não encontrada.");
+            }
+
+            return View(escola); // Retorna a view com a escola logada
         }
 
         // GET: Protocolos

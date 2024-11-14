@@ -12,6 +12,7 @@ namespace pdtcc_doc_academy.Models
 
         [Required]
         [MaxLength(45)]
+        
         public string nome_func { get; set; }
 
         [Required]

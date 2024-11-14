@@ -14,58 +14,71 @@
     <link rel="stylesheet" href="../css/style.css">
     <style>
         body {
-            background-color: #f8f9fa; /* Light gray background */
-            color: #212529; /* Dark gray text */
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
         }
 
-        header {
-            background-color: #000000; /* Black background for header */
+        .links {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
         }
 
-        .navbar-dark .navbar-nav .nav-link {
-            color: #ffffff; /* White text for navbar links */
+        .dashboard {
+            padding: 2rem;
+            background-color: #fff;
+            margin-top: 2rem;
+            border-radius: 10px;
         }
 
-        .navbar-dark .navbar-nav .nav-link:hover {
-            color: #f8f9fa; /* Light gray on hover */
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 2rem;
         }
 
-        .card {
-            background-color: #ffffff; /* White background for cards */
-            border: 1px solid #dee2e6; /* Light gray border */
+            .welcome-message h1 {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+                color: #007bff;
+            }
+
+        .table {
+            margin-top: 1rem;
+            border-collapse: collapse;
+            width: 100%;
         }
 
-        .card-title {
-            color: #212529; /* Dark gray for card titles */
-        }
+            .table th, .table td {
+                padding: 1rem;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
 
-        .btn-primary {
-            background-color: #000000; /* Black for primary button */
-            border-color: #000000; /* Black border */
-        }
+            .table th {
+                background-color: #007bff;
+                color: white;
+            }
 
-        .btn-danger {
-            background-color: #dc3545; /* Bootstrap danger color */
-            border-color: #dc3545; /* Bootstrap danger border */
-        }
+            .table tr:hover {
+                background-color: #f1f1f1;
+            }
 
-        footer {
-            background-color: #f8f9fa; /* Light gray footer */
-            color: #212529; /* Dark gray text */
-        }
-
-        .form-group label {
-            color: #000000; /* Black for labels */
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #666;
         }
     </style>
     <title>Documentos</title>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark rounded-bottom">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-bottom">
             <a class="navbar-brand mx-auto" href="#">
                 <i class="fas fa-school" style="color: white;"></i>
-                <span class="ms-auto" style="color: white;">DocAcademy</span>
+                <span class="ms-auto" style="color: white; padding: 2rem;">DocAcademy</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -76,14 +89,12 @@
                         <a class="nav-link" href=@Url.Action("Index", "Alunos")>Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href=@Url.Action("Create", "Protocolos")>Documentos</a>
+                        <a class="nav-link" asp-controller="Protocolos" asp-action="create">Solicitar protocolo</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="../../user_profile/html/index.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img id="navbarProfileImage" src="https://via.placeholder.com/30" width="30" height="30" class="ms-auto rounded-circle" alt="">
-                            <span id="navbarUser  Name"></span>
-                        </a>
-                    </li>
+                    <li class="nav-item">
+                        <form asp-controller="Autenticacao" asp-action="Logout" method="post">
+                            <button type="submit" class="btn btn-link nav-link">Sair</button>
+                        </form>
                 </ul>
             </div>
         </nav>
