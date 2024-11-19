@@ -245,7 +245,7 @@ namespace pdtcc_doc_academy.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (alunos != null)
             {
                 try
                 {
