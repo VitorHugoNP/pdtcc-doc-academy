@@ -1,0 +1,40 @@
+﻿@model IEnumerable<pdtcc_doc_academy.Models.Alunos>
+
+@{
+    ViewData["Title"] = "Lista de Alunos";
+}
+
+<h2>Lista de Alunos</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>RG</th>
+            <th>RM</th>
+            <th>Email</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var aluno in Model)
+        {
+            <tr>
+                <td>@aluno.idAluno</td>
+                <td>@aluno.nomeAluno</td>
+                <td>@aluno.cpfAluno</td>
+                <td>@aluno.rgAluno</td>
+                <td>@aluno.rmAluno</td>
+                <td>@aluno.emailAluno</td>
+                <td>
+                    <a asp-action="EditAluno" asp-controller="Escolas" asp-route-id="@aluno.idAluno" class="btn btn-primary">Editar</a>
+                    <form asp-action="DeleteAluno" asp-route-id="@aluno.idAluno" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este aluno?');">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -196,5 +197,110 @@ namespace pdtcc_doc_academy.Controllers
         {
             return _context.Escola.Any(e => e.idEscola == id);
         }
+
+        // GET: Escolas/Alunos
+        public async Task<IActionResult> ListarAlunos()
+        {
+            var alunos = await _context.aluno.ToListAsync();
+            return View(alunos);
+        }
+
+        // GET: Alunos/Edit/5
+        public async Task<IActionResult> EditAluno(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var aluno = await _context.aluno.FindAsync(id);
+            if (aluno == null)
+            {
+                return NotFound();
+            }
+
+            // Obter listas de cursos e séries
+            ViewBag.Cursos = await _context.Curso.ToListAsync();
+            ViewBag.Series = await _context.Serie.ToListAsync();
+
+            // Obter o alunoCurso e alunoSerie para preencher os campos
+            var alunoCurso = await _context.aluno_curso.FirstOrDefaultAsync(ac => ac.fk_aluno == aluno.idAluno);
+            var alunoSerie = await _context.aluno_serie.FirstOrDefaultAsync(ase => ase.fk_aluno == aluno.idAluno);
+
+            // Preencher as informações do aluno com o curso e série
+            ViewBag.CursoId = alunoCurso.fk_curso;
+            ViewBag.SerieId = alunoSerie.fk_serie;
+
+            return View(aluno);
+        }
+
+        // POST: Escolas/EditAluno/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Escola")]
+        public async Task<IActionResult> EditAluno(int id, [Bind("idAluno,nomeAluno,cpfAluno,rgAluno,rmAluno,emailAluno,senhaAluno")] Alunos alunos, int cursoId, int serieId)
+        {
+            if (id != alunos.idAluno)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Atualiza as informações do usuário
+                    var usuario = await _context.Usuario.FindAsync(alunos.fk_usuario);
+                    if (usuario != null)
+                    {
+                        usuario.emailUsuario = alunos.emailAluno;
+                        usuario.senhaUsuario = alunos.senhaAluno; // Considere hash da senha
+                        _context.Update(usuario);
+                    }
+
+                    // Atualiza as informações do aluno
+                    _context.Update(alunos);
+
+                    // Atualiza a associação do aluno ao curso
+                    var alunoCurso = await _context.aluno_curso
+                        .FirstOrDefaultAsync(ac => ac.fk_aluno == alunos.idAluno);
+                    if (alunoCurso != null)
+                    {
+                        alunoCurso.fk_curso = cursoId; // Atualiza o ID do curso
+                        _context.Update(alunoCurso);
+                    }
+
+                    // Atualiza a associação do aluno à série
+                    var alunoSerie = await _context.aluno_serie
+                        .FirstOrDefaultAsync(ase => ase.fk_aluno == alunos.idAluno);
+                    if (alunoSerie != null)
+                    {
+                        alunoSerie.fk_serie = serieId; // Atualiza o ID da série
+                        _context.Update(alunoSerie);
+                    }
+
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!AlunosExists(alunos.idAluno))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index", "Escolas");
+            }
+            return View(alunos);
+        }
+
+        private bool AlunosExists(int id)
+        {
+            return _context.aluno.Any(e => e.idAluno == id);
+        }
+
     }
 }
