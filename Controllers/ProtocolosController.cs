@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using pdtcc_doc_academy.Models;
 using pdtcc_doc_academy.Repositories;
+using iText.Kernel.Pdf.Canvas.Draw;
 
 namespace pdtcc_doc_academy.Controllers
 {
@@ -467,6 +468,7 @@ namespace pdtcc_doc_academy.Controllers
         [HttpGet("atestado/downloadPdf/{idProcolo}")]
         public async Task<IActionResult> DownloadAtestadoMatriculaPdfAsync(int idProcolo)
         {
+            // Busca o atestado de matrícula pelo protocolo
             Atestado_Matricula atestado_Matricula = await _context.Atestado_Matricula.FirstOrDefaultAsync(a => a.fk_prot == idProcolo);
 
             if (atestado_Matricula == null)
@@ -474,9 +476,30 @@ namespace pdtcc_doc_academy.Controllers
                 return NotFound("Atestado não encontrado.");
             }
 
+            // Busca o protocolo associado ao atestado
             Protocolo protocolo = await _context.Protocolo.FirstOrDefaultAsync(p => p.idProtocolo == atestado_Matricula.fk_prot);
-            Alunos alunos = await _context.aluno.FirstOrDefaultAsync(x => x.idAluno == protocolo.fk_aluno);
+            if (protocolo == null)
+            {
+                return NotFound("Protocolo não encontrado.");
+            }
 
+            // Busca os dados do aluno associado ao protocolo
+            Alunos alunos = await _context.aluno.FirstOrDefaultAsync(x => x.idAluno == protocolo.fk_aluno);
+            if (alunos == null)
+            {
+                return NotFound("Aluno não encontrado.");
+            }
+
+            // Supondo que você quer buscar o primeiro AlunoCurso associado ao aluno
+            Curso curso = await _context.Curso.FirstOrDefaultAsync(c => c.AlunoCursos == );
+
+            Serie serie = await _context.Serie.FirstOrDefaultAsync(s => s.AlunoSeries == );
+
+
+            //var curso = alunos.alunoCursos.FirstOrDefault().Curso; // Obtém o primeiro curso
+            //var serie = await alunos.alunoSeries.FirstOrDefault().Serie; // Obtém a primeira série
+
+            // Criação do ViewModel
             var viewModel = new AlunoAtestadoMatricula
             {
                 idAluno = alunos.idAluno,
@@ -484,9 +507,11 @@ namespace pdtcc_doc_academy.Controllers
                 cpfAluno = alunos.cpfAluno,
                 rgAluno = alunos.rgAluno,
                 rmAluno = alunos.rmAluno,
-                IdAtest_mat = atestado_Matricula.IdAtest_mat
+
+                IdAtest_mat = atestado_Matricula.IdAtest_mat,
             };
 
+            // Geração do PDF
             using (var stream = new MemoryStream())
             {
                 using (var writer = new PdfWriter(stream))
@@ -494,13 +519,33 @@ namespace pdtcc_doc_academy.Controllers
                     using (var pdf = new PdfDocument(writer))
                     {
                         var document = new Document(pdf);
-                        document.Add(new Paragraph("Documento de Atestado Matricula"));
+
+                        // Adicionando título
+                        document.Add(new Paragraph("Documento de Atestado de Matrícula")
+                            .SetFontSize(20)
+                            .SetBold()
+                            .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
+
+                        // Adicionando informações do aluno
                         document.Add(new Paragraph($"ID do Aluno: {viewModel.idAluno}"));
                         document.Add(new Paragraph($"Nome: {viewModel.nomeAluno}"));
                         document.Add(new Paragraph($"CPF: {viewModel.cpfAluno}"));
                         document.Add(new Paragraph($"RG: {viewModel.rgAluno}"));
                         document.Add(new Paragraph($"RM: {viewModel.rmAluno}"));
                         document.Add(new Paragraph($"ID do Atestado: {viewModel.IdAtest_mat}"));
+
+                        document.Add(new Paragraph($"Eu declaro para os devidos fins que {viewModel.nomeAluno}, RG.{viewModel.rgAluno}, está matriculado(a) regularmente na {viewModel.serieAluno}, do Ensino Medio, Curso {viewModel.cursoAluno}, no período Matutino, das 7:10 às 12:30, nesta escola Técnica Estadual de Santa Fé do Sul, situada à av. Conselheiro antonio prado, s/n, Bairro São Francisco. Afirmo ainda que o curso tem duração de 36 (trinta e seis) meses, com previsãod e termino para 15/12/2024."));
+                        document.Add(new Paragraph($"Sem mais a declarar, ficamos a disposição para maiores esclarecimentos se necessário."));
+                        // Adicionando uma linha horizontal
+                        document.Add(new LineSeparator(new SolidLine()));
+
+                        // Adicionando uma data
+                        document.Add(new Paragraph($"Data: {DateTime.Now.ToString("dd/MM/yyyy")}"));
+
+                        // Adicionando um rodapé
+                        document.Add(new Paragraph("Este documento é gerado eletronicamente e não requer assinatura.")
+                            .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
+                            .SetFontSize(10));
                     }
                 }
 

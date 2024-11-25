@@ -250,7 +250,8 @@ namespace pdtcc_doc_academy.Controllers
                 try
                 {
                     // Atualiza as informações do usuário
-                    var usuario = await _context.Usuario.FindAsync(alunos.fk_usuario);
+                    var aluno = await _context.aluno.FindAsync(alunos.idAluno); 
+                    var usuario = await _context.Usuario.FindAsync(aluno.fk_usuario);
                     if (usuario != null)
                     {
                         usuario.emailUsuario = alunos.emailAluno;
@@ -259,7 +260,7 @@ namespace pdtcc_doc_academy.Controllers
                     }
 
                     // Atualiza as informações do aluno
-                    _context.Update(alunos);
+                    _context.Update(aluno);
 
                     // Atualiza a associação do aluno ao curso
                     var alunoCurso = await _context.aluno_curso
