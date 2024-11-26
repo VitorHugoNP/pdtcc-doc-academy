@@ -2,8 +2,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
 body {
-  font-family: "outfit", sans-serif;
-  background-color: #ffffff; }
+    font-family: "outfit", sans-serif;
+    background-color: #ffffff;
+}
+
+.form-container {
+    background-color: white; /* Fundo branco */
+    border: 5px solid black; /* Borda preta */
+    border-radius: 10px; /* Bordas arredondadas */
+    padding: 20px; /* Espaçamento interno */
+}
+
+.bg {
+    background-size: cover; /* Cobre todo o espaço da div */
+    background-position: center; /* Centraliza a imagem */
+    height: 100vh; /* Altura total da viewport */
+    width: 50%; /* Largura da metade da tela */
+    background-image: url('../images/file-PgiprIMCMpEkpAd8uYxx4Jeh.jpg');
+}
+
+.half .contents {
+    width: 50%; /* Largura da metade da tela para o conteúdo */
+    padding: 20px; /* Adiciona algum espaçamento interno */
+}
+
+.half {
+    height: 100vh; /* Altura total da viewport para a seção */
+}
+
+.welcome h3 {
+    color: black; /* Cor do texto */
+}
 
 .footer {
   color: white;
