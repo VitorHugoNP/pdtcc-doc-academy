@@ -2,19 +2,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
 body {
-  font-family: "outfit", sans-serif;
-  background-color: #ffffff; }
+    font-family: "outfit", sans-serif;
+    background-color: #f8f9fa;
+}
   .navbar {
     padding: 1.5rem 0;
 }
 
-p {
-  color: whitesmoke;
+.welcome-section {
+    margin-top: 50px;
+    text-align: center;
+}
+.user-info {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-label {
-  color: aliceblue;
+.admin-banner {
+    background-color: #007bff; /* Cor de destaque */
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
+
+.admin-section {
+    border: 2px solid #007bff; /* Borda para destacar seções administrativas */
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f0f8ff; /* Fundo claro para contraste */
+}
+
 
 .navbar {
   display: flex;

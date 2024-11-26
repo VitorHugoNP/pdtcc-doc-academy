@@ -3,97 +3,59 @@
 @{
     ViewData["Title"] = "Dashboard - Funcionários";
 }
-
-<!doctype html>
-<html lang="pt-br">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="~/fonts/icomoon/style.css">
-    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="~/css/style.css">
-    <style>
-        body {
-            background-color: #c4c4c4; /* Light gray background */
-            color: #212529; /* Dark gray text */
-            font-weight: 300;
-            padding-top: 70px; /* Adjust based on navbar height */
-        }
-
-        .navbar {
-            background-color: #343a40; /* Dark background for navbar */
-        }
-
-        .jumbotron {
-            background-color: #fff; /* White background */
-            padding: 4rem 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
-        }
-
-        .table {
-            background-color: #ffffff; /* White background for table */
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-bottom">
-            <a class="navbar-brand mx-auto" href="#">
-                <i class="fas fa-school" style="color: white;"></i>
-                <span class="ms-auto" style="color: white;">DocAcademy</span>
+<link href="~/css/style-requiriments-users.css" rel="stylesheet" />
+<script src="~/js/main-requirements-users.js"></script>
+<header>
+    <nav class="navbar navbar-expand-lg bg-dark rounded-bottom">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <span style="color: white;">DocAcademy</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto links">
+                <ul class="navbar-nav m-auto links">
                     <li class="nav-item">
-                        <a class="nav-link" href="../../home_page/html/index.html">Home</a>
+                        <a class="nav-link" href="@Url.Action("Index", "Funcionarios")">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("RequerimentosFuncionario", "Protocolos")">Requerimentos</a>
                     </li>
                     <li class="nav-item">
-                        <li class="nav-item"><a class="nav-link" href="@Url.Action("VerProtocolos", "Escolas")">Acessar Protocolos</a></li>
+                        <a class="nav-link" href="@Url.Action("VerProtocolos", "Escolas")">Acessar Protocolos</a>
                     </li>
                 </ul>
             </div>
-        </nav>
-    </header>
-
-    <div class="container mt-5">
-        <div class="jumbotron">
-            <h1>Lista de Funcionários</h1>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>Escola</th>
-                        <th>Usuário</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var funcionario in Model)
-                    {
-                        <tr>
-                            <td>@funcionario.idFuncionario</td>
-                            <td>@funcionario.nome_func</td>
-                            <td>@funcionario.email_func</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
         </div>
-    </div>
+    </nav>
+</header>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/5hb7g5/5hb7g5/5hb7g5/5hb7g5/5hb7g5" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-1n1n1n1n1n1n1n1n1n1n1n1n1n1n1n1n1n1n1n1n1n1n1n1n1n1n1n1" crossorigin="anonymous"></script>
-</body>
-</html>
+<main>
+    <div class="container mt-5 welcome-section">
+        <h1 class="display-5">Lista de Funcionários</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Escola</th>
+                    <th>Usuário</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var funcionario in Model)
+                {
+                    <tr>
+                        <td>@funcionario.idFuncionario</td>
+                        <td>@funcionario.nome_func</td>
+                        <td>@funcionario.email_func</td>
+                        <td>@funcionario.escola</td>
+                        <td>@funcionario.usuario</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</main>
