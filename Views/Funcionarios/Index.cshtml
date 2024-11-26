@@ -9,6 +9,7 @@
     <nav class="navbar navbar-expand-lg bg-dark rounded-bottom">
         <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="fas fa-school" style="color: white;"></i>
                 <span style="color: white;">DocAcademy</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,6 +25,11 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("VerProtocolos", "Escolas")">Acessar Protocolos</a>
+                    </li>
+                    <li class="nav-item">
+                        <form asp-controller="Autenticacao" asp-action="Logout" method="post" class="nav-item">
+                            <button type="submit" class="btn btn-link nav-link">Sair</button>
+                        </form>
                     </li>
                 </ul>
             </div>
