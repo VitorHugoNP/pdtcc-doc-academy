@@ -9,6 +9,9 @@
         public int rgAluno { get; set; }
         public int rmAluno { get; set; }
 
+        public string nomeCurso { get; set; }
+        public string nomeSerie { get; set; }
+
         public int idComunicados { get; set; }
         public DateTime data_comunicado { get; set; }
     }

@@ -401,14 +401,29 @@ namespace pdtcc_doc_academy.Controllers
                     using (var pdf = new PdfDocument(writer))
                     {
                         var document = new Document(pdf);
-                        document.Add(new Paragraph("Documento de Autorização"));
-                        document.Add(new Paragraph($"ID do Aluno: {viewModel.idAluno}"));
-                        document.Add(new Paragraph($"Nome: {viewModel.nomeAluno}"));
-                        document.Add(new Paragraph($"CPF: {viewModel.cpfAluno}"));
-                        document.Add(new Paragraph($"RG: {viewModel.rgAluno}"));
-                        document.Add(new Paragraph($"RM: {viewModel.rmAluno}"));
-                        document.Add(new Paragraph($"ID da Autorização: {viewModel.idAutorizacao}"));
-                        document.Add(new Paragraph($"Data da Autorização: {viewModel.data_aut?.ToString("dd/MM/yyyy") ?? "N/A"}"));
+                        // Adicionando conteúdo ao PDF
+                        document.Add(new Paragraph("TERMO DE AUTORIZAÇÃO DE PARTICIPAÇÃO DO MENOR EM ATIVIDADE EXTERNA À UNIDADE ESCOLAR E USO DE IMAGEM.")
+                            .SetBold().SetFontSize(14));
+
+                        document.Add(new Paragraph("A Etec de Santa Fé do Sul realizará com os alunos da 1ª Série do Ensino Médio com Habilitação Técnica em Recursos Humanos, uma Visita ao Lar Madre Paulina na Providência de Deus, da Cidade de Santa Fé do Sul/SP. A visita está relacionada às atividades para o desenvolvimento das competências e habilidades previstas no Componente Curricular de Projeto Integrador I, como ação do Projeto Diálogos Socioemocionais desenvolvido em parceria com o Instituto Ayrton Senna. A visita será realizada no dia 23/09/2024 (Segunda-Feira), com saída da Unidade Escolar às 16h00 e retorno previsto para às 17h40. O Lar fica localizado à Rua 13 de maio, nº 216, Bairro São Francisco, pela proximidade com a escola, os alunos irão caminhando até o local. Solicitamos que estejam com tênis ou outro calçado apropriado para caminhada."));
+
+                        document.Add(new Paragraph("Sendo esta atividade de relevante importância pedagógica, pedimos, por meio desta, a SUA AUTORIZAÇÃO para que seu filho (ou quem esteja sob sua guarda) possa participar dessa visita. Lembrando que somente os alunos que trouxerem esta autorização devidamente assinada poderão participar. Não será aceita nenhuma outra forma de autorização."));
+
+                        document.Add(new Paragraph("Dados do Responsável:"));
+                        document.Add(new Paragraph($"Eu, (nome completo)__________________________________________________________,"));
+                        document.Add(new Paragraph($"(nacionalidade) ________________________, (estado civil) __________________________, (profissão) ______________________________________, titular da cédula de identidade RG n°_____________________________ e CPF n°_____________________________, como representante legal do menor abaixo referido,"));
+
+                        document.Add(new Paragraph("AUTORIZO"));
+                        document.Add(new Paragraph($"A participação do menor (nome completo) ________________________________________, sob o n° do RG _____________________________, com data de nascimento em __________________ e ________ anos de idade, a participar da Visita ao Lar Madre Paulina. Também autorizo o uso da imagem do menor em todo e qualquer material (como fotos, filmagens e outros modos de apreensão) destinados à divulgação do evento ao público em geral e/ou apenas para uso interno da escola."));
+                        document.Add(new Paragraph("Por esta ser a expressão da minha vontade, declaro que autorizo o uso de imagem e a participação do menor acima descrito sem que nada haja a ser reclamado a título de direitos conexos à imagem ou a qualquer outro e assino a presente autorização."));
+
+                        document.Add(new Paragraph($"Santa Fé do Sul/SP {viewModel.data_aut}"));
+                        document.Add(new Paragraph("Assinatura do pai/mãe/responsável:"));
+                        document.Add(new Paragraph("____________________________________________________________________"));
+                        document.Add(new Paragraph("Número do telefone do pai/mãe/responsável:"));
+                        document.Add(new Paragraph("____________________________________________________________________"));
+
+                        document.Close();
                     }
                 }
 
@@ -491,24 +506,29 @@ namespace pdtcc_doc_academy.Controllers
             }
 
             // Supondo que você quer buscar o primeiro AlunoCurso associado ao aluno
-            Curso curso = await _context.Curso.FirstOrDefaultAsync(c => c.AlunoCursos == );
+            var cursos = _context.aluno
+                            .Where(a => a.idAluno == alunos.idAluno)
+                            .Include(a => a.alunoCursos)
+                                .ThenInclude(ac => ac.Curso)
+                            .SelectMany(a => a.alunoCursos.Select(ac => ac.Curso))
+                            .ToList();
 
-            Serie serie = await _context.Serie.FirstOrDefaultAsync(s => s.AlunoSeries == );
+            var series = _context.aluno
+                            .Where(a => a.idAluno == alunos.idAluno)
+                            .Include(a => a.alunoSeries)
+                                .ThenInclude(ase => ase.Serie)
+                            .SelectMany(a => a.alunoSeries.Select(ase => ase.Serie))
+                            .ToList();
 
-
-            //var curso = alunos.alunoCursos.FirstOrDefault().Curso; // Obtém o primeiro curso
-            //var serie = await alunos.alunoSeries.FirstOrDefault().Serie; // Obtém a primeira série
-
-            // Criação do ViewModel
-            var viewModel = new AlunoAtestadoMatricula
+            var viewModel = new AlunoComunicado
             {
                 idAluno = alunos.idAluno,
                 nomeAluno = alunos.nomeAluno,
                 cpfAluno = alunos.cpfAluno,
                 rgAluno = alunos.rgAluno,
                 rmAluno = alunos.rmAluno,
-
-                IdAtest_mat = atestado_Matricula.IdAtest_mat,
+                nomeCurso = cursos[0].nomecurso,
+                nomeSerie = series[0].serieCurso,
             };
 
             // Geração do PDF
@@ -524,17 +544,8 @@ namespace pdtcc_doc_academy.Controllers
                         document.Add(new Paragraph("Documento de Atestado de Matrícula")
                             .SetFontSize(20)
                             .SetBold()
-                            .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
-
-                        // Adicionando informações do aluno
-                        document.Add(new Paragraph($"ID do Aluno: {viewModel.idAluno}"));
-                        document.Add(new Paragraph($"Nome: {viewModel.nomeAluno}"));
-                        document.Add(new Paragraph($"CPF: {viewModel.cpfAluno}"));
-                        document.Add(new Paragraph($"RG: {viewModel.rgAluno}"));
-                        document.Add(new Paragraph($"RM: {viewModel.rmAluno}"));
-                        document.Add(new Paragraph($"ID do Atestado: {viewModel.IdAtest_mat}"));
-
-                        document.Add(new Paragraph($"Eu declaro para os devidos fins que {viewModel.nomeAluno}, RG.{viewModel.rgAluno}, está matriculado(a) regularmente na {viewModel.serieAluno}, do Ensino Medio, Curso {viewModel.cursoAluno}, no período Matutino, das 7:10 às 12:30, nesta escola Técnica Estadual de Santa Fé do Sul, situada à av. Conselheiro antonio prado, s/n, Bairro São Francisco. Afirmo ainda que o curso tem duração de 36 (trinta e seis) meses, com previsãod e termino para 15/12/2024."));
+                            .SetTextAlignment(iText.Layout.Properties.TextAlignment.JUSTIFIED));
+                        document.Add(new Paragraph($"Eu declaro para os devidos fins que {viewModel.nomeAluno}, RG.{viewModel.rgAluno}, está matriculado(a) regularmente na {viewModel.nomeSerie}, do Ensino Medio, Curso {viewModel.nomeCurso}, no período Matutino, das 7:10 às 12:30, nesta escola Técnica Estadual de Santa Fé do Sul, situada à av. Conselheiro antonio prado, s/n, Bairro São Francisco. Afirmo ainda que o curso tem duração de 36 (trinta e seis) meses, com previsãod e termino para 15/12/2024."));
                         document.Add(new Paragraph($"Sem mais a declarar, ficamos a disposição para maiores esclarecimentos se necessário."));
                         // Adicionando uma linha horizontal
                         document.Add(new LineSeparator(new SolidLine()));
