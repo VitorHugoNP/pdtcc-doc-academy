@@ -9,6 +9,37 @@ body {
   color: white;
 }
 
+.form-container {
+    background-color: white; /* Fundo branco */
+    border: 2px solid black; /* Borda preta */
+    border-radius: 10px; /* Bordas arredondadas */
+    padding: 20px; /* Espaçamento interno */
+    transform: scale(0.86);
+    transform-origin: top center;
+}
+
+.bg {
+    background-size: cover; /* Cobre todo o espaço da div */
+    background-position: center; /* Centraliza a imagem */
+    height: 100vh; /* Altura total da viewport */
+    width: 50%; /* Largura da metade da tela */
+    background-image: url('../images/login2.jpg');
+}
+
+.half .contents {
+    width: 50%; /* Largura da metade da tela para o conteúdo */
+    padding: 20px; /* Adiciona algum espaçamento interno */
+}
+
+.half {
+    height: 100vh; /* Altura total da viewport para a seção */
+}
+
+.welcome h4 {
+    color: rgb(0, 0, 0); /* Cor do texto */
+}
+
+
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: "outfit", sans-serif; }

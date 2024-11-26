@@ -8,7 +8,7 @@ body {
 
 .form-container {
     background-color: white; /* Fundo branco */
-    border: 5px solid black; /* Borda preta */
+    border: 2px solid black; /* Borda preta */
     border-radius: 10px; /* Bordas arredondadas */
     padding: 20px; /* Espaçamento interno */
 }
