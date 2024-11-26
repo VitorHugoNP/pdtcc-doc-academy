@@ -3,8 +3,10 @@
 @{
     ViewData["Title"] = "EditAluno";
 }
+<link href="~/css/style-requiriments-users.css" rel="stylesheet" />
+<script src="~/js/main-requirements-users.js"></script>
 
-<h2>@ViewData["Title"]</h2>
+<h1>Edição de dados do Aluno</h1>
 
 <form asp-action="EditAluno" method="post">
     <input type="hidden" asp-for="idAluno" />

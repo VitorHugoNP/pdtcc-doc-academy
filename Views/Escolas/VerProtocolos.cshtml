@@ -6,7 +6,6 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-bottom">
             <a class="navbar-brand mx-auto" href="#">
-                <i class="fas fa-school" style="color: white;"></i>
                 <span class="ms-auto" style="color: white; padding: 2rem;">DocAcademy</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,23 +14,26 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto links">
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index", "Escolas")">Home</a>
+                        <a class="nav-link" href="@Url.Action("Index", "Escolas")" style="font-weight: bold;">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="Escolas" asp-action="VerProtocolos">Ver Protocolo</a>
+                        <a class="nav-link" href="@Url.Action("VerProtocolos", "Escolas")" style="font-weight: bold;">Ver Protocolo</a>
                     </li>
                     <li class="nav-item">
                         <form id="cadastroForm" action="#" method="get" class="nav-item">
                             <select name="cadastro" id="cadastroSelect" class="form-select bg-dark text-white border-0" onchange="location = this.value;">
-                                <option value="" disabled selected>Selecionar Cadastro</option>
+                                <option value="" disabled selected>Cadastrar Usuários</option>
                                 <option value="@Url.Action("CreateAluno", "Alunos")">Cadastrar Aluno</option>
                                 <option value="@Url.Action("CadastrarFuncionario", "Funcionarios")">Cadastrar Funcionário</option>
                             </select>
                         </form>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("ListarAlunos", "Escolas")" style="font-weight: bold;">Ver Alunos</a>
+                    </li>
+                    <li class="nav-item">
                         <form asp-controller="Autenticacao" asp-action="Logout" method="post" class="nav-item">
-                            <button type="submit" class="btn btn-link nav-link">Sair</button>
+                            <button type="submit" class="btn btn-danger nav-link" style="font-weight: bold;">Sair do Perfil</button>
                         </form>
                     </li>
                 </ul>
@@ -40,7 +42,7 @@
     </header>
     <main>
         <div class="container mt-4">
-            <table class="table mt-4">
+            <table class="table mt-4" style="background-color: white;">
                 <thead>
                     <tr>
                         <th>ID</th>

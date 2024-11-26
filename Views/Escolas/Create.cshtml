@@ -22,32 +22,25 @@
                             <h3 class="mb-4" style="font-size: 20px;">Bem-vindo ao DocAcademy! Faça seu cadastro para acessar nossa plataforma.</h3>
                             <form asp-action="Create" method="post">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <div class="form-group first rounded mb-2">
+                                <div class="form-group first rounded pt-4 mb-1">
                                     <label asp-for="nomeEscola" class="control-label"><p>Nome da Escola</p></label>
                                     <input asp-for="nomeEscola" class="form-control" required />
                                     <span asp-validation-for="nomeEscola" class="text-danger"></span>
                                 </div>
-                                <div class="form-group rounded mb-2">
+                                <div class="form-group rounded pt-4 mb-1">
                                     <label asp-for="emailEscola" class="control-label"><p>Email</p></label>
                                     <input asp-for="emailEscola" class="form-control" required />
                                     <span asp-validation-for="emailEscola" class="text-danger"></span>
                                 </div>
-                                <div class="form-group rounded mb-2">
+                                <div class="form-group rounded pt-4 mb-1">
                                     <label asp-for="enderecoEscola" class="control-label"><p>Endereço</p></label>
                                     <input asp-for="enderecoEscola" class="form-control" required />
                                     <span asp-validation-for="enderecoEscola" class="text-danger"></span>
                                 </div>
-                                <div class="form-group rounded last mb-2 border-dark">
+                                <div class="form-group rounded pt-4 last mb-1 border-dark">
                                     <label asp-for="senhaEscola" class="control-label"><p>Senha</p></label>
                                     <input asp-for="senhaEscola" class="form-control" type="password" required />
                                     <span asp-validation-for="senhaEscola" class="text-danger"></span>
-                                </div>
-                                <div class="d-flex mb-3 align-items-center">
-                                    <label class="control control--checkbox mb-0">
-                                        <span class="caption">Lembre de mim</span>
-                                        <input type="checkbox" checked="checked" />
-                                        <div class="control__indicator"></div>
-                                    </label>
                                 </div>
                                 <br>
                                 <button type="submit" class="btn btn-primary">Registrar</button>
