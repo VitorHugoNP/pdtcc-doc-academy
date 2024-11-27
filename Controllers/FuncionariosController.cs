@@ -22,7 +22,30 @@ namespace pdtcc_doc_academy.Controllers
         // GET: Funcionarios
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Funcionario.ToListAsync());
+            //return View(await _context.Funcionario.ToListAsync());
+            //return View(await _context.Escola.ToListAsync());
+
+            // Obtém o ID da escola a partir das claims do usuário autenticado
+            var idFuncionarioClaim = User.Claims.FirstOrDefault(c => c.Type == "idFuncionario")?.Value;
+
+            if (idFuncionarioClaim == null)
+            {
+                return NotFound("Escola não encontrada.");
+            }
+
+            // Converte o ID da escola para int
+            int idFuncionario = int.Parse(idFuncionarioClaim);
+
+            // Busca a escola logada no banco de dados
+            var funcionario = await _context.Funcionario
+                .FirstOrDefaultAsync(f => f.idFuncionario == idFuncionario);
+
+            if (funcionario == null)
+            {
+                return NotFound("Escola não encontrada.");
+            }
+
+            return View(funcionario); // Retorna a view com a escola logada
         }
 
         // GET: Funcionarios/Details/5

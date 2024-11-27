@@ -1,4 +1,4 @@
-﻿@model List<pdtcc_doc_academy.Models.Funcionario>
+﻿@model pdtcc_doc_academy.Models.Funcionario
 
 @{
     ViewData["Title"] = "Dashboard - Funcionários";
@@ -47,20 +47,15 @@
                     <th>Nome</th>
                     <th>Email</th>
                     <th>Escola</th>
-                    <th>Usuário</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var funcionario in Model)
-                {
-                    <tr>
-                        <td>@funcionario.idFuncionario</td>
-                        <td>@funcionario.nome_func</td>
-                        <td>@funcionario.email_func</td>
-                        <td>@funcionario.escola</td>
-                        <td>@funcionario.usuario</td>
-                    </tr>
-                }
+                   <tr>
+                     <td>@Model.idFuncionario</td>
+                     <td>@Model.nome_func</td>
+                     <td>@Model.email_func</td>
+                     <td>@Model.escola</td>
+                   </tr>
             </tbody>
         </table>
     </div>

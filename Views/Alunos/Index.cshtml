@@ -1,4 +1,4 @@
-﻿@model IEnumerable<pdtcc_doc_academy.Models.Alunos>
+﻿@model pdtcc_doc_academy.Models.Alunos
 
 @{
     ViewData["Title"] = "Index";
@@ -36,27 +36,22 @@
 
 <main class="container mt-5">
     <div class="text-center welcome-message">
-        <h1 class="display-4">Bem-vindo, @Html.DisplayNameFor(model => model.nomeAluno)!</h1>
+        <h1 class="display-4">Bem-vindo, @Model.nomeAluno!</h1>
         <p class="lead">Informações do aluno</p>
     </div>
     <div class="table-responsive">
         <table class="table table-striped table-bordered mt-4" style="background-color: white;">
             <thead class="thead-dark">
                 <tr>
-                    <th>Nome</th>
                     <th>Email</th>
                     <th>RM</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@Html.DisplayFor(modelItem => item.nomeAluno)</td>
-                        <td>@Html.DisplayFor(modelItem => item.emailAluno)</td>
-                        <td>@Html.DisplayFor(modelItem => item.rmAluno)</td>
-                    </tr>
-                }
+                <tr>
+                    <td>@Model.emailAluno</td>
+                    <td>@Model.rmAluno</td>
+                </tr>
             </tbody>
         </table>
     </div>
