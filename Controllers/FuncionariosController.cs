@@ -82,6 +82,16 @@ namespace pdtcc_doc_academy.Controllers
             return RedirectToAction("Index", "Escolas");
         }
 
+        public async Task<IActionResult> VerProtocoloFunc()
+        {
+            var protocolos = await _context.Protocolo
+                .Include(p => p.aluno)
+                .Include(p => p.funcionario)
+                .ToListAsync();
+
+            return View(protocolos); // Passa a lista de protocolos para a view
+        }
+
         // GET: Funcionarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

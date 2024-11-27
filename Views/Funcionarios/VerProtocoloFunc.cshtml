@@ -1,10 +1,8 @@
-﻿@model List<pdtcc_doc_academy.Models.Funcionario>
-
-@{
-    ViewData["Title"] = "Dashboard - Funcionários";
-}
+﻿@model IEnumerable<pdtcc_doc_academy.Models.Protocolo>
+<link href="~/css/style-verprotc.css" rel="stylesheet" />
 <link href="~/css/style-requiriments-users.css" rel="stylesheet" />
 <script src="~/js/main-requirements-users.js"></script>
+<body>
 <header>
     <nav class="navbar navbar-expand-lg bg-dark rounded-bottom">
         <div class="container-fluid">
@@ -36,32 +34,38 @@
         </div>
     </nav>
 </header>
-
-<main>
-    <div class="container mt-5 welcome-section">
-        <h1 class="display-5">Lista de Funcionários</h1>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Escola</th>
-                    <th>Usuário</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var funcionario in Model)
-                {
+    <main>
+        <div class="container mt-4">
+            <table class="table mt-4" style="background-color: white;">
+                <thead>
                     <tr>
-                        <td>@funcionario.idFuncionario</td>
-                        <td>@funcionario.nome_func</td>
-                        <td>@funcionario.email_func</td>
-                        <td>@funcionario.escola</td>
-                        <td>@funcionario.usuario</td>
+                        <th>ID</th>
+                        <th>Tipo de Documento</th>
+                        <th>Ação</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</main>
+                </thead>
+                <tbody>
+                    @if (Model.Any())
+                    {
+                        foreach (var protocolo in Model)
+                        {
+                            <tr>
+                                <td>@protocolo.idProtocolo</td>
+                                <td>@protocolo.tipo_Doc</td>
+                                <td>
+                                    <a asp-controller="Protocolos" asp-action="DownloadPdf" asp-route-idProcolo="@protocolo.idProtocolo" class="btn btn-primary">Baixar PDF</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3">Nenhum protocolo encontrado.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
