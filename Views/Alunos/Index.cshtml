@@ -52,9 +52,9 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@Html.DisplayFor(modelItem => item.nomeAluno)</td>
-                        <td>@Html.DisplayFor(modelItem => item.emailAluno)</td>
-                        <td>@Html.DisplayFor(modelItem => item.rmAluno)</td>
+                    <td>@Html.DisplayFor(model => model.nomeAluno)</td>
+                        <td>@Html.DisplayFor(model => model.emailAluno)</td>
+                        <td>@Html.DisplayFor(model => model.rmAluno)</td>
                     </tr>
                 }
             </tbody>
