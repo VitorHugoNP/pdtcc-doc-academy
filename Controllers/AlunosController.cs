@@ -110,7 +110,7 @@ namespace pdtcc_doc_academy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Escolas");
             }
-            return View(alunos);
+            return RedirectToAction("Index", "Escolas");
         }
 
         // GET: Alunos/Delete/5

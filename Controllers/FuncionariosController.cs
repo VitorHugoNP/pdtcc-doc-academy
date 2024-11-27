@@ -79,7 +79,7 @@ namespace pdtcc_doc_academy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Escola");
             }
-            return View(funcionario);
+            return RedirectToAction("Index", "Escolas");
         }
 
         // GET: Funcionarios/Edit/5

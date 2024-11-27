@@ -137,10 +137,10 @@ namespace pdtcc_doc_academy.Controllers
                     break;
                 default:
                     ModelState.AddModelError("", "Opção inválida.");
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Funcionarios");
             }
 
-            return RedirectToAction(nameof(Index)); // Redireciona para a lista de protocolos ou outra ação desejada 
+            return RedirectToAction("Index", "Funcionarios");
         }
 
         // POST: Protocolos/Create
