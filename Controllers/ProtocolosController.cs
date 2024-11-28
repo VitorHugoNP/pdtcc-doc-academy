@@ -105,23 +105,37 @@ namespace pdtcc_doc_academy.Controllers
                 case 1: // Atestado de Matrícula
                     var protocolo1 = new Protocolo
                     {
+                        tipo_Doc = "Atestado Matricula", // Defina o tipo de documento conforme necessário
                         fk_aluno = idAluno, // ID do aluno selecionado
                         fk_func = idFuncionario, // ID do funcionário logado
-                        tipo_Doc = "Atestado Matricula" // Defina o tipo de documento conforme necessário
                     };
                     _context.Add(protocolo1);
+                    await _context.SaveChangesAsync();
+                    var atestadomatricula = new Atestado_Matricula
+                    {
+                        fk_prot = protocolo1.idProtocolo
+                    };
+                    _context.Add(atestadomatricula);
                     await _context.SaveChangesAsync();
 
                     break;
                 case 2: // Autorização
                     var protocolo2 = new Protocolo
                     {
+                        tipo_Doc = "Autorizacao", // Defina o tipo de documento conforme necessário
                         fk_aluno = idAluno, // ID do aluno selecionado
                         fk_func = idFuncionario, // ID do funcionário logado
-                        tipo_Doc = "Autorizacao" // Defina o tipo de documento conforme necessário
+                        
                     };
                     _context.Add(protocolo2);
+                    await _context.SaveChangesAsync();
 
+                    var autorizacao = new Autorizacao
+                    {
+                        fk_prot = protocolo2.idProtocolo,
+                        data_aut = DateTime.UtcNow
+                    };
+                    _context.Add(autorizacao);
                     await _context.SaveChangesAsync();
 
                     break;
@@ -134,6 +148,14 @@ namespace pdtcc_doc_academy.Controllers
                     };
                     _context.Add(protocolo3);
                     await _context.SaveChangesAsync();
+                    var comunicado = new Comunicados
+                    {
+                        fk_prot = protocolo3.idProtocolo,
+                        data_comunicado = DateTime.UtcNow
+                    };
+                    _context.Add(comunicado);
+                    await _context.SaveChangesAsync();
+
                     break;
                 default:
                     ModelState.AddModelError("", "Opção inválida.");

@@ -78,7 +78,7 @@ namespace pdtcc_doc_academy.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Escola")]
-        public async Task<IActionResult> CreateAluno([Bind("idAluno,nomeAluno,cpfAluno,rgAluno,rmAluno,emailAluno,senhaAluno")] Alunos alunos, int cursoId, string serieCurso)
+        public async Task<IActionResult> CreateAluno(Alunos alunos, int cursoId, string serieCurso)
         {
             if (ModelState != null)
             {
