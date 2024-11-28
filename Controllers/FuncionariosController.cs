@@ -100,7 +100,7 @@ namespace pdtcc_doc_academy.Controllers
                 };
                 _context.Add(func);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Escola");
+                return RedirectToAction("Index", "Escolas");
             }
             return RedirectToAction("Index", "Escolas");
         }
