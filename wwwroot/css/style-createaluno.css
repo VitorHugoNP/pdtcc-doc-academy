@@ -1,0 +1,23 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+body {
+    font-family: "outfit", sans-serif;
+    background-color: #c4c4c4;
+    color: #212529; /* Dark gray text */
+}
+
+.form-container {
+    background-color: #ffffff; /* White background */
+    border: 2px solid #000000; /* Black border */
+    border-radius: 10px; /* Rounded borders */
+    padding: 20px; /* Internal spacing */
+}
+
+.welcome h4 {
+    color: #000000; /* Black text */
+}
+
+footer {
+    background-color: #f8f9fa; /* Light gray footer */
+    color: #212529; /* Dark gray text */
+}

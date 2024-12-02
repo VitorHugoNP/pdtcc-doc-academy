@@ -23,7 +23,28 @@ namespace pdtcc_doc_academy.Controllers
         // GET: Alunos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.aluno.ToListAsync());
+            //return View(await _context.aluno.ToListAsync());
+            // Obtém o ID da escola a partir das claims do usuário autenticado
+            var idAlunoClaim = User.Claims.FirstOrDefault(c => c.Type == "AlunoId")?.Value;
+
+            if (idAlunoClaim == null)
+            {
+                return NotFound("Escola não encontrada.");
+            }
+
+            // Converte o ID da escola para int
+            int idAluno = int.Parse(idAlunoClaim);
+
+            // Busca a escola logada no banco de dados
+            var alunos = await _context.aluno
+                .FirstOrDefaultAsync(a => a.idAluno == idAluno);
+
+            if (alunos == null)
+            {
+                return NotFound("Escola não encontrada.");
+            }
+
+            return View(alunos); // Retorna a view com a escola logada
         }
 
         // GET: Alunos/Details/5
@@ -57,7 +78,7 @@ namespace pdtcc_doc_academy.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Escola")]
-        public async Task<IActionResult> CreateAluno([Bind("idAluno,nomeAluno,cpfAluno,rgAluno,rmAluno,emailAluno,senhaAluno")] Alunos alunos, int cursoId, string serieCurso)
+        public async Task<IActionResult> CreateAluno(Alunos alunos, int cursoId, string serieCurso)
         {
             if (ModelState != null)
             {
@@ -110,7 +131,7 @@ namespace pdtcc_doc_academy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Escolas");
             }
-            return View(alunos);
+            return RedirectToAction("Index", "Escolas");
         }
 
         // GET: Alunos/Delete/5

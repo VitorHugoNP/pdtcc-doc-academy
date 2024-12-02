@@ -12,7 +12,7 @@
         <select name="selectedOption" id="selectedOption" class="form-control">
             <option value="1">Atestado de Matrícula</option>
             <option value="2">Autorização</option>
-            <option value="3">Comunicado</option>
+            <option value="3">Comunicado</option> 
         </select>
     </div>
 
@@ -26,7 +26,7 @@
         </select>
     </div>
 
-    <input type="hidden" name="fk_funcionario" value="@User .FindFirst(" idFuncionario").Value" /> <!-- ID do funcionário -->
+    <input type="hidden" name="fk_funcionario" value="@User.FindFirst("idFuncionario").Value" /> <!-- ID do funcionário -->
 
     <button type="submit" class="btn btn-primary">Criar Protocolo</button>
 </form>

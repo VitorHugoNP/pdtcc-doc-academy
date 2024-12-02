@@ -1,0 +1,55 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+body {
+    font-family: 'outfit', sans-serif;
+    background-color: white;
+    color: #444; /* Um tom de cinza mais escuro para melhor contraste */
+    font-size: 16px; /* Aumentar o tamanho da fonte */
+}
+
+.container {
+    background-color: #e9ecef; /* Fundo cinza claro */
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Adicionando sombra para destaque */
+}
+
+.welcome-message {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 2rem;
+}
+
+    .welcome-message h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: #007bff;
+    }
+
+.footer {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Estilização do select */
+.form-group {
+    margin-bottom: 1rem; /* Adicionar margem inferior para espaçamento */
+}
+
+.form-group {
+    border: 1px solid #ced4da; /* Borda padrão */
+    border-radius: 0.25rem; /* Bordas arredondadas */
+    padding: 0.375rem 0.75rem; /* Espaçamento interno */
+    font-size: 16px; /* Aumentar o tamanho da fonte do select */
+    background-color: #ffffff; /* Fundo branco */
+    color: #333; /* Cor do texto */
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Transição suave */
+}
+
+    .form-group:focus {
+        border-color: #80bdff; /* Cor da borda ao focar */
+        outline: 0; /* Remover contorno */
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Sombra ao focar */
+    }
