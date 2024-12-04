@@ -1,6 +1,7 @@
 ﻿@model pdtcc_doc_academy.Models.Curso
-
-<h2>Criar Curso</h2>
+<link href="~/css/style-requiriments-users.css" rel="stylesheet" />
+<script src="~/js/main-requirements-users.js"></script>
+<h1>Criar Curso</h1>
 
 <form asp-action="Create">
     <div class="form-group">
@@ -12,5 +13,5 @@
         <input type="submit" value="Criar" class="btn btn-primary" />
     </div>
 </form>
-
-<a asp-action="Index" class="btn btn-secondary">Voltar</a>
+<br>
+<a asp-action="Index" asp-controller="Escolas" class="btn btn-secondary">Cancelar</a>
