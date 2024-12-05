@@ -6,6 +6,51 @@ body {
     background-color: #c4c4c4;
 }
 
+.container {
+    background-color: #e9ecef;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-message {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 2rem;
+}
+
+    .welcome-message h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: #007bff;
+    }
+
+.footer {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 16px;
+    background-color: #ffffff;
+    color: #333;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+    .form-group:focus {
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
 .navbar {
     padding: 1.5rem 0;
 }

@@ -15,20 +15,20 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav m-auto links">
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index", "Funcionarios")">Home</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Funcionarios")">Home</a>
+                        </li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("RequerimentosFuncionario", "Protocolos")">Requerimentos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("VerProtocoloFunc", "Funcionarios")">Acessar Protocolos</a>
                     </li>
-                    <li class="nav-item">
-                        <form asp-controller="Autenticacao" asp-action="Logout" method="post" class="nav-item">
-                            <button type="submit" class="btn btn-link nav-link">Sair</button>
-                        </form>
-                    </li>
+                        <li class="nav-item">
+                            <form asp-controller="Autenticacao" asp-action="Logout" method="post" class="nav-item">
+                                <button type="submit" class="btn nav-link" style="font-weight: bold;">Sair do Perfil</button>
+                            </form>
+                        </li>
                 </ul>
             </div>
         </div>

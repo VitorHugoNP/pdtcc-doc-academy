@@ -19,12 +19,12 @@
                     <a class="nav-link" href="@Url.Action("Index", "Escolas")" style="font-weight: bold;">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("VerProtocolos", "Escolas")" style="font-weight: bold;">Ver Protocolo</a>
+                    <a class="nav-link" href="@Url.Action("VerProtocolos", "Escolas")" style="font-weight: bold;">Ver Documentos</a>
                 </li>
                 <li class="nav-item">
-                    <form id="cadastroForm" action="#" method="get" class="nav-item">
-                        <select name="cadastro" id="cadastroSelect" class="form-select bg-dark text-white border-0" onchange="location = this.value;">
-                            <option value="" disabled selected>Cadastrar Usuários</option>
+                    <form id="cadastroForm" action="#" method="get" class="nav-link">
+                        <select name="cadastro" id="cadastroSelect" class="form-select bg-dark text-white border-0 nav-link" onchange="location = this.value;">
+                            <option value="" disabled selected>Novo Usuário</option>
                             <option value="@Url.Action("CreateAluno", "Alunos")">Cadastrar Aluno</option>
                             <option value="@Url.Action("CadastrarFuncionario", "Funcionarios")">Cadastrar Funcionário</option>
                         </select>
@@ -34,8 +34,11 @@
                     <a class="nav-link" href="@Url.Action("ListarAlunos", "Escolas")" style="font-weight: bold;">Ver Alunos</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link " href="@Url.Action("Create", "Curso")" style="font-weight: bold;">Novo Curso</a>
+                </li>
+                <li class="nav-item">
                     <form asp-controller="Autenticacao" asp-action="Logout" method="post" class="nav-item">
-                        <button type="submit" class="btn btn-danger nav-link" style="font-weight: bold;">Sair do Perfil</button>
+                        <button type="submit" class="btn nav-link" style="font-weight: bold; background-color: red !important;">Sair do Perfil</button>
                     </form>
                 </li>
             </ul>

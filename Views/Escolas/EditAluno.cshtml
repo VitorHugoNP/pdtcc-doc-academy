@@ -5,74 +5,89 @@
 }
 <link href="~/css/style-requiriments-users.css" rel="stylesheet" />
 <script src="~/js/main-requirements-users.js"></script>
+<style>
+    .form-group {
+        margin-bottom: 10px; /* Reduce spacing between form groups */
+    }
 
+    .form-control {
+        margin-bottom: 5px; /* Reduce spacing between input fields */
+    }
+
+    /* Optional: Adjust label spacing */
+    label {
+        margin-bottom: 2px;
+    }
+</style>
 <h1>Edição de dados do Aluno</h1>
 
-<form asp-action="EditAluno" method="post">
-    <input type="hidden" asp-for="idAluno" />
+<div class="row">
+    <form asp-action="EditAluno" method="post">
+        <input type="hidden" asp-for="idAluno" />
 
-    <div class="form-group">
-        <label asp-for="nomeAluno" class="control-label"></label>
-        <input asp-for="nomeAluno" class="form-control" />
-        <span asp-validation-for="nomeAluno" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="nomeAluno" class="control-label"></label>
+            <input asp-for="nomeAluno" class="form-control" />
+            <span asp-validation-for="nomeAluno" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="cpfAluno" class="control-label"></label>
-        <input asp-for="cpfAluno" class="form-control" />
-        <span asp-validation-for="cpfAluno" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="cpfAluno" class="control-label"></label>
+            <input asp-for="cpfAluno" class="form-control" />
+            <span asp-validation-for="cpfAluno" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="rgAluno" class="control-label"></label>
-        <input asp-for="rgAluno" class="form-control" />
-        <span asp-validation-for="rgAluno" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="rgAluno" class="control-label"></label>
+            <input asp-for="rgAluno" class="form-control" />
+            <span asp-validation-for="rgAluno" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="rmAluno" class="control-label"></label>
-        <input asp-for="rmAluno" class="form-control" />
-        <span asp-validation-for="rmAluno" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="rmAluno" class="control-label"></label>
+            <input asp-for="rmAluno" class="form-control" />
+            <span asp-validation-for="rmAluno" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="emailAluno" class="control-label"></label>
-        <input asp-for="emailAluno" class="form-control" />
-        <span asp-validation-for="emailAluno" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="emailAluno" class="control-label"></label>
+            <input asp-for="emailAluno" class="form-control" />
+            <span asp-validation-for="emailAluno" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="senhaAluno" class="control-label"></label>
-        <input asp-for="senhaAluno" type="password" class="form-control" />
-        <span asp-validation-for="senhaAluno" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="senhaAluno" class="control-label"></label>
+            <input asp-for="senhaAluno" type="password" class="form-control" />
+            <span asp-validation-for="senhaAluno" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label for="cursoId">Curso</label>
-        <select id="cursoId" name="cursoId" class="form-control">
-            <option value="">Selecione um Curso</option>
-            @foreach (var curso in ViewBag.Cursos)
-            {
-                <option value="@curso.IdCurso">@curso.nomecurso</option>
-            }
-        </select>
-        <span asp-validation-for="alunoCursos" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label for="cursoId">Curso</label>
+            <select id="cursoId" name="cursoId" class="form-control">
+                <option value="">Selecione um Curso</option>
+                @foreach (var curso in ViewBag.Cursos)
+                {
+                    <option value="@curso.IdCurso">@curso.nomecurso</option>
+                }
+            </select>
+            <span asp-validation-for="alunoCursos" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label for="alunoSeries">Série</label>
-        <input type="number" id="alunoSeries" name="serieCurso" class="form-control" placeholder="Informe a série" />
-        <span asp-validation-for="alunoSeries" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label for="alunoSeries">Série</label>
+            <input type="number" id="alunoSeries" name="serieCurso" class="form-control" placeholder="Informe a série" />
+            <span asp-validation-for="alunoSeries" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <input type="submit" value="Salvar" class="btn btn-primary" />
-        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-    </div>
-</form>
+        <div class="form-group">
+            <input type="submit" value="Salvar" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
     }
-}
+</div>

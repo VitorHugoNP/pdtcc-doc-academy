@@ -28,7 +28,7 @@
                     </li>
                     <li class="nav-item">
                         <form asp-controller="Autenticacao" asp-action="Logout" method="post" class="nav-item">
-                            <button type="submit" class="btn btn-link nav-link">Sair</button>
+                            <button type="submit" class="btn nav-link" style="font-weight: bold;">Sair do Perfil</button>
                         </form>
                     </li>
                 </ul>
@@ -39,7 +39,10 @@
 
 <main>
     <div class="container mt-5 welcome-section">
-        <h1 class="display-5">Lista de Funcionários</h1>
+        <div class="text-center welcome-message">
+            <h1 class="display-4">Bem-vindo, @Model.nome_func!</h1>
+            <p class="lead">Informações do funcionário</p>
+        </div>
         <table class="table table-striped">
             <thead>
                 <tr>
